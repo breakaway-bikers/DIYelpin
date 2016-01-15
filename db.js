@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('modgodb://localhost/myapp'); //this needs to change
+mongoose.connect('mongodb://localhost/yelpin'); //this needs to change
 
 var db = mongoose.connection;
 
@@ -9,23 +9,23 @@ var exports = module.exports;
 db.on('error', console.error.bind(console, 'connection error'));
 
 db.once('open', function() {
-
-  var UserSchema = mongoose.Schema({
-    name: String,
-    password: String,
-  });
-
-  var PostSchema = mongoose.Schema({
-    username: String,
-    title: String,
-    message: String,
-    votes: Number,
-  });
-
-  var User = mongoose.model('User', UserSchema);
-  var Post = mongoose.model('Post', PostSchema);
-
+  console.log('were connected');
 });
+
+var UserSchema = mongoose.Schema({
+  name: String,
+  password: String,
+});
+
+var PostSchema = mongoose.Schema({
+  username: String,
+  title: String,
+  message: String,
+  votes: Number,
+});
+
+var User = mongoose.model('User', UserSchema);
+var Post = mongoose.model('Post', PostSchema);
 
 exports.createUser = function(obj) {
   var user = new User(obj);
