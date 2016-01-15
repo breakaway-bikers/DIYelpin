@@ -7,6 +7,6 @@ var morgan = require('morgan');
 
 app.use(morgan('combined'));
 app.use(express.static(__dirname + '/../client'));
-  app.use(bodyparser.json());
+app.use(bodyparser.json());
 
 app.listen(port);
