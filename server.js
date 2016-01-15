@@ -11,5 +11,12 @@ app.use(express.static(__dirname + '/'));
 app.use(bodyparser.json());
 
 db.createUser({ username: 'daniel', password: 'bacon' });
+db.createPost({ username: 'daniel', title: 'whaaaaaaaa?', message: 'I hate bacon' });
+
+app.get('/postList', function(req, res, next) {
+  db.findAllPosts().then(function(posts) {
+    res.status(200).send(posts);
+  });
+});
 
 app.listen(port);
