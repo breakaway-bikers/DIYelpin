@@ -2,7 +2,10 @@
   "name": "yelpin",
   "version": "0.0.1",
   "description": "Yelp for DIY",
-  "main": "./server/server.js",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha test.js"
+  },
   "dependencies": {
     "express": "^4.13.3",
     "gulp": "^3.9.0"
@@ -10,6 +13,7 @@
   "devDependencies": {
     "body-parser": "^1.14.2",
     "del": "^2.2.0",
+    "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-cache": "^0.4.1",
     "gulp-concat": "^2.6.0",
@@ -27,9 +31,6 @@
     "node": "0.0.0",
     "nodemon": "^1.8.1",
     "path": "^0.12.7"
-  },
-  "scripts": {
-    "test": "mocha test.js"
   },
   "repository": {
     "type": "git",

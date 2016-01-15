@@ -6,7 +6,7 @@ var port = process.env.PORT || 3000;
 var morgan = require('morgan');
 
 app.use(morgan('combined'));
-app.use(express.static(__dirname + '/../client'));
+app.use(express.static(__dirname + '/'));
 app.use(bodyparser.json());
 
 app.listen(port);
