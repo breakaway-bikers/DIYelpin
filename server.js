@@ -9,10 +9,8 @@ app.use(morgan('combined'));
 app.use(express.static(__dirname + '/'));
 app.use(bodyparser.json());
 
-app.get('/', function(req, res) {
-  console.log('request', req);
-  console.log('response', res);
-  res.status(200).send('Hello World');
-});
+// app.get('/', function(req, res) {
+//   res.status(200).send('Hello World');
+// });
 
 app.listen(port);
