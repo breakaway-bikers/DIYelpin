@@ -4,9 +4,11 @@
   "description": "Yelp for DIY",
   "main": "index.js",
   "dependencies": {
+    "express": "^4.13.3",
     "gulp": "^3.9.0"
   },
   "devDependencies": {
+    "body-parser": "^1.14.2",
     "del": "^2.2.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-cache": "^0.4.1",
@@ -18,7 +20,13 @@
     "gulp-notify": "^2.2.0",
     "gulp-rename": "^1.2.2",
     "gulp-ruby-sass": "^2.0.6",
-    "gulp-uglify": "^1.5.1"
+    "gulp-uglify": "^1.5.1",
+    "mongodb": "^2.1.4",
+    "mongoose": "^4.3.5",
+    "morgan": "^1.6.1",
+    "node": "0.0.0",
+    "nodemon": "^1.8.1",
+    "path": "^0.12.7"
   },
   "scripts": {
     "test": "mocha test.js"
