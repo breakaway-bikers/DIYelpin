@@ -1,4 +1,6 @@
 var gulp = require('gulp');
+var nodemon = require('gulp-nodemon');
+var karma = require('karma');
 var sass = require('gulp-ruby-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var cssnano = require('gulp-cssnano');

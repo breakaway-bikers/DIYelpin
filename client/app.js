@@ -18,7 +18,7 @@ angular.module('yelpin', ['ui.router', 'yelpin.postList'])
       controller: 'createPostController',
     })
     .state('postList', {
-      templateUrl: 'postList.html',
+      templateUrl: 'Views/postList.html',
       url: '/postList',
       controller: 'postListController',
     });
