@@ -13,13 +13,25 @@ db.once('open', function() {
 });
 
 var UserSchema = mongoose.Schema({
-  name: String,
+  username: {
+    type: String,
+    index: { unique: true },
+  },
   password: String,
 });
 
 var PostSchema = mongoose.Schema({
   username: String,
-  title: String,
+  category: {
+    type: String,
+    index: { unique: true },
+    required: true,
+  },
+  title: {
+    type: String,
+    index: { unique: true },
+    required: true,
+  },
   message: String,
   votes: Number,
 });
