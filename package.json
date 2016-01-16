@@ -2,9 +2,9 @@
   "name": "yelpin",
   "version": "0.0.1",
   "description": "Yelp for DIY",
-  "main": "server.js",
+  "main": "server/server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server/server.js"
   },
   "dependencies": {
     "angular": "^1.4.8",
