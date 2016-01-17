@@ -1,6 +1,14 @@
-angular.module('yelpin.createPost');
+angular.module('yelpin.createPost', ['yelpin.services']);
 
-.controller('createPostController', ['$scope', '$http', function($scope, $http) {
+.controller('createPostController', ['$scope', 'appFactory', function($scope, appFactory) {
   $scope.username = '';
   $scope.message = '';
+
+  $scope.postToPage = function(){
+    var data = { message: $scope.message };
+    appFactory.setPost().then(function(input){
+    });
+  };
+
+  };
 }]);
