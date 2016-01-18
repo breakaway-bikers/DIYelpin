@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var mongoURI = 'mongodb://diyelpin:Beansandburrito1600@ds047335.mongolab.com:47335/heroku_ws06b5hx';
-mongoose.connect(process.env.MONGOLAB_URI || mongoURI); //this needs to change
+mongoose.connect(process.env.MONGOLAB_URI || mongoURI);
 
 var db = mongoose.connection;
 
