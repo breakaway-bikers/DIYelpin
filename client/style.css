@@ -1,0 +1,10 @@
+.mainInfo {
+	text-align: left;
+	width: 49%;
+	display: inline-block;
+}
+.subInfo{
+	text-align: right;
+	width: 49%;
+	display: inline-block;
+}
