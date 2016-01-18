@@ -34,6 +34,13 @@ app.get('/postList', function(req, res, next) {
   });
 });
 
+app.post('/viewPost', function(req, res, next) {
+  console.log('this is the request body', req.body);
+  db.viewPost(req.body).then(function(post) {
+    res.status(200).send(post);
+  });
+});
+
 //
 //
 //
