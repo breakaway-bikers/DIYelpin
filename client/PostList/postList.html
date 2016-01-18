@@ -1,0 +1,13 @@
+<h1>POST PAGE</h1>
+<div ng-repeat='item in tests track by $index'>
+  <div><h2>POST</h2></div>
+  <div class="mainInfo">
+    <div>{{ item.username }}</div>
+    <div>{{ item.title }}</div>
+  </div>
+  <div class="subInfo">
+    <div>{{ item.category }}</div>
+    <div>{{ item.votes }}</div>
+  </div>
+  <!-- <div>{{ item.message }}</div> //This should be displayed in a seperate view for the actual post -->
+</div>

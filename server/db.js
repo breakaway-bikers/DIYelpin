@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/yelpin'); //this needs to change
+var mongoURI = 'mongodb://diyelpin:Beansandburrito1600@ds047335.mongolab.com:47335/heroku_ws06b5hx';
+mongoose.connect(process.env.MONGOLAB_URI || mongoURI);
 
 var db = mongoose.connection;
 
@@ -33,7 +34,7 @@ var PostSchema = mongoose.Schema({
     required: true,
   },
   message: String,
-  votes: Number,
+  votes: { type: Number, default: 0 },
 });
 
 var User = mongoose.model('User', UserSchema);
