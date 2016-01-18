@@ -80,3 +80,14 @@ exports.findAllPosts = function() {
     }
   });
 };
+
+//Have not used this function yet
+exports.viewPost = function(id) {
+  return Post.find({ _id: id }, function(err, result) {
+    if (err) {
+      console.error('error in the view post method');
+    } else {
+      return result;
+    }
+  });
+};
