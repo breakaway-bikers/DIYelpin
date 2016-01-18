@@ -9,5 +9,7 @@
   </form>
   <!-- Using angular-file-upload  -->
   <h6>Upload Photo</h6>
+    <input type = "file" file-model = "myFile"/>
+    <button ng-click = "uploadFile()">upload me</button>
   <element nv-file-drop uploader="{FileUploader}"></element>
 </div>

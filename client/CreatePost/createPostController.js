@@ -19,25 +19,25 @@ angular.module('yelpin.createPost', ['yelpin.services']);
     });
   };
 
-//using angular file uploader..research more
-var uploader = new FileUploader({
-  filters: [{
-  name: 'yourName1',
-  // A user-defined filter
-    fn: function(item) {
-      return true;
-    }
-  }]
-});
-
-//more angular file uploader
-//Another user-defined filter
-uploader.filters.push({
-  name: 'yourName2',
-    fn: function(item) {
-      return true;
-    }
+  //using angular file uploader..research more
+  var uploader = new FileUploader({
+    filters: [{
+    name: 'yourName1',
+    // A user-defined filter
+      fn: function(item) {
+        return true;
+      }
+    }]
   });
 
-  };
+  //more angular file uploader
+  //Another user-defined filter
+  uploader.filters.push({
+    name: 'yourName2',
+      fn: function(item) {
+        return true;
+      }
+    });
+
+    };
 }]);
