@@ -1,19 +1,22 @@
 angular.module('yelpin', ['ui.router', 'yelpin.postList'])
 
 .config(function($stateProvider, $urlRouterProvider) {
+
+  $urlRouterProvider.otherwise('/postList');
+
   $stateProvider
     .state('signin', {
-      templateUrl: 'signin.html',
+      templateUrl: 'Views/signin.html',
       url: '/signin',
       controller: 'signinController',
     })
     .state('signup', {
-      templateUrl: 'signup.html',
+      templateUrl: 'Views/signup.html',
       url: '/signup',
       controller: 'signUpController',
     })
     .state('createPost', {
-      templateUrl: 'createPost.html',
+      templateUrl: 'Views/createPost.html',
       url: '/createPost',
       controller: 'createPostController',
     })
@@ -22,7 +25,5 @@ angular.module('yelpin', ['ui.router', 'yelpin.postList'])
       url: '/postList',
       controller: 'postListController',
     });
-
-  $urlRouterProvider.otherwise('/postList');
 
 });
