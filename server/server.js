@@ -34,6 +34,7 @@ app.get('/postList', function(req, res, next) {
   });
 });
 
+//Have not used  this handler either. I dont think we'll need it
 app.post('/viewPost', function(req, res, next) {
   console.log('this is the request body', req.body);
   db.viewPost(req.body).then(function(post) {
