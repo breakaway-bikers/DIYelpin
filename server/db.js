@@ -33,7 +33,7 @@ var PostSchema = mongoose.Schema({
     required: true,
   },
   message: String,
-  votes: Number,
+  votes: { type: Number, default: 0 },
 });
 
 var User = mongoose.model('User', UserSchema);
