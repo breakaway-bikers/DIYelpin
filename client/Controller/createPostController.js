@@ -7,7 +7,7 @@ angular.module('yelpin.createPost', ['yelpin.services']);
   $scope.postToPage = function(){
     var data = { message: $scope.message };
     appFactory.setPost().then(function(data) {
-      
+
     });
   };
 
