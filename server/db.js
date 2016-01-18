@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var mongoURI = 'mongodb://diyelpin:Beansandburrito1600@ds047335.mongolab.com:47335/heroku_ws06b5hx';
-mongoose.connect(process.env.MONGOLAB_URI || mongoURI);
+// mongoose.connect(process.env.MONGOLAB_URI || mongoURI);
+mongoose.connect('mongodb://localhost/yelpin')
 
 var db = mongoose.connection;
 
