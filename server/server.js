@@ -34,6 +34,22 @@ app.get('/postList', function(req, res, next) {
   });
 });
 
+app.post('/authenticate', function(req, res, next) {
+  console.log('get users')
+  console.log(req.data)
+  db.findUser(req.body).then(function(user) {
+    res.status(200).send(user);
+  });
+});
+
+app.post('/createUser', function(req, res, next) {
+  db.createUser(req.body).then(function(user) {
+    res.status(200).send(user);
+  });
+});
+
+
+
 //
 //
 //
