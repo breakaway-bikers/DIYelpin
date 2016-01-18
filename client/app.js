@@ -1,4 +1,4 @@
-angular.module('yelpin', ['ui.router', 'yelpin.postList'])
+angular.module('yelpin', ['ui.router', 'yelpin.postList', 'yelpin.viewPost', 'yelpin.services'])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -22,8 +22,12 @@ angular.module('yelpin', ['ui.router', 'yelpin.postList'])
       templateUrl: 'PostList/postList.html',
       url: '/postList',
       controller: 'postListController',
+    })
+    .state('viewPost', {
+      templateUrl: 'ViewPost/viewPost.html',
+      url: '/viewPost',
+      controller: 'viewPostController',
     });
-
   $urlRouterProvider.otherwise('/postList');
 
 });

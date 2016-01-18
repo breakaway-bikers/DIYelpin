@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var mongoURI = 'mongodb://diyelpin:Beansandburrito1600@ds047335.mongolab.com:47335/heroku_ws06b5hx';
-mongoose.connect(process.env.MONGOLAB_URI || mongoURI); //this needs to change
+mongoose.connect(process.env.MONGOLAB_URI || mongoURI);
 
 var db = mongoose.connection;
 
@@ -62,6 +62,17 @@ exports.findAllPosts = function() {
   return Post.find({}, function(err, result) {
     if (err) {
       console.error('error in find all post');
+    } else {
+      return result;
+    }
+  });
+};
+
+//Have not used this function yet
+exports.viewPost = function(id) {
+  return Post.find({ _id: id }, function(err, result) {
+    if (err) {
+      console.error('error in the view post method');
     } else {
       return result;
     }
