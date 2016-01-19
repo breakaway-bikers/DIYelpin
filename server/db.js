@@ -81,7 +81,6 @@ exports.findUser = function(obj) {
     if (err) {
       console.log('unable to find user!!', err);
     } else {
-      console.log('user password found', user[0].password);
       Bcrypt.compare(obj.password, user[0].password, function(err, result) {
         if (result) {
           console.log('password matched!', result);
@@ -95,12 +94,14 @@ exports.findUser = function(obj) {
 
 };
 
-
 exports.createPost = function(obj) {
   var post = new Post(obj);
-  post.save(function(err, post) {
+  console.log('heres the post', post);
+  return post.save(function(err, post) {
     if (err) {
       console.error('error in creating the post');
+    } else {
+      return post;
     }
   });
 };
