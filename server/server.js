@@ -35,17 +35,16 @@ app.get('/postList', function(req, res, next) {
 });
 
 app.post('/authenticate', function(req, res, next) {
-  console.log('get users')
-  console.log(req.data)
   db.findUser(req.body).then(function(user) {
     res.status(200).send(user);
   });
 });
 
 app.post('/createUser', function(req, res, next) {
-  db.createUser(req.body).then(function(user, err) {
-    console.log(err);
+  db.createUser(req.body).then(function success(user) {
     res.status(200).send(user);
+  }, function error(err) {
+    res.status(501).send(err);
   });
 });
 
