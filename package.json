@@ -13,6 +13,7 @@
     "gulp": "^3.9.0"
   },
   "devDependencies": {
+    "bcrypt": "^0.8.5",
     "body-parser": "^1.14.2",
     "del": "^2.2.0",
     "gulp": "^3.9.0",
