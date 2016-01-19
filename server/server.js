@@ -43,7 +43,8 @@ app.post('/authenticate', function(req, res, next) {
 });
 
 app.post('/createUser', function(req, res, next) {
-  db.createUser(req.body).then(function(user) {
+  db.createUser(req.body).then(function(user, err) {
+    console.log(err);
     res.status(200).send(user);
   });
 });
