@@ -59,6 +59,7 @@ app.post('/createUser', function(req, res, next) {
 });
 
 app.post('/createPost', function(req, res, next) {
+  console.log('request body', req.body);
   db.createPost(req.body).then(function(post, err) {
     if (err) {
       console.log(err);
