@@ -50,7 +50,7 @@ app.post('/authenticate', function(req, res, next) {
 app.post('/createUser', function(req, res, next) {
   db.createUser(req.body).then(function(user, err) {
     if (err) {
-      console.log(err);
+      console.log('heres the error', err);
       res.status(406);
     } else {
       res.status(200);
