@@ -56,6 +56,7 @@ exports.findUser = function(obj) {
   return User.find(obj, function(user, err) {
     if (err) {
       console.error('error in find user method');
+      return {};
     } else {
       return user;
     };

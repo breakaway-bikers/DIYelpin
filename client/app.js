@@ -4,12 +4,12 @@ angular.module('yelpin', ['ui.router', 'yelpin.postList', 'yelpin.viewPost', 'ye
 
   $stateProvider
     .state('signin', {
-      templateUrl: 'Authentication/signin.html',
+      templateUrl: 'Authentication/views/signin.html',
       url: '/signin',
       controller: 'signinController',
     })
     .state('signup', {
-      templateUrl: 'Authentication/signup.html',
+      templateUrl: 'Authentication/views/signup.html',
       url: '/signup',
       controller: 'signupController',
     })
@@ -28,6 +28,6 @@ angular.module('yelpin', ['ui.router', 'yelpin.postList', 'yelpin.viewPost', 'ye
       url: '/viewPost',
       controller: 'viewPostController',
     });
-  $urlRouterProvider.otherwise('/postList');
+  $urlRouterProvider.otherwise('/signin');
 
 });
