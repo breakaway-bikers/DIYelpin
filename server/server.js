@@ -49,6 +49,8 @@ app.post('/createUser', function(req, res, next) {
   });
 });
 
+app.post('/createPost')
+
 
 
 

@@ -15,16 +15,16 @@ angular.module('yelpin.createPost', [])
       console.log($scope.txtcomment);
       console.log($scope.descript);
       $scope.comment.push($scope.txtcomment);
-      $scope.txtcomment = '';
-      $scope.descript = '';
     }
 
     //this might need work. I'm attempting to send the information to the server using the factory function
     var data = { description: $scope.descript, message: $scope.txtcomment };
-
+    console.log(data);
     appFactory.setPost().then(function(data) {
       console.log(data);
     });
+    $scope.txtcomment = '';
+    $scope.descript = '';
   };
 
   // $scope.uploader = new FileUploader();
