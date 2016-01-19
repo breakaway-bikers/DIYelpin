@@ -10,6 +10,7 @@ angular.module('yelpin.createPost', ['yelpin.services']);
 
   $scope.postToPage = function($scope){
     if($scope.txtcomment !=''){
+      console.log($scope.txtcomment);
       $scope.comment.push($scope.txtcomment);
       $scope.txtcomment = "";
     }
