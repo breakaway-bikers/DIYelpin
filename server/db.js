@@ -1,4 +1,7 @@
 var mongoose = require('mongoose');
+var Bcrypt = require('bcrypt');
+var Salt_Factor = 10;
+
 var mongoURI = 'mongodb://diyelpin:Beansandburrito1600@ds047335.mongolab.com:47335/heroku_ws06b5hx';
 mongoose.connect(process.env.MONGOLAB_URI || mongoURI);
 
@@ -41,27 +44,63 @@ var User = mongoose.model('User', UserSchema);
 var Post = mongoose.model('Post', PostSchema);
 
 exports.createUser = function(obj) {
-  var user = new User(obj);
-  return user.save(function(err, user) {
+  console.log(obj.password);
+  Bcrypt.genSalt(Salt_Factor, function(err, salt) {
     if (err) {
-      console.error('error in create user method');
-    } else {
-      return user;
+      return console.error('error in genSalt ', err);
     }
+    console.log('some salt here', salt);
+
+    Bcrypt.hash(obj.password, salt, function(err, hash) {
+      if (err) {
+        return console.err('error in genhash ', err);
+      }
+
+      console.log('some hash here ', hash);
+      obj.password = hash
+      console.log('password after hashing', obj.password)
+      var user = new User(obj);
+      return user.save(function(err, user) {
+        if (err) {
+          console.error('error in create user method');
+        } else {
+          console.log('user password in database', user.password)
+          return user;
+        }
+      });
+    });
   });
 };
 
 exports.findUser = function(obj) {
-  console.log('obj in db', obj)
-  return User.find(obj, function(user, err) {
+  console.log('obj password in db', obj);
+Bcrypt.genSalt(Salt_Factor, function(err, salt) {
+  if (err) {
+    return console.error('error in Salt ', err);
+  }
+  console.log('some salting here', salt);
+  Bcrypt.hash(obj.password, salt, function(err, hash) {
     if (err) {
-      console.error('error in find user method');
-      return {};
-    } else {
-      return user;
-    };
+      return console.err('error in hash ', err);
+    }
+
+    console.log('some hashing here ', hash);
+    obj.password = hash
+    // console.log('object during hashing,' obj);
+    console.log('password after hashinginput', obj.password)
+
+    obj.password = hash;
+    User.find(obj, function(user, err) {
+      if (user) {
+        console.log('user FOUND!!')
+      } else {
+        console.log('unable to find user!!')
+      }
+      });
+    });
   });
 };
+
 
 exports.createPost = function(obj) {
   var post = new Post(obj);
