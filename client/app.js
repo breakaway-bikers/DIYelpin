@@ -1,13 +1,4 @@
-angular.module('yelpin',
- [
-   'ui.router',
-   'yelpin.postList',
-   'yelpin.viewPost',
-   'yelpin.services',
-   'yelpin.signin',
-   'yelpin.signup',
-   'yelpin.contest',
-  ])
+angular.module('yelpin', ['ui.router', 'yelpin.postList', 'yelpin.viewPost', 'yelpin.services', 'yelpin.signin', 'yelpin.signup', 'yelpin.createPost', 'yelpin.factory', 'yelpin.contest'])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
