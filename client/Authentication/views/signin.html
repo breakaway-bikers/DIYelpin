@@ -5,5 +5,6 @@
 		<input placeholder='password'ng-model='user.password'>
 		<button ng-click='signin(user)' ng-model='user'>Sign In</button>
     <p>Dont have an account? <a ng-href="/#/signup">SIGNUP</a></p>
+		<p ng-show="signinError">Invalid Credentials</p>
 	</div>
 </div>
