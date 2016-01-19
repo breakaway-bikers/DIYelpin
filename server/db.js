@@ -42,9 +42,22 @@ var Post = mongoose.model('Post', PostSchema);
 
 exports.createUser = function(obj) {
   var user = new User(obj);
-  user.save(function(err, user) {
+  return user.save(function(err, user) {
     if (err) {
       console.error('error in create user method');
+    } else {
+      return user;
+    }
+  });
+};
+
+exports.findUser = function(obj) {
+  console.log('obj in db', obj)
+  return User.find(obj, function(user, err) {
+    if (err) {
+      console.error('error in find user method');
+    } else {
+      return user;
     };
   });
 };

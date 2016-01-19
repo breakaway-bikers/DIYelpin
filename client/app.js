@@ -1,4 +1,4 @@
-angular.module('yelpin', ['ui.router', 'yelpin.postList', 'yelpin.viewPost', 'yelpin.services'])
+angular.module('yelpin', ['ui.router', 'yelpin.postList', 'yelpin.viewPost', 'yelpin.services', 'yelpin.signin', 'yelpin.signup'])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -11,7 +11,7 @@ angular.module('yelpin', ['ui.router', 'yelpin.postList', 'yelpin.viewPost', 'ye
     .state('signup', {
       templateUrl: 'Authentication/signup.html',
       url: '/signup',
-      controller: 'signUpController',
+      controller: 'signupController',
     })
     .state('createPost', {
       templateUrl: 'CreatePost/createPost.html',
