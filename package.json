@@ -13,6 +13,7 @@
     "express": "^4.13.3"
   },
   "devDependencies": {
+    "angular-utils-pagination": "^0.9.4",
     "bcrypt": "^0.8.5",
     "body-parser": "^1.14.2",
     "del": "^2.2.0",
