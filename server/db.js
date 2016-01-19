@@ -80,7 +80,6 @@ exports.findUser = function(obj) {
     if (err) {
       console.log('unable to find user!!', err);
     } else {
-      console.log('user password found', user[0].password);
       Bcrypt.compare(obj.password, user[0].password, function(err, result) {
         if (result) {
           console.log('password matched!', result);
