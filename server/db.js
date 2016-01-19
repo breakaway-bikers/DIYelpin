@@ -57,15 +57,15 @@ exports.createUser = function(obj) {
       }
 
       console.log('some hash here ', hash);
-      obj.password = hash
-      console.log('password after hashing', obj.password)
+      obj.password = hash;
+      console.log('password after hashing', obj.password);
       var user = new User(obj);
       return user.save(function(err, user) {
         if (err) {
           console.error('error in create user method');
         } else {
-          console.log('user password in database', user.password)
-          return user;
+          console.log('user password in database', user.password);
+          return true;
         }
       });
     });
@@ -74,31 +74,22 @@ exports.createUser = function(obj) {
 
 exports.findUser = function(obj) {
   console.log('obj password in db', obj);
-Bcrypt.genSalt(Salt_Factor, function(err, salt) {
-  if (err) {
-    return console.error('error in Salt ', err);
-  }
-  console.log('some salting here', salt);
-  Bcrypt.hash(obj.password, salt, function(err, hash) {
-    if (err) {
-      return console.err('error in hash ', err);
-    }
 
-    console.log('some hashing here ', hash);
-    obj.password = hash
-    // console.log('object during hashing,' obj);
-    console.log('password after hashinginput', obj.password)
-
-    obj.password = hash;
-    User.find(obj, function(user, err) {
-      if (user) {
-        console.log('user FOUND!!')
-      } else {
-        console.log('unable to find user!!')
-      }
+  User.find({ username: obj.username }, function(user, err) {
+    if (user) {
+      console.log('user password found', user.password);
+      Bcrypt.compare(obj.password, user.password, function(err, result) {
+        if (result) {
+          return true;
+        } else {
+          console.log('wrong password!')
+        }
       });
-    });
+    } else {
+      console.log('unable to find user!!', err);
+    }
   });
+
 };
 
 
