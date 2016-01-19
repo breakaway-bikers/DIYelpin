@@ -1,4 +1,13 @@
-angular.module('yelpin', ['ui.router', 'yelpin.postList', 'yelpin.viewPost', 'yelpin.services', 'yelpin.signin', 'yelpin.signup'])
+angular.module('yelpin',
+ [
+   'ui.router',
+   'yelpin.postList',
+   'yelpin.viewPost',
+   'yelpin.services',
+   'yelpin.signin',
+   'yelpin.signup',
+   'yelpin.contest',
+  ])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -27,6 +36,11 @@ angular.module('yelpin', ['ui.router', 'yelpin.postList', 'yelpin.viewPost', 'ye
       templateUrl: 'ViewPost/viewPost.html',
       url: '/viewPost',
       controller: 'viewPostController',
+    })
+    .state('contest', {
+      templateUrl: 'Contest/contestViews/contest.html',
+      url: '/contest',
+      controller: 'contestController',
     });
   $urlRouterProvider.otherwise('/signin');
 
