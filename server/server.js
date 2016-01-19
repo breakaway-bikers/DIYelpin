@@ -64,7 +64,7 @@ app.post('/createPost', function(req, res, next) {
       console.log(err);
       res.status(406);
     } else {
-      res.status(200);
+      res.status(200).send(post);
     }
   });
 });
