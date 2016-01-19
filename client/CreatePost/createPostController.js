@@ -1,23 +1,26 @@
 angular.module('yelpin.createPost', [])
 
 .controller('createPostController', ['$scope', 'appFactory', function($scope, appFactory) {
+  console.log('getting into controller');
   //this should be set when user is signed in.
   $scope.username = '';
-  $scope.discription = '';
+  $scope.descript = '';
+  $scope.txtcomment = '';
 
   //not sure if this is necessary if we are storing info in the database
   $scope.comment = [];
-  $scope.txtcomment = '';
 
-  $scope.postToPage = function($scope) {
+  $scope.postToPage = function() {
     if ($scope.txtcomment != '') {
       console.log($scope.txtcomment);
+      console.log($scope.descript);
       $scope.comment.push($scope.txtcomment);
       $scope.txtcomment = '';
+      $scope.descript = '';
     }
 
     //this might need work. I'm attempting to send the information to the server using the factory function
-    var data = { message: $scope.txtcomment };
+    var data = { description: $scope.descript, message: $scope.txtcomment };
     appFactory.setPost().then(function(data) {
     });
   };

@@ -1,18 +1,15 @@
 <div>
-  <!-- <h2>Write post here</h2>
-  <input type="text" ng-model='message'> -->
-
-  <h5>Add your project here</h5>
   <form>
       <h6>Description</h6>
-      <input type='text' ng-model='description'>
-      <textarea ng-model="txtcomment" placeholder="Your Project" style='width:550px'></textarea>
+      <input type='text' placeholder="your description" style="width: 500px;" ng-model='descript'>
+      <h6>Add your project here</h6>
+      <textarea ng-model="txtcomment" placeholder="Your Project" style='width: 556px; margin: 0px; height: 204px;'></textarea>
       <button ng-click='postToPage();' style='margin-top:10px;'>Post Project</button>
   </form>
-  <!-- Using angular-file-upload  -->
   <h6>Upload Photo</h6>
     <input type ="file" file-model = "myFile"/>
     <button ng-click = "uploadFile()">upload me</button>
+  <!-- Using angular-file-upload  -->
   <!-- dont think this is doing anything -->
   <element nv-file-drop uploader="{FileUploader}"></element>
 </div>
