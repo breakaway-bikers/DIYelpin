@@ -49,6 +49,7 @@ exports.createUser = function(obj) {
     if (err) {
       return console.error('error in genSalt ', err);
     }
+
     console.log('some salt here', salt);
 
     Bcrypt.hash(obj.password, salt, function(err, hash) {
