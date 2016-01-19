@@ -5,6 +5,7 @@ angular.module('yelpin.contest', [])
    'ViewPost',
    '$http',
    function($scope, ViewPost, $http) {
+
      $scope.ingredients = {
       1: 'Mustard Greens', 2: 'Collard Greens',
       3: 'Dandelion Greens', 4: 'Kumquats',
@@ -28,49 +29,50 @@ angular.module('yelpin.contest', [])
       39: 'Green Bell Peppers',
     };
 
-  $scope.dailyIngredients = [];
+     $scope.dailyIngredients = [];
+     $scope.populateDaily = function() {
+      for (var i = 0; i < 5; i++) {
 
-  $scope.populateDaily = function() {
-    for (var i = 0; i < 5; i++) {
+        //generate random number
+        var random = Math.floor(Math.random() * 39) + 1;
+        var ingredient = $scope.ingredients[random];
+        var duplicate = false;
 
-      //generate random number
-      var random = Math.floor(Math.random() * 39) + 1;
-      var ingredient = $scope.ingredients[random];
-      var duplicate = false;
+        //search dailyIngredients for the current ingredient
+        for (var j = 0; j < $scope.dailyIngredients.length; j++) {
+          var daily = $scope.dailyIngredients[j];
+          if (ingredient === daily) {
+            duplicate = true;
+          }
+        }
 
-      //search dailyIngredients for the current ingredient
-      for (var j = 0; j < $scope.dailyIngredients.length; j++) {
-        var daily = $scope.dailyIngredients[j];
-        if (ingredient === daily) {
-          duplicate = true;
+        //if ingredient was already selected
+        if (duplicate) {
+          //run current loop iteration again
+          i -= 1;
+          continue;
+        } else if (!duplicate) {
+          //otherwise push to dailyIngredients
+          $scope.dailyIngredients.push(ingredient);
         }
       }
 
-      //if ingredient was already selected
-      if (duplicate) {
-        //run current loop iteration again
-        i -= 1;
-        continue;
-      } else if (!duplicate) {
-        //otherwise push to dailyIngredients
-        $scope.dailyIngredients.push(ingredient);
-      }
-    }
+    };
 
-  };
+     $scope.populateDaily();
 
-  $scope.populateDaily();
+     $scope.receivedData = 'Fetching Data';
 
-  $scope.receivedData = 'Fetching Data';
+     $scope.fetchedPosts = 'Currently fetching posts';
 
-  $scope.fetchPost = function() {
-    return $http.get('/postList').then(function(res) {
-      console.log(res.data, res.body);
-      $scope.fetchedPosts = res.data;
-    });
-  };
+     $scope.fetchPost = function() {
+      return $http.get('/postList').then(function(res) {
+        console.log(res.data, res.body);
+        $scope.fetchedPosts = res.data;
+      });
+    };
 
-  $scope.fetchPost();
+     $scope.fetchPost();
 
-},
+   },
 ]);
