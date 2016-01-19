@@ -18,7 +18,7 @@ angular.module('yelpin.createPost', [])
     }
 
     //this might need work. I'm attempting to send the information to the server using the factory function
-    var data = { description: $scope.descript, message: $scope.txtcomment };
+    var data = { title: $scope.descript, message: $scope.txtcomment, category: 'whatever' };
     console.log(data);
     appFactory.setPost(data).then(function(data) {
       console.log(data);

@@ -3,8 +3,8 @@ var Bcrypt = require('bcrypt');
 var Salt_Factor = 10;
 
 var mongoURI = 'mongodb://diyelpin:Beansandburrito1600@ds047335.mongolab.com:47335/heroku_ws06b5hx';
-mongoose.connect(process.env.MONGOLAB_URI || mongoURI);
-// mongoose.connect('mongodb://localhost/yelpin')
+// mongoose.connect(process.env.MONGOLAB_URI || mongoURI);
+mongoose.connect('mongodb://localhost/yelpin')
 
 var db = mongoose.connection;
 
@@ -101,7 +101,7 @@ exports.createPost = function(obj) {
   console.log('heres the post', post);
   return post.save(function(err, post) {
     if (err) {
-      console.error('error in creating the post');
+      console.error('error in creating the post', err);
     } else {
       return post;
     }
