@@ -75,18 +75,19 @@ exports.createUser = function(obj) {
 exports.findUser = function(obj) {
   console.log('obj password in db', obj);
 
-  User.find({ username: obj.username }, function(user, err) {
-    if (user) {
-      console.log('user password found', user.password);
-      Bcrypt.compare(obj.password, user.password, function(err, result) {
+  return User.find({ username: obj.username }, function(err, user) {
+    if (err) {
+      console.log('unable to find user!!', err);
+    } else {
+      console.log('user password found', user[0].password);
+      Bcrypt.compare(obj.password, user[0].password, function(err, result) {
         if (result) {
+          console.log('password matched!', result);
           return true;
         } else {
-          console.log('wrong password!')
+          console.log('wrong password!');
         }
       });
-    } else {
-      console.log('unable to find user!!', err);
     }
   });
 

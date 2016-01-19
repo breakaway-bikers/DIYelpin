@@ -7,9 +7,9 @@ angular.module('yelpin.signup', [])
                 .success(function(data, status) {
       console.log('user post success', data, status);
       $location.path('/signin');
-    }).catch(function(){
+    }).catch(function() {
       console.log('user NOT created');
-    })
+    });
 
   };
 
