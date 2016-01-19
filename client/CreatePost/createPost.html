@@ -3,13 +3,16 @@
   <input type="text" ng-model='message'> -->
 
   <h5>Add your project here</h5>
-  <form ng-controller="createPostController">
+  <form>
+      <h6>Description</h6>
+      <input type='text' ng-model='description'>
       <textarea ng-model="txtcomment" placeholder="Your Project" style='width:550px'></textarea>
       <button ng-click='postToPage();' style='margin-top:10px;'>Post Project</button>
   </form>
   <!-- Using angular-file-upload  -->
   <h6>Upload Photo</h6>
-    <input type = "file" file-model = "myFile"/>
+    <input type ="file" file-model = "myFile"/>
     <button ng-click = "uploadFile()">upload me</button>
+  <!-- dont think this is doing anything -->
   <element nv-file-drop uploader="{FileUploader}"></element>
 </div>

@@ -1,13 +1,16 @@
 <h1>POST PAGE</h1>
-<div ng-repeat='item in tests track by $index'>
+<div ng-repeat='item in fetchedPosts track by $index'>
   <div><h2>POST</h2></div>
   <div class="mainInfo">
     <div>{{ item.username }}</div>
-    <div>{{ item.title }}</div>
+    <a ui-sref="viewPost" ng-click="viewPost(item)" ng-model="item">{{ item.title }}</a>
   </div>
   <div class="subInfo">
     <div>{{ item.category }}</div>
     <div>{{ item.votes }}</div>
+  </div>
+  <div ng-show="postView === true">
+    <div> {{ item.message }} </div>
   </div>
   <!-- <div>{{ item.message }}</div> //This should be displayed in a seperate view for the actual post -->
 </div>

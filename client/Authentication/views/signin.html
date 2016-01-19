@@ -1,0 +1,9 @@
+<div ng-controller='signinController'>
+	<div class='signin'>
+		<H3>sign in</H3>
+		<input placeholder='username' ng-model='user.username'>
+		<input placeholder='password'ng-model='user.password'>
+		<button ng-click='signin(user)' ng-model='user'>Sign In</button>
+    <p>Dont have an account? <a ng-href="/#/signup">SIGNUP</a></p>
+	</div>
+</div>

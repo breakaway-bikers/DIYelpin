@@ -1,9 +1,9 @@
-angular.module('yelpin.createPost', ['yelpin.services']);
+angular.module('yelpin.createPost', [])
 
 .controller('createPostController', ['$scope', 'appFactory', function($scope, appFactory) {
   //this should be set when user is signed in.
   $scope.username = '';
-
+  $scope.discription = '';
   //not sure if this is necessary if we are storing info in the database
   $scope.comment = [];
   $scope.txtcomment ='';
