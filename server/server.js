@@ -43,13 +43,12 @@ app.post('/authenticate', function(req, res, next) {
 app.post('/createUser', function(req, res, next) {
   db.createUser(req.body).then(function success(user) {
     res.status(200).send(user);
-  }, function error(err) {
+  },
+
+  function error(err) {
     res.status(501).send(err);
   });
 });
-
-
-
 
 //Have not used  this handler either. I dont think we'll need it
 app.post('/viewPost', function(req, res, next) {
