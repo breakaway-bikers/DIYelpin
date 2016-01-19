@@ -7,9 +7,12 @@
       <button ng-click='postToPage();' style='margin-top:10px;'>Post Project</button>
   </form>
   <h6>Upload Photo</h6>
-    <input type ="file" file-model = "myFile"/>
-    <button ng-click = "uploadFile()">upload me</button>
+    <input type ="file" nv-file-select uploader="uploader">
+      <li ng-repeat="item in uploader.queue">
+        Name: <span ng bind="item.file.name"></span>
+        <button ng-click="item.upload()">upload me</button>
+      </li>
   <!-- Using angular-file-upload  -->
   <!-- dont think this is doing anything -->
-  <element nv-file-drop uploader="{FileUploader}"></element>
+  <!-- <element nv-file-drop uploader="{FileUploader}"></element> -->
 </div>

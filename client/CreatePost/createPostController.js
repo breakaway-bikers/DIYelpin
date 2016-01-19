@@ -21,9 +21,13 @@ angular.module('yelpin.createPost', [])
 
     //this might need work. I'm attempting to send the information to the server using the factory function
     var data = { description: $scope.descript, message: $scope.txtcomment };
+
     appFactory.setPost().then(function(data) {
+      console.log(data);
     });
   };
+
+  // $scope.uploader = new FileUploader();
 
   //using angular file uploader..research more
   // var uploader = new FileUploader({

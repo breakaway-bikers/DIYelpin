@@ -53,7 +53,7 @@ exports.createUser = function(obj) {
 };
 
 exports.findUser = function(obj) {
-  console.log('obj in db', obj)
+  console.log('obj in db', obj);
   return User.find(obj, function(user, err) {
     if (err) {
       console.error('error in find user method');
