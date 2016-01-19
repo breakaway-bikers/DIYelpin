@@ -81,14 +81,16 @@ exports.findUser = function(obj) {
     if (err) {
       console.log('unable to find user!!', err);
     } else {
-      Bcrypt.compare(obj.password, user[0].password, function(err, result) {
-        if (result) {
-          console.log('password matched!', result);
-          return true;
-        } else {
-          console.log('wrong password!');
-        }
-      });
+      if (user[0]) {
+        Bcrypt.compare(obj.password, user[0].password, function(err, result) {
+          if (result) {
+            console.log('password matched!', result);
+            return true;
+          } else {
+            console.log('wrong password!');
+          }
+        });
+      }
     }
   });
 
