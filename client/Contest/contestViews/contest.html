@@ -1,0 +1,29 @@
+<h1>FOOD CONTEST!</h1>
+<h2>Rules</h2>
+
+<p>Every day, we'll post five random ingredients. Your challenge is to
+   come up with a winning recipe that uses those ingredients. DIYelpin users
+   vote on their favorite recipes to elect a daily winner.</p>
+<p>Your recipe <i>must use all five</i> ingredients, and <i>may not use
+   any additional ingredients</i> other than the five ones listed for that day.</p>
+
+<h4>Today's 5 Ingredients</h4>
+<ul ng-repeat="ingredient in dailyIngredients track by $index">
+  <li>{{ ingredient }}</li>
+</ul>
+<h2>Vote on Current Submissions Below!</h2>
+<div ng-repeat='item in fetchedPosts track by $index'>
+  <div><h2>POST</h2></div>
+  <div class="mainInfo">
+    <div>{{ item.username }}</div>
+    <a ui-sref="viewPost" ng-click="viewPost(item)" ng-model="item">{{ item.title }}</a>
+  </div>
+  <div class="subInfo">
+    <div>{{ item.category }}</div>
+    <div>{{ item.votes }}</div>
+  </div>
+  <div ng-show="postView === true">
+    <div> {{ item.message }} </div>
+  </div>
+  <!-- <div>{{ item.message }}</div> //This should be displayed in a seperate view for the actual post -->
+</div>

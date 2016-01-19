@@ -27,6 +27,11 @@ angular.module('yelpin', ['ui.router', 'yelpin.postList', 'yelpin.viewPost', 'ye
       templateUrl: 'ViewPost/viewPost.html',
       url: '/viewPost',
       controller: 'viewPostController',
+    })
+    .state('contest', {
+      templateUrl: 'Contest/contestViews/contest.html',
+      url: '/contest',
+      controller: 'contestController',
     });
   $urlRouterProvider.otherwise('/signin');
 
