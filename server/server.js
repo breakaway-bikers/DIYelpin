@@ -58,7 +58,16 @@ app.post('/createUser', function(req, res, next) {
   });
 });
 
-app.post('/createPost')
+app.post('/createPost', function(req, res, next) {
+  db.createPost(req.body).then(function(post, err) {
+    if (err) {
+      console.log(err);
+      res.status(406);
+    } else {
+      res.status(200);
+    }
+  });
+});
 
 //Have not used  this handler either. I dont think we'll need it
 app.post('/viewPost', function(req, res, next) {

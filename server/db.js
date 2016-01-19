@@ -75,14 +75,9 @@ exports.createUser = function(obj) {
 };
 
 exports.findUser = function(obj) {
-<<<<<<< HEAD
-  console.log('obj in db', obj);
-  return User.find(obj, function(user, err) {
-=======
   console.log('obj password in db', obj);
 
   return User.find({ username: obj.username }, function(err, user) {
->>>>>>> 5d0584bfcb467a79f978e46de8dd0c0c784cb878
     if (err) {
       console.log('unable to find user!!', err);
     } else {
