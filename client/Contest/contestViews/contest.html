@@ -1,0 +1,14 @@
+<h1>FOOD CONTEST!</h1>
+<h2>Rules</h2>
+
+<p>Every day, we'll post five random ingredients. Your challenge is to
+   come up with a winning recipe that uses those ingredients. DIYelpin users
+   vote on their favorite recipes to elect a daily winner.</p>
+<p>Your recipe <i>must use all five</i> ingredients, and <i>may not use
+   any additional ingredients</i> other than the five ones listed for that day.</p>
+
+<h4>Today's 5 Ingredients</h4>
+<ul ng-repeat="ingredient in dailyIngredients track by $index">
+  <li>{{ ingredient }}</li>
+</ul>
+<h2>Vote on Current Submissions Below!</h2>
