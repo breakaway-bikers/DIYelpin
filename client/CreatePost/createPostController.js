@@ -1,7 +1,7 @@
 angular.module('yelpin.createPost', [])
 
 .controller('createPostController', ['$scope', 'appFactory', function($scope, appFactory) {
-  console.log('getting into controller');
+  //console.log('getting into controller');
   //this should be set when user is signed in.
   $scope.username = '';
   $scope.descript = '';
