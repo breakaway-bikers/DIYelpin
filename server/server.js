@@ -6,7 +6,7 @@ var port = process.env.PORT || 3000;
 var morgan = require('morgan');
 var db = require('./db.js');
 
-app.use(morgan('combined'));
+// app.use(morgan('combined'));
 app.use(express.static(__dirname + './../client'));
 app.use(bodyparser.json());
 
@@ -35,18 +35,37 @@ app.get('/postList', function(req, res, next) {
 });
 
 app.post('/authenticate', function(req, res, next) {
-  db.findUser(req.body).then(function(user) {
-    res.status(200).send(user);
+  console.log('get users');
+  console.log(req.data);
+  db.findUser(req.body).then(function(user, err) {
+    if (err) {
+      console.error('error in authentication', err);
+      res.status(401);
+    } else {
+      res.status(200).send(user);
+    }
   });
 });
 
 app.post('/createUser', function(req, res, next) {
-  db.createUser(req.body).then(function success(user) {
-    res.status(200).send(user);
-  },
+  db.createUser(req.body).then(function(user, err) {
+    if (err) {
+      console.log(err);
+      res.status(406);
+    } else {
+      res.status(200);
+    }
+  });
+});
 
-  function error(err) {
-    res.status(501).send(err);
+app.post('/createPost', function(req, res, next) {
+  db.createPost(req.body).then(function(post, err) {
+    if (err) {
+      console.log(err);
+      res.status(406);
+    } else {
+      res.status(200);
+    }
   });
 });
 

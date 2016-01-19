@@ -1,6 +1,10 @@
 var mongoose = require('mongoose');
+var Bcrypt = require('bcrypt');
+var Salt_Factor = 10;
+
 var mongoURI = 'mongodb://diyelpin:Beansandburrito1600@ds047335.mongolab.com:47335/heroku_ws06b5hx';
-mongoose.connect(process.env.MONGOLAB_URI || mongoURI);
+// mongoose.connect(process.env.MONGOLAB_URI || mongoURI);
+mongoose.connect('mongodb://localhost/yelpin')
 
 var db = mongoose.connection;
 
@@ -41,27 +45,56 @@ var User = mongoose.model('User', UserSchema);
 var Post = mongoose.model('Post', PostSchema);
 
 exports.createUser = function(obj) {
-  var user = new User(obj);
-  return user.save(function(err, user) {
+  console.log(obj.password);
+  Bcrypt.genSalt(Salt_Factor, function(err, salt) {
     if (err) {
-      console.error('error in create user method');
-    } else {
-      return user;
+      return console.error('error in genSalt ', err);
     }
+
+    console.log('some salt here', salt);
+
+    Bcrypt.hash(obj.password, salt, function(err, hash) {
+      if (err) {
+        return console.err('error in genhash ', err);
+      }
+
+      console.log('some hash here ', hash);
+      obj.password = hash;
+      console.log('password after hashing', obj.password);
+      var user = new User(obj);
+      return user.save(function(err, user) {
+        if (err) {
+          console.error('error in create user method');
+        } else {
+          console.log('user password in database', user.password);
+          return true;
+        }
+      });
+    });
   });
 };
 
 exports.findUser = function(obj) {
-  console.log('obj in db', obj);
-  return User.find(obj, function(user, err) {
+  console.log('obj password in db', obj);
+
+  return User.find({ username: obj.username }, function(err, user) {
     if (err) {
-      console.error('error in find user method');
-      return {};
+      console.log('unable to find user!!', err);
     } else {
-      return user;
-    };
+      console.log('user password found', user[0].password);
+      Bcrypt.compare(obj.password, user[0].password, function(err, result) {
+        if (result) {
+          console.log('password matched!', result);
+          return true;
+        } else {
+          console.log('wrong password!');
+        }
+      });
+    }
   });
+
 };
+
 
 exports.createPost = function(obj) {
   var post = new Post(obj);
