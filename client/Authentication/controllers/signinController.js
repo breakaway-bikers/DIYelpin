@@ -9,10 +9,11 @@ angular.module('yelpin.signin', [])
       console.log('heres the data and status', data);
       if (data.status === 200) {
         $location.path('/postList');
-      } else if (data.status === 401) {
+      } else {
         //Sign in Error message not working
-        $scope.signinError = true;
       }
+    }).catch(function(err) {
+      $scope.signinError = true;
     });
   };
 }]);
