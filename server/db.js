@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Bcrypt = require('bcrypt');
 var Salt_Factor = 10;
-
+var Q = require('q');
 var mongoURI = 'mongodb://diyelpin:Beansandburrito1600@ds047335.mongolab.com:47335/heroku_ws06b5hx';
 // mongoose.connect(process.env.MONGOLAB_URI || mongoURI);
 mongoose.connect('mongodb://localhost/yelpin')
@@ -46,7 +46,9 @@ var Post = mongoose.model('Post', PostSchema);
 
 exports.createUser = function(obj) {
   console.log(obj.password);
-  return Bcrypt.genSalt(Salt_Factor, function(err, salt) {
+  var defer = Q.defer();
+
+  Bcrypt.genSalt(Salt_Factor, function(err, salt) {
     if (err) {
       return console.error('error in genSalt ', err);
     }
@@ -62,38 +64,38 @@ exports.createUser = function(obj) {
       obj.password = hash;
       console.log('password after hashing', obj.password);
       var user = new User(obj);
-      return user.save(function(err, user) {
+      user.save(function(err, user) {
         if (err) {
-          return console.error('error in create user method', err);
+          defer.reject(err);
         } else {
-          console.log('user password in database', user.password);
-          return user;
+          defer.resolve(user);
         }
       });
     });
   });
+
+  return defer.promise;
 };
 
 exports.findUser = function(obj) {
-  console.log('obj password in db', obj);
-
-  return User.find({ username: obj.username }, function(err, user) {
+  console.log('user info input', obj);
+  var defer = Q.defer();
+  User.find({ username: obj.username }).then(function(user, err) {
     if (err) {
       console.log('unable to find user!!', err);
     } else {
-      if (user[0]) {
-        Bcrypt.compare(obj.password, user[0].password, function(err, result) {
-          if (result) {
-            console.log('password matched!', result);
-            return true;
-          } else {
-            console.log('wrong password!');
-          }
-        });
-      }
+      console.log('user info in db', user);
+      return Bcrypt.compare(obj.password, user[0].password, function(err, result) {
+        if (err) {
+          defer.reject(err);
+        } else {
+          defer.resolve(result);
+        }
+      });
     }
   });
 
+  return defer.promise;
 };
 
 exports.createPost = function(obj) {
