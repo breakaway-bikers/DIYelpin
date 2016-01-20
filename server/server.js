@@ -52,11 +52,12 @@ app.post('/authenticate', function(req, res, next) {
 
 app.post('/createUser', function(req, res, next) {
   db.createUser(req.body).then(function(user, err) {
+    console.log('data and error in createUser', user, '----', err);
     if (err) {
       console.log('heres the error', err);
-      res.status(406);
+      res.status(406).send(err);
     } else {
-      res.status(200);
+      res.status(200).send(user);
     }
   });
 });

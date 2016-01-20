@@ -8,9 +8,9 @@ angular.module('yelpin.signin', [])
     return $http.post('/authenticate', user).then(function(data, status) {
       console.log('heres the data and status', data);
       if (data.status === 200) {
-        console.log('going off')
         $location.path('/postList');
       } else if (data.status === 401) {
+        //Sign in Error message not working
         $scope.signinError = true;
       }
     });

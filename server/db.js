@@ -46,7 +46,9 @@ var Post = mongoose.model('Post', PostSchema);
 
 exports.createUser = function(obj) {
   console.log(obj.password);
-  return Bcrypt.genSalt(Salt_Factor, function(err, salt) {
+  var defer = Q.defer();
+
+  Bcrypt.genSalt(Salt_Factor, function(err, salt) {
     if (err) {
       return console.error('error in genSalt ', err);
     }
@@ -62,16 +64,17 @@ exports.createUser = function(obj) {
       obj.password = hash;
       console.log('password after hashing', obj.password);
       var user = new User(obj);
-      return user.save(function(err, user) {
+      user.save(function(err, user) {
         if (err) {
-          return console.error('error in create user method', err);
+          defer.reject(err);
         } else {
-          console.log('user password in database', user.password);
-          return user;
+          defer.resolve(user);
         }
       });
     });
   });
+
+  return defer.promise;
 };
 
 exports.findUser = function(obj) {
