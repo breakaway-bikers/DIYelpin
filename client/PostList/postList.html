@@ -2,7 +2,9 @@
 <form id="filterbox" class="inputBox">
 		<input class="filterbox" type='text' ng-model="searchString" placeholder="What are you looking to swoop?"/>
 </form>
-<div ng-repeat='item in fetchedPosts | filter: searchString'>
+<h7>Search by Category</h7>
+<select ng-model="categories" ng-options="item.category for item in fetchedPosts"></select>
+<div ng-repeat='item in fetchedPosts | filter: searchString | filter: categories'>
   <div><h2>POST</h2></div>
   <div class="mainInfo">
     <div>{{ item.username }}</div>
