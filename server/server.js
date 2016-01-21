@@ -51,6 +51,7 @@ app.post('/authenticate', function(req, res, next) {
 });
 
 app.post('/createUser', function(req, res, next) {
+  console.log(req.body)
   db.createUser(req.body).then(function(user, err) {
     console.log('data and error in createUser', user, '----', err);
     if (err) {
@@ -86,3 +87,4 @@ app.post('/viewPost', function(req, res, next) {
 //
 //
 app.listen(port);
+module.exports = app;
