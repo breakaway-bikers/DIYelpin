@@ -5,7 +5,8 @@
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
-    "test": "node_modules/jasmine-node/bin/jasmine-node client/spec"
+    "test": "node_modules/jasmine-node/bin/jasmine-node client/spec",
+    "test2": "karma start sample.conf.js"
   },
   "dependencies": {
     "angular": "^1.4.8",

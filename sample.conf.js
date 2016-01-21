@@ -20,6 +20,7 @@ module.exports = function(config) {
       'node_modules/angular-ui-router/release/angular-ui-router.js',
       'client/**/*.js',
       'client/Authentication/controllers/signupController.js',
+      'client/Authentication/controllers/signinController.js',
       'test.js',
     ],
 

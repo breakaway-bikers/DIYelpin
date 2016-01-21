@@ -4,12 +4,16 @@ angular.module('yelpin.signup', [])
   $scope.signup = function(user) {
     console.log('post to /createUser : ', user);
     return $http.post('/createUser', user)
-                .then(function(data) {
-      console.log('user post success', data);
-      $location.path('/signin');
-    }).catch(function(err) {
-      $scope.user = null;
-      console.log('Invalid Input', err);
+
+      .then(function(data) {
+        console.log('user post success', $scope.path);
+        // $scope.user = data.data;
+        $location.path('/signin');
+    })
+
+      .catch(function(err) {
+        $scope.user = null;
+        console.log('Invalid Input', err);
     });
   };
 
