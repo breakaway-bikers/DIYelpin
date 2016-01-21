@@ -4,14 +4,27 @@
       <input type='text' placeholder="your description" style="width: 500px;" ng-model='descript'>
       <h6>Add your project here</h6>
       <textarea ng-model="txtcomment" placeholder="Your Project" style='width: 556px; margin: 0px; height: 204px;'></textarea>
+      <h6>Select Category</h6>
+      <select name="categories" ng-model="category">
+        <option value="Outdoors">Outdoors</option>
+        <option value="Home Improvement">Home Imporvement</option>
+        <option value="Kitchen">Kitchen</option>
+        <option value="Automotive">Automotive</option>
+        <option value="Arts And Craft">Art and Craft</option>
+        <option value="other">Other</option>
+
+      </select></br>
       <button ng-click='postToPage();' style='margin-top:10px;'>Post Project</button>
   </form>
+
   <h6>Upload Photo</h6>
     <input type ="file" nv-file-select uploader="uploader">
       <li ng-repeat="item in uploader.queue">
         Name: <span ng bind="item.file.name"></span>
         <button ng-click="item.upload()">upload me</button>
       </li>
+
+
   <!-- Using angular-file-upload  -->
   <!-- dont think this is doing anything -->
   <!-- <element nv-file-drop uploader="{FileUploader}"></element> -->
