@@ -6,7 +6,7 @@
 - [Installation](#installation)
 - [Dependencies](#dependencies)
   - [Bcrypt](#bcrypt)
-  - [Angular-UI](#angualr-ui)
+  - [Angular-UI](#angular-ui)
 - [Features](#features)
   - [Public DIY-Posts](#diy-posts)
   - [Food Contest](#food-contest)
