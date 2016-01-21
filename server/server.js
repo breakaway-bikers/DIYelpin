@@ -37,12 +37,15 @@ app.get('/postList', function(req, res, next) {
 app.post('/authenticate', function(req, res, next) {
   console.log('get users');
   console.log(req.data);
-  db.findUser(req.body).then(function(user, err) {
-    if (err) {
-      console.error('error in authentication', err);
-      res.status(401);
+  db.findUser(req.body).then(function(authenticated, err) {
+    console.log('authenticated ', authenticated);
+    console.log('error in authentication handler', err);
+    if (authenticated) {
+      console.log('sending 200');
+      res.status(200).send(authenticated);
     } else {
-      res.status(200).send(user);
+      console.log('sending 401');
+      res.status(401).send(authenticated);
     }
   });
 });
@@ -50,11 +53,12 @@ app.post('/authenticate', function(req, res, next) {
 app.post('/createUser', function(req, res, next) {
   console.log(req.body)
   db.createUser(req.body).then(function(user, err) {
+    console.log('data and error in createUser', user, '----', err);
     if (err) {
-      console.log(err);
-      res.status(406);
+      console.log('heres the error', err);
+      res.status(406).send(err);
     } else {
-      res.status(200);
+      res.status(200).send(user);
     }
   });
 });

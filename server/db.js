@@ -1,10 +1,12 @@
 var mongoose = require('mongoose');
 var Bcrypt = require('bcrypt');
 var Salt_Factor = 10;
-
+var Q = require('q');
 var mongoURI = 'mongodb://diyelpin:Beansandburrito1600@ds047335.mongolab.com:47335/heroku_ws06b5hx';
-// mongoose.connect(process.env.MONGOLAB_URI || mongoURI);
-mongoose.connect('mongodb://localhost/yelpin')
+
+mongoose.connect(process.env.MONGOLAB_URI || mongoURI);
+
+// mongoose.connect('mongodb://localhost/yelpin');
 
 var db = mongoose.connection;
 
@@ -46,6 +48,8 @@ var Post = mongoose.model('Post', PostSchema);
 
 exports.createUser = function(obj) {
   console.log(obj.password);
+  var defer = Q.defer();
+
   Bcrypt.genSalt(Salt_Factor, function(err, salt) {
     if (err) {
       return console.error('error in genSalt ', err);
@@ -53,7 +57,7 @@ exports.createUser = function(obj) {
 
     console.log('some salt here', salt);
 
-    Bcrypt.hash(obj.password, salt, function(err, hash) {
+    return Bcrypt.hash(obj.password, salt, function(err, hash) {
       if (err) {
         return console.err('error in genhash ', err);
       }
@@ -62,36 +66,38 @@ exports.createUser = function(obj) {
       obj.password = hash;
       console.log('password after hashing', obj.password);
       var user = new User(obj);
-      return user.save(function(err, user) {
+      user.save(function(err, user) {
         if (err) {
-          console.error('error in create user method');
+          defer.reject(err);
         } else {
-          console.log('user password in database', user.password);
-          return true;
+          defer.resolve(user);
         }
       });
     });
   });
+
+  return defer.promise;
 };
 
 exports.findUser = function(obj) {
-  console.log('obj password in db', obj);
-
-  return User.find({ username: obj.username }, function(err, user) {
+  console.log('user info input', obj);
+  var defer = Q.defer();
+  User.find({ username: obj.username }).then(function(user, err) {
     if (err) {
       console.log('unable to find user!!', err);
     } else {
-      Bcrypt.compare(obj.password, user[0].password, function(err, result) {
-        if (result) {
-          console.log('password matched!', result);
-          return true;
+      console.log('user info in db', user);
+      return Bcrypt.compare(obj.password, user[0].password, function(err, result) {
+        if (err) {
+          defer.reject(err);
         } else {
-          console.log('wrong password!');
+          defer.resolve(result);
         }
       });
     }
   });
 
+  return defer.promise;
 };
 
 exports.createPost = function(obj) {
@@ -99,7 +105,7 @@ exports.createPost = function(obj) {
   console.log('heres the post', post);
   return post.save(function(err, post) {
     if (err) {
-      console.error('error in creating the post');
+      console.error('error in creating the post', err);
     } else {
       return post;
     }

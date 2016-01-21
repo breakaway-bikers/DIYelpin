@@ -6,18 +6,14 @@ angular.module('yelpin.signin', [])
   $scope.signin = function(user) {
     console.log('POST TO /AUTHENTICATE: ', user);
     return $http.post('/authenticate', user).then(function(data, status) {
-      if (status === 401) {
-        $scope.signinToggle = true;
+      console.log('heres the data and status', data);
+      if (data.status === 200) {
+        $location.path('/postList');
       } else {
-        console.log('RESPONSE FROM SERVER', data.data[0], status);
-        if (data.data[0].username === 'admin') {
-          $location.path('/admin');
-        } else {
-          console.log('logged in');
-          user.auth = true;
-          $location.path('/postList');
-        }
+        //Sign in Error message not working
       }
+    }).catch(function(err) {
+      $scope.signinError = true;
     });
   };
 }]);
