@@ -6,6 +6,7 @@ angular.module('yelpin.createPost', [])
   $scope.username = '';
   $scope.descript = '';
   $scope.txtcomment = '';
+  $scope.category = '';
 
   //not sure if this is necessary if we are storing info in the database
   $scope.comment = [];
@@ -18,13 +19,15 @@ angular.module('yelpin.createPost', [])
     }
 
     //this might need work. I'm attempting to send the information to the server using the factory function
-    var data = { title: $scope.descript, message: $scope.txtcomment, category: 'whatever' };
+    var data = { title: $scope.descript, message: $scope.txtcomment, category: $scope.category };
     console.log(data);
     appFactory.setPost(data).then(function(data) {
       console.log(data);
     });
+
     $scope.txtcomment = '';
     $scope.descript = '';
+    $scope.category = '';
   };
 
   // $scope.uploader = new FileUploader();
