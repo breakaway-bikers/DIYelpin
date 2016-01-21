@@ -6,11 +6,12 @@ angular.module('yelpin.signup', [])
     return $http.post('/createUser', user)
                 .success(function(data, status) {
       console.log('user post success', data, status);
+      $scope.user = data;
       $location.path('/signin');
     }).catch(function(err) {
+      $scope.user = null;
       console.log('Invalid Input', err);
     });
-
   };
 
 }]);
