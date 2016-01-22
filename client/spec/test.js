@@ -1,9 +1,7 @@
-describe('controllers', function() {
-
+describe('YELPIN', function() {
   beforeEach(module('yelpin'));
 
   var $controller, user, $scope, $http, $location, $q, deferred, $httpBackend, createController;
-
   beforeEach(inject(function(_$controller_, _$rootScope_, _$q_, _$httpBackend_) {
     $controller = _$controller_;
     $scope = _$rootScope_;
@@ -92,7 +90,7 @@ describe('controllers', function() {
       expect($scope.viewPost).toEqual(jasmine.any(Function));
     });
 
-    it('should set fetchPostError to true if an error is caught', function() {
+    xit('should set fetchPostError to true if an error is caught', function() {
       $httpBackend.expectGET('/postList').respond(200);
       var controller = createController();
       $httpBackend.flush();
@@ -106,4 +104,44 @@ describe('controllers', function() {
       expect($scope.fetchedPosts.length).not.toBeUndefined();
     });
   });
+
+  describe('createPostController', function() {
+    var createController = function() {
+       return $controller('createPostController', { $scope: $scope });
+     };
+
+     it('$scope.postToPage should be a function', function() {
+       var controller = createController();
+       $httpBackend.flush();
+       expect($scope.postToPage).toEqual(jasmine.any(Function));
+     });
+     describe('createPost factories', function() {
+       var factory = null;
+       beforeEach(inject(function(appFactory) {
+         factory = appFactory;
+       }));
+       it('appFactory.setPost should be a function', function() {
+         var controller = createController();
+         $httpBackend.flush();
+         expect(factory.setPost).toEqual(jasmine.any(Function));
+       });
+       xit ('postToPage should call setPost', function() {
+         spyOn(factory, 'setPost');
+         $httpBackend.expectPOST('/createPost').respond(200, {});
+         var controller = createController();
+         $scope.postToPage();
+         $httpBackend.flush();
+         expect(factory.setPost).toHaveBeenCalled();
+       });
+
+      //  it('$scope.postToPage should be a function', function() {
+      //    spyOn(appFactory, 'setPost')
+      //    $httpBackend.expectPOST('/createPost').respond(200);
+      //    var controller = createController();
+      //    $scope.postToPage();
+      //    $httpBackend.flush();
+      //    expect(appFactory.setPost).toHaveBeenCalled();
+      //  });
+     })
+   });
 });
