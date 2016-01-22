@@ -11,8 +11,6 @@ app.use(express.static(__dirname + './../client'));
 app.use(bodyparser.json());
 
 //
-//
-//
 db.createUser({ username: 'daniel', password: 'bacon' });
 db.createPost({ username: 'daniel', title: 'whaaaaaaaa?', message: 'I hate bacon', category: 'recipe' });
 

@@ -13,7 +13,7 @@ html {
 }
 
 body {
-  color: #606c76;
+  color: #2B4450;
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 1.6em;
   font-weight: 300;
@@ -42,8 +42,8 @@ button,
 input[type='button'],
 input[type='reset'],
 input[type='submit'] {
-  background-color: #9b4dca;
-  border: 0.1rem solid #9b4dca;
+  background-color: #F78536;
+  border: 0.1rem solid #497285;
   border-radius: 0.4rem;
   box-sizing: border-box;
   color: #ffffff;
@@ -217,8 +217,14 @@ input[type='radio'] {
 .row {
   display: flex;
   flex-direction: column;
-  padding: 0;
+  padding: 1px 10px 1px 30px;
+	border-radius: 10px;
+	background-color: orange;
+  border-color: black;
+	opacity: 0.6;
+  filter: alpha(opacity=60);
   width: 100%;
+  margin-top: 10px;
 }
 .row .row-wrap {
   flex-wrap: wrap;
@@ -528,4 +534,11 @@ h6 {
 }
 .clearfix:after {
   clear: both;
+}
+.username {
+  font-weight: bold;
+  color: black;
+}
+.dropdown {
+  width: 12%;
 }
