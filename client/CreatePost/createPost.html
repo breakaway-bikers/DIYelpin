@@ -1,11 +1,11 @@
 <div>
   <form>
-      <h6>Description</h6>
+      <label>Title</label>
       <input type='text' placeholder="your description" style="width: 500px;" ng-model='descript'>
-      <h6>Add your project here</h6>
-      <textarea ng-model="txtcomment" placeholder="Your Project" style='width: 556px; margin: 0px; height: 204px;'></textarea>
-      <h6>Select Category</h6>
-      <select name="categories" ng-model="category">
+      <label>Add the Instructions Here</label>
+      <textarea id="commentField" ng-model="txtcomment" placeholder="Your Project" style='width: 556px; margin: 0px; height: 204px;'></textarea>
+      <label>Category</label>
+      <select name="categories" class="dropdown" ng-model="category">
         <option value="Outdoors">Outdoors</option>
         <option value="Home Improvement">Home Imporvement</option>
         <option value="Kitchen">Kitchen</option>
@@ -14,7 +14,7 @@
         <option value="other">Other</option>
 
       </select></br>
-      <button ng-click='postToPage();' style='margin-top:10px;'>Post Project</button>
+      <button ui-sref="postList" ng-click='postToPage();' style='margin-top:10px;'>Post Project</button>
   </form>
 
   <h6>Upload Photo</h6>
