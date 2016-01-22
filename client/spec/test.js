@@ -2,7 +2,7 @@ describe('YELPIN', function() {
   beforeEach(module('yelpin'));
 
   var $controller, user, $scope, $http, $location, $q, deferred, $httpBackend, createController;
-  beforeEach(inject(function(_$controller_, _$rootScope_, _$q_, _$httpBackend_) {
+  beforeEach(inject(function(_$controller_, _$rootScope_, _$q_, _$httpBackend_, _$location_) {
     $controller = _$controller_;
     $scope = _$rootScope_;
     $httpBackend = _$httpBackend_;
@@ -53,24 +53,37 @@ describe('YELPIN', function() {
     var createController = function() {
          return $controller('signupController', { $scope: $scope });
        };
-
+    beforeEach(inject(function(_$rootScope_, _$location_) {
+      $rootScope = _$rootScope_,
+      $location = _$location_
+    }));
     it('$scope.signup should be a function', function() {
       var controller = createController();
       $httpBackend.flush();
       expect($scope.signup).toEqual(jasmine.any(Function));
     });
 
-    it('should change $scope.user to null after catching an error', function() {
-      $httpBackend.expectPOST('/createUser', user).respond(401, user);
+    it('should NOT redirect to /signin on error', function() {
+      $httpBackend.expectPOST('/createUser').respond(401,user)
+      spyOn($location, 'path').and.returnValue('/')
       var controller = createController();
       $scope.signup(user);
       $httpBackend.flush();
-
       expect($scope.user).toEqual(null);
     });
+
+    it('should redirect to /signin', function() {
+      $httpBackend.expectPOST('/createUser').respond(200, user);
+      spyOn($location, 'path').and.returnValue('/')
+      var controller = createController();
+      $scope.signup();
+      $httpBackend.flush();
+      expect($location.path).toHaveBeenCalled();
+    });
+
   });
 
-  // postList Controller
+  // POSTLIST CONTROLLER
   describe('postListController', function() {
     var createController = function() {
          return $controller('postListController', { $scope: $scope });
@@ -105,6 +118,7 @@ describe('YELPIN', function() {
     });
   });
 
+  // CREATE POST CONTROLLER
   describe('createPostController', function() {
     var createController = function() {
        return $controller('createPostController', { $scope: $scope });
@@ -115,6 +129,8 @@ describe('YELPIN', function() {
        $httpBackend.flush();
        expect($scope.postToPage).toEqual(jasmine.any(Function));
      });
+
+     // FACTORY
      describe('createPost factories', function() {
        var factory = null;
        beforeEach(inject(function(appFactory) {
@@ -133,15 +149,6 @@ describe('YELPIN', function() {
          $httpBackend.flush();
          expect(factory.setPost).toHaveBeenCalled();
        });
-
-      //  it('$scope.postToPage should be a function', function() {
-      //    spyOn(appFactory, 'setPost')
-      //    $httpBackend.expectPOST('/createPost').respond(200);
-      //    var controller = createController();
-      //    $scope.postToPage();
-      //    $httpBackend.flush();
-      //    expect(appFactory.setPost).toHaveBeenCalled();
-      //  });
      })
    });
 });

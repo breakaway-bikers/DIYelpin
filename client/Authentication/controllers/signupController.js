@@ -6,9 +6,11 @@ angular.module('yelpin.signup', [])
     return $http.post('/createUser', user)
 
       .then(function(data) {
-        console.log('user post success', $scope.path);
         // $scope.user = data.data;
-        $location.path('/signin');
+        console.log('user post success', data.status);
+        if (data.status === 200) {
+          $location.path('/signin');
+        }
     })
 
       .catch(function(err) {
