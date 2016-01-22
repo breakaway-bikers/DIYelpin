@@ -24,13 +24,14 @@ describe('controllers', function(){
        $httpBackend.verifyNoOutstandingRequest();
      });
 
+// SIGNIN CONTROLLER
   describe('signinController', function(){
 
     var createController = function() {
       return $controller('signinController', { $scope: $scope });
     };
-    
-    it('should be a function', function() {
+
+    it('signin function exists', function() {
       var controller = createController();
       $httpBackend.flush();
       expect($scope.signin).toEqual(jasmine.any(Function));
@@ -56,22 +57,22 @@ describe('controllers', function(){
     });
 
 
-  
+
   });
 
-
+  // SIGNUP CONTROLLER
   describe('signupController', function() {
     var createController = function() {
          return $controller('signupController', { $scope: $scope });
        };
 
-    it('should be a function', function() {
+    it('$scope.signup should be a function', function() {
       var controller = createController();
       $httpBackend.flush();
       expect($scope.signup).toEqual(jasmine.any(Function));
     });
 
-    it('should catch errors', function() {
+    it('should change $scope.user to null after catching an error', function() {
       $httpBackend.expectPOST('/createUser', user).respond(401, user);
       var controller = createController()
       $scope.signup(user);
@@ -79,19 +80,41 @@ describe('controllers', function(){
 
       expect($scope.user).toEqual(null);
     });
+  });
 
-    it('should attach response data to scope.user', function() {
+    // postList Controller
+    describe('postListController', function() {
+      var createController = function() {
+           return $controller('postListController', { $scope: $scope });
+         };
 
-      $httpBackend.expectPOST('/createUser', user).respond(201, user);
-      var controller = createController();
-      $scope.signup(user);
-      $httpBackend.flush();
-      console.log($scope.user)
-      expect(2).toEqual(2);
-    });
+      it('$scope.fetchPost should be a function', function() {
+        $httpBackend.expectGET('/postList').respond(200);
+        var controller = createController();
+        $httpBackend.flush();
+        expect($scope.fetchPost).toEqual(jasmine.any(Function));
+      });
+      it('$scope.viewPost should be a function', function() {
+        $httpBackend.expectGET('/postList').respond(200);
+        var controller = createController();
+        $httpBackend.flush();
+        expect($scope.viewPost).toEqual(jasmine.any(Function));
+      });
 
+      it('should set fetchPostError to true if an error is caught', function() {
+        $httpBackend.expectGET('/postList').respond(200);
+        var controller = createController()
+        $httpBackend.flush();
 
+        expect($scope.fetchPostError).toEqual(true);
+      });
 
+      it('should attach response data to scope.user', function() {
 
+        $httpBackend.expectGET('/postList').respond(200);
+        var controller = createController();
+        $httpBackend.flush();
+        expect(2).toEqual(2);
+      });
   });
 });
