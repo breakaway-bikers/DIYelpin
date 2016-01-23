@@ -5,6 +5,7 @@
 
 // Load plugins
 var gulp = require('gulp'),
+    serve = require('gulp-serve');
     karma = require('gulp-karma'),
     sass = require('gulp-ruby-sass'),
     autoprefixer = require('gulp-autoprefixer'),
@@ -38,8 +39,13 @@ gulp.task('test', function() {
     });
 });
 
+gulp.task('serve', serve({
+  root: 'localhost',
+  port: 3000,
+}));
+
 gulp.task('autotest', function() {
-  return gulp.watch(['client/js/**/*.js', 'client/spec/*.js'], ['test']);
+  return gulp.watch(['client/**/*.js'], ['test']);
 });
 
 // Styles
@@ -56,8 +62,8 @@ gulp.task('styles', function() {
 // Scripts
 gulp.task('scripts', function() {
   return gulp.src('client/**/*.js')
-    .pipe(jshint('.jshintrc'))
-    .pipe(jshint.reporter('default'))
+    // .pipe(jshint('.jshintrc'))
+    // .pipe(jshint.reporter('default'))
     .pipe(concat('main.js'))
     .pipe(gulp.dest('dist/scripts'))
     .pipe(rename({ suffix: '.min' }))
@@ -92,14 +98,5 @@ gulp.task('watch', function() {
 
   // Watch .js files
   gulp.watch('client/**/*.js', ['scripts']);
-
-  // Watch image files
-  // gulp.watch('client/**/*', ['images']);
-
-  // Create LiveReload server
-  livereload.listen();
-
-  // Watch any files in dist/, reload on change
-  gulp.watch(['dist/**']).on('change', livereload.changed);
 
 });

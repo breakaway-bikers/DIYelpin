@@ -32,14 +32,14 @@ describe('YELPIN', function() {
       expect($scope.signin).toEqual(jasmine.any(Function));
     });
 
-    it('should post the argument to /authenticate', function() {
+    xit('should post the argument to /authenticate', function() {
       $httpBackend.expectPOST('/authenticate', user).respond(200, user);
       var controller = createController();
       $scope.signin(user);
       $httpBackend.flush();
     });
 
-    it('should catch errors', function() {
+    xit('should catch errors', function() {
       $httpBackend.expectPOST('/authenticate', user).respond(401, user);
       var controller = createController();
       $scope.signin(user);
@@ -47,7 +47,7 @@ describe('YELPIN', function() {
       expect($scope.signinError).toEqual(true);
     });
 
-    it('should attach response data to scope.user', function() {
+    xit('should attach response data to scope.user', function() {
       $httpBackend.expectPOST('/authenticate', user).respond(201, user);
       var controller = createController();
       $scope.signin(user);
@@ -57,7 +57,7 @@ describe('YELPIN', function() {
   });
 
   // SIGNUP CONTROLLER
-  describe('signupController', function() {
+  xdescribe('signupController', function() {
     var createController = function() {
       return $controller('signupController', { $scope: $scope });
     };
@@ -98,7 +98,7 @@ describe('YELPIN', function() {
   });
 
   // POSTLIST CONTROLLER
-  describe('postListController', function() {
+  xdescribe('postListController', function() {
     var createController = function() {
          return $controller('postListController', { $scope: $scope });
        };
@@ -118,7 +118,7 @@ describe('YELPIN', function() {
     });
 
     // TODO make this work.
-    xit('should set fetchPostError to true if an error is caught', function() {
+    it('should set fetchPostError to true if an error is caught', function() {
       $httpBackend.expectGET('/postList').respond(401);
       var controller = createController();
       $httpBackend.flush();
@@ -134,7 +134,7 @@ describe('YELPIN', function() {
   });
 
   // CREATE POST CONTROLLER
-  describe('createPostController', function() {
+  xdescribe('createPostController', function() {
     var createController = function() {
        return $controller('createPostController', { $scope: $scope });
      };
@@ -159,7 +159,7 @@ describe('YELPIN', function() {
        });
 
        // TODO make this test pass.
-       xit('postToPage should call setPost', function() {
+       it('postToPage should call setPost', function() {
          spyOn(factory, 'setPost');
          $httpBackend.expectPOST('/createPost').respond(200, {});
          var controller = createController();

@@ -5,8 +5,7 @@
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
-    "test": "node_modules/jasmine-node/bin/jasmine-node client/spec",
-    "test2": "karma start sample.conf.js"
+    "test": "node_modules/jasmine-node/bin/jasmine-node client/spec/serverSpec.js"
   },
   "dependencies": {
     "angular": "^1.4.8",
@@ -27,6 +26,7 @@
     "gulp-cache": "^0.4.1",
     "gulp-concat": "^2.6.0",
     "gulp-cssnano": "^2.1.0",
+    "gulp-git": "^1.6.1",
     "gulp-imagemin": "^2.4.0",
     "gulp-jshint": "^2.0.0",
     "gulp-karma": "0.0.5",
@@ -35,6 +35,7 @@
     "gulp-notify": "^2.2.0",
     "gulp-rename": "^1.2.2",
     "gulp-ruby-sass": "^2.0.6",
+    "gulp-serve": "^1.2.0",
     "gulp-uglify": "^1.5.1",
     "jasmine": "^2.4.1",
     "jasmine-node": "^1.14.5",
@@ -44,8 +45,8 @@
     "karma-coverage": "^0.5.3",
     "karma-jasmine": "^0.3.6",
     "karma-junit-reporter": "^0.3.8",
-    "karma-nyan-reporter": "^0.2.3",
     "karma-phantomjs-launcher": "^0.2.3",
+    "karma-spec-reporter": "0.0.23",
     "karma-unicorn-reporter": "^0.1.4",
     "milligram": "^1.0.3",
     "mongodb": "^2.1.4",
