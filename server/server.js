@@ -11,8 +11,6 @@ app.use(express.static(__dirname + './../client'));
 app.use(bodyparser.json());
 
 //
-//
-//
 db.createUser({ username: 'daniel', password: 'bacon' });
 db.createPost({ username: 'daniel', title: 'whaaaaaaaa?', message: 'I hate bacon', category: 'recipe' });
 
@@ -37,28 +35,43 @@ app.get('/postList', function(req, res, next) {
 app.post('/authenticate', function(req, res, next) {
   console.log('get users');
   console.log(req.data);
-  db.findUser(req.body).then(function(user, err) {
+  db.findUser(req.body).then(function(authenticated, err) {
+    console.log('authenticated ', authenticated);
+    console.log('error in authentication handler', err);
+    if (authenticated) {
+      console.log('sending 200');
+      res.status(200).send(authenticated);
+    } else {
+      console.log('sending 401');
+      res.status(401).send(authenticated);
+    }
+  });
+});
+
+app.post('/createUser', function(req, res, next) {
+  console.log(req.body)
+  db.createUser(req.body).then(function(user, err) {
+    console.log('data and error in createUser', user, '----', err);
     if (err) {
-      console.error('error in authentication', err);
-      res.status(401);
+      console.log('heres the error', err);
+      res.status(406).send(err);
     } else {
       res.status(200).send(user);
     }
   });
 });
 
-app.post('/createUser', function(req, res, next) {
-  db.createUser(req.body).then(function(user, err) {
+app.post('/createPost', function(req, res, next) {
+  console.log('request body', req.body);
+  db.createPost(req.body).then(function(post, err) {
     if (err) {
       console.log(err);
       res.status(406);
     } else {
-      res.status(200);
+      res.status(200).send(post);
     }
   });
 });
-
-//
 
 //Have not used  this handler either. I dont think we'll need it
 app.post('/viewPost', function(req, res, next) {
@@ -72,3 +85,4 @@ app.post('/viewPost', function(req, res, next) {
 //
 //
 app.listen(port);
+module.exports = app;

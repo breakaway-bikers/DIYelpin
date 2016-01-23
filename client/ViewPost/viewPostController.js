@@ -5,7 +5,7 @@ angular.module('yelpin.viewPost', [])
 
   $scope.fetchPost = function() {
     $scope.receivedData = ViewPost.get();
-    console.log($scope.receivedData)
+    console.log($scope.receivedData);
   };
 
   $scope.fetchPost();
