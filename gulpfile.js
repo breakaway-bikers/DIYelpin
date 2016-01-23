@@ -1,8 +1,3 @@
-/*!
- * gulp
- * $ npm install gulp-ruby-sass gulp-autoprefixer gulp-cssnano gulp-jshint gulp-concat gulp-uglify gulp-imagemin gulp-notify gulp-rename gulp-livereload gulp-cache del --save-dev
- */
-
 // Load plugins
 var gulp = require('gulp'),
     serve = require('gulp-serve');
@@ -20,17 +15,14 @@ var gulp = require('gulp'),
     livereload = require('gulp-livereload'),
     del = require('del');
 
-
 // tests
 gulp.task('test', function() {
   // Be sure to return the stream
-  // NOTE: Using the fake './foobar' so as to run the files
-  // listed in karma.conf.js INSTEAD of what was passed to
-  // gulp.src !
+  // NOTE: passing in a fake directory as a placeholder.  Gulp will run the files listed in karma conf file.
   return gulp.src('./foobar')
     .pipe(karma({
       configFile: 'karma.conf.js',
-      action: 'run'
+      action: 'run',
     }))
     .on('error', function(err) {
       // Make sure failed tests cause gulp to exit non-zero
@@ -39,6 +31,7 @@ gulp.task('test', function() {
     });
 });
 
+// DOES NOT WORK PROPERLY
 gulp.task('serve', serve({
   root: 'localhost',
   port: 3000,
@@ -62,6 +55,8 @@ gulp.task('styles', function() {
 // Scripts
 gulp.task('scripts', function() {
   return gulp.src('client/**/*.js')
+
+    // TODO: set up our linter rules, just commenting them out for now.
     // .pipe(jshint('.jshintrc'))
     // .pipe(jshint.reporter('default'))
     .pipe(concat('main.js'))
@@ -72,20 +67,14 @@ gulp.task('scripts', function() {
     .pipe(notify({ message: 'Scripts task complete' }));
 });
 
-// // Images
-// gulp.task('images', function() {
-//   return gulp.src('client/**/*')
-//     .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
-//     .pipe(gulp.dest('dist/images'))
-//     .pipe(notify({ message: 'Images task complete' }));
-// });
-
 // Clean
+// This removes files from our dist directory.
 gulp.task('clean', function() {
   return del(['dist/styles', 'dist/scripts', 'dist/images']);
 });
 
 // Default task
+// Cleans the dist dir. then runs the styles and script tasks
 gulp.task('default', ['clean'], function() {
   gulp.start('styles', 'scripts');
 });
