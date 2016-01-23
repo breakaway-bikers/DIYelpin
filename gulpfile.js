@@ -39,7 +39,7 @@ gulp.task('test', function() {
 });
 
 gulp.task('autotest', function() {
-  return gulp.watch(['www/js/**/*.js', 'test/spec/*.js'], ['test']);
+  return gulp.watch(['client/js/**/*.js', 'client/spec/*.js'], ['test']);
 });
 
 // Styles
