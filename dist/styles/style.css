@@ -1,0 +1,22 @@
+/*header {
+  border-bottom: 5px solid #f78536;
+}
+body {
+  background-color: #dfebed;
+}
+
+.title {
+  color: #497285;
+  font-size: 80px;
+}*/
+
+.mainInfo {
+	text-align: center;
+	width: 45%;
+	display: inline-block;
+}
+.subInfo {
+	text-align: center;
+	width: 45%;
+	display: inline-block;
+}

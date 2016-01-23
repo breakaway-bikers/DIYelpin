@@ -119,7 +119,7 @@ describe('YELPIN', function() {
 
     // TODO make this work.
     xit('should set fetchPostError to true if an error is caught', function() {
-      $httpBackend.expectGET('/postList').respond(200);
+      $httpBackend.expectGET('/postList').respond(401);
       var controller = createController();
       $httpBackend.flush();
       expect($scope.fetchPostError).toEqual(true);
