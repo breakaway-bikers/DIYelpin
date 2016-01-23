@@ -29,6 +29,7 @@
     "gulp-cssnano": "^2.1.0",
     "gulp-imagemin": "^2.4.0",
     "gulp-jshint": "^2.0.0",
+    "gulp-karma": "0.0.5",
     "gulp-livereload": "^3.8.1",
     "gulp-nodemon": "^2.0.6",
     "gulp-notify": "^2.2.0",
@@ -53,6 +54,7 @@
     "node": "0.0.0",
     "nodemon": "^1.8.1",
     "path": "^0.12.7",
+    "phantomjs": "^1.9.19",
     "q": "^1.4.1",
     "requirejs": "^2.1.22"
   },
