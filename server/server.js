@@ -36,8 +36,8 @@ app.post('/authenticate', function(req, res, next) {
   console.log('/authentication:POST:');
   console.log(req.body);
   db.findUser(req.body).then(function(authenticated, err) {
-    // console.log('authenticated ', authenticated);
-    // console.log('error in authentication handler', err);
+    console.log('authenticated ', authenticated);
+    console.log('error in authentication handler', err);
     if (authenticated) {
       console.log('sending 200');
       res.status(200).send(authenticated);

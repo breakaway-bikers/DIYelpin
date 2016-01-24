@@ -89,8 +89,10 @@ exports.findUser = function(obj) {
       console.log('user info in db', user);
       return Bcrypt.compare(obj.password, user[0].password, function(err, result) {
         if (err) {
+          console.log('BCrypt ERROR');
           defer.reject(err);
         } else {
+          console.log('BCrypt WIN');
           defer.resolve(result);
         }
       });
