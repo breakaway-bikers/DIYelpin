@@ -12,7 +12,7 @@ app.use(bodyparser.json());
 
 //
 // db.createUser({ username: 'daniel', password: 'bacon' });
-// db.createPost({ username: 'daniel', title: 'whaaaaaaaa?', message: 'I hate bacon', category: 'recipe' });
+db.createPost({ username: 'daniel', title: 'whaaaaaaaa?', message: 'I hate bacon', category: 'recipe' });
 //
 // db.createUser({ username: 'jon', password: 'elf' });
 // db.createPost({ username: 'jon', title: 'get to work!', message: 'working', category: 'work' });
@@ -66,7 +66,7 @@ app.post('/createPost', function(req, res, next) {
   console.log('request body', req.body);
   db.createPost(req.body).then(function(post, err) {
     if (err) {
-      console.error('create post err:', err);
+      console.log('create post err:', err);
       res.status(406);
     } else {
       console.log('createPost 200 ok:')
@@ -83,8 +83,6 @@ app.post('/viewPost', function(req, res, next) {
   });
 });
 
-//
-//
 //
 app.listen(port);
 module.exports = app;
