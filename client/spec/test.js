@@ -118,7 +118,7 @@ describe('YELPIN', function() {
     });
 
     // TODO make this work.
-    xit('should set fetchPostError to true if an error is caught', function() {
+    it('should set fetchPostError to true if an error is caught', function() {
       $httpBackend.expectGET('/postList').respond(401);
       var controller = createController();
       $httpBackend.flush();
@@ -159,7 +159,7 @@ describe('YELPIN', function() {
        });
 
        // TODO make this test pass.
-       xit('postToPage should call setPost', function() {
+       it('postToPage should call setPost', function() {
          spyOn(factory, 'setPost');
          $httpBackend.expectPOST('/createPost').respond(200, {});
          var controller = createController();

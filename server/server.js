@@ -33,8 +33,8 @@ app.get('/postList', function(req, res, next) {
 });
 
 app.post('/authenticate', function(req, res, next) {
-  console.log('get users');
-  console.log(req.data);
+  console.log('/authentication:POST:');
+  console.log(req.body);
   db.findUser(req.body).then(function(authenticated, err) {
     console.log('authenticated ', authenticated);
     console.log('error in authentication handler', err);
@@ -53,7 +53,7 @@ app.post('/createUser', function(req, res, next) {
   db.createUser(req.body).then(function(user, err) {
     console.log('data and error in createUser', user, '----', err);
     if (err) {
-      console.log('heres the error', err);
+      console.error('heres the error', err);
       res.status(406).send(err);
     } else {
       res.status(200).send(user);
@@ -65,7 +65,7 @@ app.post('/createPost', function(req, res, next) {
   console.log('request body', req.body);
   db.createPost(req.body).then(function(post, err) {
     if (err) {
-      console.log(err);
+      console.error(err);
       res.status(406);
     } else {
       res.status(200).send(post);
