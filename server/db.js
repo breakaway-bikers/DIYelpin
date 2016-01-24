@@ -59,7 +59,8 @@ exports.createUser = function(obj) {
 
     return Bcrypt.hash(obj.password, salt, function(err, hash) {
       if (err) {
-        return console.err('error in genhash ', err);
+        defer.resolve(false);
+        return console.log('error in genhash ', err);
       }
 
       console.log('some hash here ', hash);
@@ -68,8 +69,10 @@ exports.createUser = function(obj) {
       var user = new User(obj);
       user.save(function(err, user) {
         if (err) {
-          defer.reject(err);
+          console.log('DB CREATEUSER ERROR', err)
+          defer.resolve(false);
         } else {
+          console.log('DB CREATE USER SUCCESS')
           defer.resolve(user);
         }
       });
@@ -80,19 +83,17 @@ exports.createUser = function(obj) {
 };
 
 exports.findUser = function(obj) {
-  console.log('user info input', obj);
   var defer = Q.defer();
   User.find({ username: obj.username }).then(function(user, err) {
     if (err) {
-      console.log('unable to find user!!', err);
     } else {
-      console.log('user info in db', user);
       return Bcrypt.compare(obj.password, user[0].password, function(err, result) {
-        if (result === 2) {
-          console.log('BCrypt ERROR');
+        if (err) {
+          defer.reject(err);
+        }
+        if (result === false) {
           defer.resolve(result);
         } else {
-          console.log('BCrypt WIN', result);
           defer.resolve(user);
         }
       });
