@@ -88,12 +88,12 @@ exports.findUser = function(obj) {
     } else {
       console.log('user info in db', user);
       return Bcrypt.compare(obj.password, user[0].password, function(err, result) {
-        if (err) {
+        if (result === 2) {
           console.log('BCrypt ERROR');
-          defer.reject(err);
-        } else {
-          console.log('BCrypt WIN');
           defer.resolve(result);
+        } else {
+          console.log('BCrypt WIN', result);
+          defer.resolve(user);
         }
       });
     }
