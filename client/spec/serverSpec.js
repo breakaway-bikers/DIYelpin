@@ -1,24 +1,24 @@
-var request = require("request");
+var request = require('request');
 
-var base_url = "http://localhost:3000/"
+var baseUrl = 'http://localhost:3000/';
 
-describe("server.js", function() {
+describe('server.js', function() {
 
-  describe("GET /", function() {
-    it("returns status code 200", function(done) {
-      request.get(base_url).on('response', function(response) {
-        console.log("test1", response.statusCode);
+  describe('GET /', function() {
+    it('returns status code 200', function(done) {
+      request.get(baseUrl).on('response', function(response) {
+        console.log('test1', response.statusCode);
         expect(response.statusCode).toBe(200);
         done();
       });
     });
   });
 
-  describe("GET /postList", function() {
-    it("returns status code 200", function(done) {
-      request.get(base_url + "postList")
+  describe('GET /postList', function() {
+    it('returns status code 200', function(done) {
+      request.get(baseUrl + 'postList')
       .on('response', function(response) {
-        console.log("test2", response.statusCode);
+        console.log('test2', response.statusCode);
         expect(response.statusCode).toBe(200);
         done();
       });
@@ -29,15 +29,14 @@ describe("server.js", function() {
 
     it('returns status code 200 if user and password match', function(done) {
       request({
-        url: base_url + 'authenticate',
-        qs: {username: 'raphael', password: 'shoes'}, //Query string data
+        url: baseUrl + 'authenticate',
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        json: {username: 'raphael', password: 'shoes'}
+        json: { username: 'raphael', password: 'shoes' },
       }, function(error, response, body) {
-        if(error) {
+        if (error) {
           console.log(error);
         } else {
           console.log(response.statusCode, body);

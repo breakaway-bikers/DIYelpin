@@ -32,14 +32,14 @@ describe('YELPIN', function() {
       expect($scope.signin).toEqual(jasmine.any(Function));
     });
 
-    xit('should post the argument to /authenticate', function() {
+    it('should post the argument to /authenticate', function() {
       $httpBackend.expectPOST('/authenticate', user).respond(200, user);
       var controller = createController();
       $scope.signin(user);
       $httpBackend.flush();
     });
 
-    xit('should catch errors', function() {
+    it('should catch errors', function() {
       $httpBackend.expectPOST('/authenticate', user).respond(401, user);
       var controller = createController();
       $scope.signin(user);
@@ -47,7 +47,7 @@ describe('YELPIN', function() {
       expect($scope.signinError).toEqual(true);
     });
 
-    xit('should attach response data to scope.user', function() {
+    it('should attach response data to scope.user', function() {
       $httpBackend.expectPOST('/authenticate', user).respond(201, user);
       var controller = createController();
       $scope.signin(user);
@@ -57,7 +57,7 @@ describe('YELPIN', function() {
   });
 
   // SIGNUP CONTROLLER
-  xdescribe('signupController', function() {
+  describe('signupController', function() {
     var createController = function() {
       return $controller('signupController', { $scope: $scope });
     };
@@ -98,7 +98,7 @@ describe('YELPIN', function() {
   });
 
   // POSTLIST CONTROLLER
-  xdescribe('postListController', function() {
+  describe('postListController', function() {
     var createController = function() {
          return $controller('postListController', { $scope: $scope });
        };
@@ -134,7 +134,7 @@ describe('YELPIN', function() {
   });
 
   // CREATE POST CONTROLLER
-  xdescribe('createPostController', function() {
+  describe('createPostController', function() {
     var createController = function() {
        return $controller('createPostController', { $scope: $scope });
      };

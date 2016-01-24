@@ -1,6 +1,6 @@
 // Load plugins
 var gulp = require('gulp'),
-    serve = require('gulp-serve');
+    serve = require('gulp-serve'),
     karma = require('gulp-karma'),
     sass = require('gulp-ruby-sass'),
     autoprefixer = require('gulp-autoprefixer'),
@@ -12,7 +12,6 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     notify = require('gulp-notify'),
     cache = require('gulp-cache'),
-    livereload = require('gulp-livereload'),
     del = require('del');
 
 // tests
