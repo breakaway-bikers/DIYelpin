@@ -1,27 +1,31 @@
-<h1>POST PAGE</h1>
-<form id="filterbox" class="inputBox">
-		<input class="filterbox" type='text' ng-model="searchString" placeholder="What are you looking to make?"/>
-</form>
-<h7>Search by Category</h7>
-<select ng-model="categories" class="dropdown" ng-options="item.category for item in fetchedPosts"></select>
-<button ui-sref="createPost">Create Post</button>
-<div class="container">
-<div ng-repeat='item in fetchedPosts | filter: searchString | filter: categories'>
-	<div class="row">
-  <div class="mainInfo">
-		<div class="column column-50 column-offset-25">
-    <div class="username">{{ item.username }}</div>
-    <a ui-sref="viewPost" ng-click="viewPost(item)" ng-model="item">{{ item.title }}</a>
-  	</div>
+<div class="postList">
+	<div class="postListHead">
+		<h1>DIY Recipes</h1>
 	</div>
-  <div class="subInfo">
-		<div class="column column-50 column-offset-25">
-    <div>{{ item.category }}</div>
-    <div>{{ item.votes }}</div>
+	<form id="filterbox" class="inputBox">
+			<input class="filterbox" type='text' ng-model="searchString" placeholder="What are you looking to make?"/>
+	</form>
+	<h7>Search by Category</h7>
+	<select ng-model="categories" class="dropdown" ng-options="item.category for item in fetchedPosts"></select>
+	<button ui-sref="createPost">Create Post</button>
+	<div class="container">
+	<div ng-repeat='item in fetchedPosts | filter: searchString | filter: categories'>
+		<div class="row">
+	  <div class="mainInfo">
+			<div class="column column-50 column-offset-25">
+	    <div class="username">{{ item.username }}</div>
+	    <a ui-sref="viewPost" ng-click="viewPost(item)" ng-model="item">{{ item.title }}</a>
+	  	</div>
 		</div>
-  </div>
-</div>
+	  <div class="subInfo">
+			<div class="column column-50 column-offset-25">
+	    <div>{{ item.category }}</div>
+	    <div>{{ item.votes }}</div>
+			</div>
+	  </div>
+	</div>
 
-  <!-- <div>{{ item.message }}</div> //This should be displayed in a seperate view for the actual post -->
-</div>
+	  <!-- <div>{{ item.message }}</div> //This should be displayed in a seperate view for the actual post -->
+	</div>
+	</div>
 </div>
