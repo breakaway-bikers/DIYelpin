@@ -14,6 +14,7 @@ html {
 
 body {
   color: #2B4450;
+  background-color: #DFEBED;
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 1.6em;
   font-weight: 300;
@@ -42,8 +43,8 @@ button,
 input[type='button'],
 input[type='reset'],
 input[type='submit'] {
-  background-color: #F78536;
-  border: 0.1rem solid #497285;
+  background-color: #FFBC63;
+  border: 1.5px solid black;
   border-radius: 0.4rem;
   box-sizing: border-box;
   color: #ffffff;
@@ -80,7 +81,8 @@ input[type='button'].button-outline,
 input[type='reset'].button-outline,
 input[type='submit'].button-outline {
   color: #9b4dca;
-  background-color: transparent;
+  background-color: #FFBC63;
+  border: 1.5px solid black;
 }
 .button.button-outline:hover, .button.button-outline:focus,
 button.button-outline:hover,
@@ -153,14 +155,14 @@ select {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  background-color: transparent;
-  border: 0.1rem solid #d1d1d1;
+  background-color: #FFBC63;
+  border: 1.5px solid black;
   border-radius: 0.4rem;
   box-shadow: none;
   box-sizing: border-box;
   height: 3.8rem;
   padding: 0.6rem 1rem;
-  width: 100%;
+  width: 55%;
 }
 input[type='email']:focus,
 input[type='number']:focus,
@@ -219,8 +221,8 @@ input[type='radio'] {
   flex-direction: column;
   padding: 1px 10px 1px 30px;
 	border-radius: 10px;
-	background-color: orange;
-  border-color: black;
+	background-color: #FFBC63;
+  border: 1.5px solid black;
 	opacity: 0.6;
   filter: alpha(opacity=60);
   width: 100%;
@@ -540,5 +542,25 @@ h6 {
   color: black;
 }
 .dropdown {
+  background-color: #FFBC63;
+  border: 1.5px solid black;
   width: 12%;
+  display: inline;
+}
+.postListHead {
+  margin-left: 40%;
+}
+.inputbox {
+  margin-left: 23%;
+  width: 23%;
+  background-color: #FFBC63;
+  border: 1.5px solid black;
+}
+.createPost {
+  margin-left:30%;
+}
+#commentField {
+  color: black;
+  background-color: #FFBC63;
+  border: 1.5px solid black;
 }

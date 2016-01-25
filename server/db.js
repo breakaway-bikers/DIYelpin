@@ -4,9 +4,9 @@ var Salt_Factor = 10;
 var Q = require('q');
 var mongoURI = 'mongodb://diyelpin:Beansandburrito1600@ds047335.mongolab.com:47335/heroku_ws06b5hx';
 
-mongoose.connect(process.env.MONGOLAB_URI || mongoURI);
+// mongoose.connect(process.env.MONGOLAB_URI || mongoURI);
 
-// mongoose.connect('mongodb://localhost/yelpin');
+mongoose.connect('mongodb://localhost/yelpin');
 
 var db = mongoose.connection;
 
@@ -31,7 +31,6 @@ var PostSchema = mongoose.Schema({
   username: String,
   category: {
     type: String,
-    index: { unique: true },
     required: true,
   },
   title: {
@@ -59,7 +58,8 @@ exports.createUser = function(obj) {
 
     return Bcrypt.hash(obj.password, salt, function(err, hash) {
       if (err) {
-        return console.err('error in genhash ', err);
+        defer.resolve(false);
+        return console.log('error in genhash ', err);
       }
 
       console.log('some hash here ', hash);
@@ -68,8 +68,10 @@ exports.createUser = function(obj) {
       var user = new User(obj);
       user.save(function(err, user) {
         if (err) {
-          defer.reject(err);
+          console.log('DB CREATEUSER ERROR', err)
+          defer.resolve(false);
         } else {
+          console.log('DB CREATE USER SUCCESS')
           defer.resolve(user);
         }
       });
@@ -80,18 +82,18 @@ exports.createUser = function(obj) {
 };
 
 exports.findUser = function(obj) {
-  console.log('user info input', obj);
   var defer = Q.defer();
   User.find({ username: obj.username }).then(function(user, err) {
     if (err) {
-      console.log('unable to find user!!', err);
     } else {
-      console.log('user info in db', user);
       return Bcrypt.compare(obj.password, user[0].password, function(err, result) {
         if (err) {
           defer.reject(err);
-        } else {
+        }
+        if (result === false) {
           defer.resolve(result);
+        } else {
+          defer.resolve(user);
         }
       });
     }
