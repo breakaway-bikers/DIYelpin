@@ -12,7 +12,6 @@ angular.module('yelpin.factory', [])
   };
 
   var signOut = function() {
-    $scope.username = null;
     return $http.get('/signin').then(function(response) {
       return response.data;
     });
