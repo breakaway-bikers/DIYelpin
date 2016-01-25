@@ -3,7 +3,6 @@ angular.module('yelpin.factory', [])
 .factory('appFactory', ['$http', function($http) {
 
   var setPost = function(message) {
-    console.log('SETPOST SETPOST')
     //I've got to fix this pathway
     return $http.post('/createPost', message).then(function(response) {
       return response.data;
