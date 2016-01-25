@@ -9,11 +9,28 @@ body {
   color: #497285;
   font-size: 80px;
 }*/
-
+body {
+	font-family: Consolas, monaco, monospace;
+}
+.row {
+	font-size: 3rem;
+	border: 5px 5px;
+	border-radius: 5px;
+	color: black;
+	background-color: #2776F5;
+	opacity: 0.6;
+	filter: alpha(opacity=60);
+	margin-top: 13px;
+}
+a {
+	color: #EDAF28;
+	text-decoration: underline;
+}
 .mainInfo {
 	text-align: center;
 	width: 45%;
 	display: inline-block;
+	font-weight: bold;
 }
 .subInfo {
 	text-align: center;
