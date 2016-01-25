@@ -2,6 +2,9 @@
   "name": "yelpin",
   "version": "0.0.1",
   "description": "Yelp for DIY",
+  "engines": {
+    "node": "^5.4.1"
+  },
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js",
