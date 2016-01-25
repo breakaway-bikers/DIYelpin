@@ -1,56 +1,29 @@
-<div class="dashboard-page">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-3 col-md-2 sidebar">
-
-       <div class="text-center">
-        <h2 class="brand">Ani Theme <small>Free Edition</small></h2>
-        <img src="../DIY.png" class="user-avatar" /><br />
-        <a ui-sref="login" class="btn btn-white btn-outline btn-rounded btn-sm">Logout</a>
-      </div>
-
-      <ul class="nav nav-sidebar">
-        <li ng-class="{active: $state.includes('overview')}"><a ui-sref="overview">Overview <span class="sr-only">(current)</span></a></li>
-        <li ng-class="{active: $state.includes('reports')}"><a ui-sref="reports">Reports</a></li>
-        <li><a href="http://startreact.com/product/ani-theme/">Free React version</a></li>
-        <li><a href="http://www.strapui.com/ani-angularjs-theme">Angular Premium Edition</a></li>
-      </ul>
-
-    </div>
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ui-view>
-    </div>
-  </div>
-	<div class="pull-right btn btn-primary btn-outline btn-rounded">
-	<h1>POST PAGE</h1>
-	<a ui-sref='createPost'>Create Post</a>
-	<a ui-sref='postList'>Post List</a>
-	<form id="filterbox" class="inputBox">
+<h1>POST PAGE</h1>
+<a ui-sref='createPost'>Create Post</a>
+<a ui-sref='postList'>Post List</a>
+<form id="filterbox" class="inputBox">
 		<input class="filterbox" type='text' ng-model="searchString" placeholder="What are you looking to make?"/>
-	</form>
+</form>
 	<h7>Search by Category</h7>
-				<select ng-model="categories" class="dropdown" ng-options="item.category for item in fetchedPosts"></select>
-				<button ui-sref="createPost">Create Post</button>
-				<div class="jumbotron">
-				<div class="container">
-					<div ng-repeat='item in fetchedPosts | filter: searchString | filter: categories'>
-						<div class="row">
-							<div class="mainInfo">
-								<div class="column column-50 column-offset-25">
-									<div class="username">{{ item.username }}</div>
-									<a ui-sref="viewPost" ng-click="viewPost(item)" ng-model="item">{{ item.title }}</a>
-								</div>
-							</div>
-							<div class="subInfo">
-								<div class="column column-50 column-offset-25">
-									<div>{{ item.category }}</div>
-									<div>{{ item.votes }}</div>
-								</div>
-							</div>
-						</div>
-					</div>
-						<!-- <div>{{ item.message }}</div> //This should be displayed in a seperate view for the actual post -->
-					</div>
-				</div>
-			</div>
+	<select ng-model="categories" class="dropdown" ng-options="item.category for item in fetchedPosts"></select>
+	<button ui-sref="createPost">Create Post</button>
+	<div class="container">
+	<div ng-repeat='item in fetchedPosts | filter: searchString | filter: categories'>
+		<div class="row">
+	  <div class="mainInfo">
+			<div class="column column-50 column-offset-25">
+	    <div class="username">{{ item.username }}</div>
+	    <a ui-sref="viewPost" ng-click="viewPost(item)" ng-model="item">{{ item.title }}</a>
+	  	</div>
 		</div>
+	  <div class="subInfo">
+			<div class="column column-50 column-offset-25">
+	    <div>{{ item.category }}</div>
+	    <div>{{ item.votes }}</div>
+			</div>
+	  </div>
+	</div>
+
+	  <!-- <div>{{ item.message }}</div> //This should be displayed in a seperate view for the actual post -->
+	</div>
 	</div>
