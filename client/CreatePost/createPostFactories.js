@@ -10,4 +10,23 @@ angular.module('yelpin.factory', [])
   return {
     setPost: setPost,
   };
+}])
+
+.service('sharedPropertyService', [function(value) {
+  console.log('going into service');
+  var property = 'name';
+  console.log('this is the property', property);
+
+  var getProperty = function() {
+    return property;
+  };
+
+  var setProperty = function(value) {
+    property = value;
+  };
+
+  return {
+    getProperty: getProperty,
+    setProperty: setProperty,
+  };
 }]);
