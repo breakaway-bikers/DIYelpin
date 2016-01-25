@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html class="everything">
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="milligram.css">
     <title></title>
   </head>
   <body ng-app='yelpin'>
-    <h1>DIYelpin:<h1>
+    <center><object type="image/svg+xml" data="diy.svg"></object></center>
     <div ui-view>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
@@ -18,6 +19,9 @@
     <script src="./PostList/postListController.js"></script>
     <script src="./ViewPost/viewPostController.js"></script>
     <script src="./ViewPost/viewPostFactory.js"></script>
+    <script src="./CreatePost/createPostController.js"></script>
+    <script src="./CreatePost/createPostFactories.js"></script>
+    <script src="./Contest/contestControllers/contestController.js"></script>
     <!-- <script src="./Authentication/signinController.js"></script> -->
   </body>
 </html>

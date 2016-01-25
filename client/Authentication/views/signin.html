@@ -1,9 +1,64 @@
+<style>
+	input {
+	  width: 350px;
+	  height: 30px;
+	  border-radius: 7px;
+		/*background: rgba(255, 255, 255);*/
+	}
+
+	.row {
+		opacity: 1;
+		background-color: transparent;
+		border: none;
+
+	}
+
+
+</style>
+
+
 <div ng-controller='signinController'>
-	<div class='signin'>
-		<H3>sign in</H3>
-		<input placeholder='username' ng-model='user.username'>
-		<input placeholder='password'ng-model='user.password'>
-		<button ng-click='signin(user)' ng-model='user'>Sign In</button>
-    <p>Dont have an account? <a ng-href="/#/signup">SIGNUP</a></p>
+
+	<div class="container">
+		<div class='signin'>
+			<div class="row">
+	    <div class="column"></div>
+	    <div class="column"><center><H3>Sign-In</H3></center></div>
+	    <div class="column"></div>
+	  </div>
+
+		<div class="row">
+			<div class="column"></div>
+			<div class="column"><center><input placeholder='username' ng-model='user.username'></center></div>
+			<div class="column"></div>
+		</div>
+
+		<div class="row">
+			<div class="column"></div>
+			<div class="column"><center><input placeholder='password'ng-model='user.password'></center></div>
+			<div class="column"></div>
+		</div>
+
+		<div class="row">
+			<div class="column"></div>
+			<div class="column"><center><button ng-click='signin(user)' ng-model='user'>Sign In</button></center></div>
+			<div class="column"></div>
+		</div>
+
+		<div class="row">
+			<div class="column"></div>
+			<div class="column"><h4 style="padding: 25px"><center>Dont have an account?<a ng-href="/#/signup"><div><button>SIGNUP</button></div></center></a></h4></div>
+			<div class="column"></div>
+		</div>
+	</div>
+
+
+
+
+
+
+		<center><p ng-show="signinError">Invalid Credentials</p></center>
+
+
 	</div>
 </div>

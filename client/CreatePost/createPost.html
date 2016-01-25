@@ -1,0 +1,33 @@
+<div>
+  <a ui-sref='createPost'>Create Post</a>
+  <a ui-sref='postList'>Post List</a>
+  <form>
+      <label>Title</label>
+      <input id="commentField" type='text' placeholder="your description" style="width: 500px;" ng-model='descript'>
+      <label>Add the Instructions Here</label>
+      <textarea id="commentField" ng-model="txtcomment" placeholder="Your Project" style='width: 556px; margin: 0px; height: 204px;'></textarea>
+      <label>Category</label>
+      <select name="categories" class="dropdown" ng-model="category">
+        <option value="Outdoors">Outdoors</option>
+        <option value="Home Improvement">Home Imporvement</option>
+        <option value="Kitchen">Kitchen</option>
+        <option value="Automotive">Automotive</option>
+        <option value="Arts And Craft">Art and Craft</option>
+        <option value="other">Other</option>
+
+      </select></br>
+      <button ui-sref="postList" ng-click='postToPage();' style='margin-top:10px;'>Post Project</button>
+  </form>
+
+  <h6>Upload Photo</h6>
+    <input type ="file" nv-file-select uploader="uploader">
+      <li ng-repeat="item in uploader.queue">
+        Name: <span ng bind="item.file.name"></span>
+        <button ng-click="item.upload()">upload me</button>
+      </li>
+
+
+  <!-- Using angular-file-upload  -->
+  <!-- dont think this is doing anything -->
+  <!-- <element nv-file-drop uploader="{FileUploader}"></element> -->
+</div>
