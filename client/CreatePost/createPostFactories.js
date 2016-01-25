@@ -7,12 +7,20 @@ angular.module('yelpin.factory', [])
     return $http.post('/createPost', message).then(function(response) {
       return response.data;
       console.log(response.data);
-  });
+    });
+
+  };
+
+  var signOut = function() {
+    return $http.get('/signin').then(function(response) {
+      return response.data;
+    });
 
   };
 
   return {
     setPost: setPost,
+    signOut: signOut,
   };
 }])
 

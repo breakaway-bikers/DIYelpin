@@ -1,6 +1,6 @@
 angular.module('yelpin.postList', [])
 
-.controller('postListController', ['$scope', '$http', 'ViewPost', function($scope, $http, ViewPost) {
+.controller('postListController', ['$scope', '$http', 'ViewPost', 'appFactory', function($scope, $http, ViewPost, appFactory) {
   $scope.fetchedPosts = 'Currently fetching posts';
 
   $scope.fetchPost = function() {
@@ -13,6 +13,11 @@ angular.module('yelpin.postList', [])
   //Made this function for future use
   $scope.viewPost = function(postData) {
     ViewPost.set(postData);
+  };
+
+  $scope.signOut = function() {
+    $scope.username = null;
+    appFactory.signOut();
   };
 
   $scope.fetchPost();
