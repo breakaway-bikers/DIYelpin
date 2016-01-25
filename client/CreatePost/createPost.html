@@ -1,11 +1,11 @@
 <div class='login-page'>
     <!-- <a ui-sref='createPost' style="color: orange; font-size: 19px">CREATE POST</a> || -->
-    
+
 
     <h4>Upload on file select</h4>
     <div>
       <button type="file" ngf-select="uploadFiles($file, $invalidFiles)"
-              accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+              accept="image/*" style="color:black;" ngf-max-height="1000" ngf-max-size="1MB">
           Select File</button>
     </div>
     File:
@@ -18,11 +18,11 @@
     {{errorMsg}}
 
 
-    <form>
+    <form class="inputbox">
         <label>Title</label>
-        <input id="commentField" type='text' placeholder="your description" style="width: 500px;" ng-model='descript'>
+        <input id="commentField" type='text' placeholder="your description" style="width: 500px; color: black;" ng-model='descript'>
         <div><label>Add the Instructions Here</label></div>
-        <textarea id="commentField" ng-model="txtcomment" placeholder="Your Project" style='width: 556px; margin: 0px; height: 204px;'></textarea>
+        <textarea id="commentField" ng-model="txtcomment" placeholder="Your Project" style='width: 556px; margin: 0px; height: 204px; color:black;'></textarea>
         <div><label>Category</label>
         <select name="categories" class="dropdown" ng-model="category">
           <option value="Outdoors">Outdoors</option>
@@ -32,7 +32,7 @@
           <option value="Arts And Craft">Art and Craft</option>
           <option value="other">Other</option>
         </select></div>
-        <button ui-sref="postList" ng-click='postToPage();' style='margin-top:10px;'>Post Project</button>
+        <button ui-sref="postList" ng-click='postToPage();' style='margin-top:10px;color:black;'>Post Project</button>
     </form><br>
     <div><a ui-sref='postList' style="color: orange; font-size: 19px">BACK TO POST LIST</a></div>
 </div>
