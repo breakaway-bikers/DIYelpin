@@ -68,10 +68,10 @@ exports.createUser = function(obj) {
       var user = new User(obj);
       user.save(function(err, user) {
         if (err) {
-          console.log('DB CREATEUSER ERROR', err)
+          console.log('DB CREATEUSER ERROR', err);
           defer.resolve(false);
         } else {
-          console.log('DB CREATE USER SUCCESS')
+          console.log('DB CREATE USER SUCCESS');
           defer.resolve(user);
         }
       });

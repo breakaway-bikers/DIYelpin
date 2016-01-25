@@ -12,7 +12,7 @@ app.use(bodyparser.json());
 
 //
 // db.createUser({ username: 'daniel', password: 'bacon' });
-db.createPost({ username: 'daniel', title: 'whaaaaaaaa?', message: 'I hate bacon', category: 'recipe' });
+// db.createPost({ username: 'daniel', title: 'whaaaaaaaa?', message: 'I hate bacon', category: 'recipe' });
 //
 // db.createUser({ username: 'jon', password: 'elf' });
 // db.createPost({ username: 'jon', title: 'get to work!', message: 'working', category: 'work' });
