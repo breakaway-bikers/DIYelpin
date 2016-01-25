@@ -1,6 +1,6 @@
 angular.module('yelpin.createPost', ['ngFileUpload'])
 
-.controller('createPostController', ['$scope', 'appFactory', 'sharedPropertyService', 'Upload', '$timeout', function($scope, appFactory, sharedPropertyService, Upload, $timeout) {
+.controller('createPostController', ['$scope', 'appFactory', 'sharedPropertyService', 'Upload', '$timeout', '$state', function($scope, appFactory, sharedPropertyService, Upload, $timeout, $state) {
   $scope.descript = '';
   $scope.txtcomment = '';
   $scope.category = '';
@@ -9,7 +9,13 @@ angular.module('yelpin.createPost', ['ngFileUpload'])
 
   $scope.username = temp;
   $scope.comment = [];
-
+  $scope.checkAuth = function() {
+    var check = sharedPropertyService.getProperty();
+    console.log('check auth', check);
+    if (check === 'name') {
+      $state.go('signin');
+    }
+  };
   $scope.postToPage = function() {
     console.log('this inside of post', $scope.username);
     if ($scope.txtcomment != '') {
@@ -53,5 +59,5 @@ angular.module('yelpin.createPost', ['ngFileUpload'])
       });
     }
   };
-
+  $scope.checkAuth();
 }]);
