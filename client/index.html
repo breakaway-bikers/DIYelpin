@@ -10,6 +10,22 @@
     <title>DIYelpin</title>
   </head>
   <body ng-app='yelpin'>
+
+    <div class="navbar-fixed-top">
+        <div ng-controller="signinController">
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                <center>
+                    <button class='btn  btn-outline btn-lg btn-rounded' ui-sref="postList">POST LIST</button>
+                    <button class='btn  btn-outline btn-lg btn-rounded' ui-sref="createPost">MAKE A POST</button>
+                    <button class='btn  btn-outline btn-lg btn-rounded' ui-sref="contest">CONTEST</button>
+                    <button class='btn  btn-outline btn-lg btn-rounded' ui-sref="signin">SIGN OUT</button>
+                </center>
+                </div>
+</nav>
+        </div>
+    </div>
+    
     <center><object type="image/svg+xml" data="diy.svg"></object></center>
     <div class="">
       <div ui-view></div>
