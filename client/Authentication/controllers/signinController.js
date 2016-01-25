@@ -1,10 +1,13 @@
 angular.module('yelpin.signin', [])
 
-.controller('signinController', ['$scope', '$http', '$location', function($scope, $http, $location) {
+.controller('signinController', ['$scope', '$http', '$location', 'sharedPropertyService', function($scope, $http, $location, sharedPropertyService) {
   $scope.signinError = false;
 
   $scope.signin = function(user) {
     console.log('POST TO /AUTHENTICATE: ', user);
+    console.log('setting property', user.username);
+    sharedPropertyService.setProperty(user.username);
+
     return $http.post('/authenticate', user)
       .then(function(data, status) {
         console.log('heres the data and status', data);

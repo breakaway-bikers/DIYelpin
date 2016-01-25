@@ -5,24 +5,33 @@ angular.module('yelpin.factory', [])
   var setPost = function(message) {
     console.log('SETPOST SETPOST')
     //I've got to fix this pathway
-    return $http.post('/createPost', message)
-    .then(function(data, status) {
-      console.log('heres the data and status: ', data, data.status);
-      
-      if (data.status === 200) {
-        console.log('post success');
-        return data;
-      } else {
-        //Sign in Error message not working
-      }
-    }).catch(function(err) {
-      console.log('post error', err);
-      return err;
-      // $scope.signinError = true;
-    });
+    return $http.post('/createPost', message).then(function(response) {
+      return response.data;
+      console.log(response.data);
+  });
+
   };
 
   return {
     setPost: setPost,
+  };
+}])
+
+.service('sharedPropertyService', [function(value) {
+  console.log('going into service');
+  var property = 'name';
+  console.log('this is the property', property);
+
+  var getProperty = function() {
+    return property;
+  };
+
+  var setProperty = function(value) {
+    property = value;
+  };
+
+  return {
+    getProperty: getProperty,
+    setProperty: setProperty,
   };
 }]);
