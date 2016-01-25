@@ -1,6 +1,6 @@
 angular.module('yelpin.factory', [])
 
-.factory('appFactory', ['$http', function($http) {
+.factory('appFactory', ['$http', 'sharedPropertyService', function($http, sharedPropertyService) {
 
   var setPost = function(message) {
     //I've got to fix this pathway
@@ -12,6 +12,7 @@ angular.module('yelpin.factory', [])
   };
 
   var signOut = function() {
+    sharedPropertyService.setProperty(null);
     return $http.get('/signin').then(function(response) {
       return response.data;
     });
