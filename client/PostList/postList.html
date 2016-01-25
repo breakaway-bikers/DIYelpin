@@ -1,12 +1,10 @@
 <div class='login-page'>
   <h1>POST PAGE</h1>
-  <a ui-sref='createPost'>Create Post</a>
-  <a ui-sref='postList'>Post List</a>
   <form id="filterbox" class="inputBox">
   		<input class="filterbox" type='text' ng-model="searchString" placeholder="What are you looking to make?" style="width:17%; height: 5%"/>
   </form>
   	<h7>Search by Category</h7>
-  	<select ng-model="categories" class="dropdown" ng-options="item.category for item in fetchedPosts"></select>
+  	<select ng-model="categories" class="dropdown" ng-options="item.category for item in fetchedPosts | unique: 'category'"></select>
   	<button ui-sref="createPost" class="btn btn-white btn-outline btn-lg btn-rounded">Create Post</button>
   	<div class="container">
   	<div ng-repeat='item in fetchedPosts | filter: searchString | filter: categories'>
