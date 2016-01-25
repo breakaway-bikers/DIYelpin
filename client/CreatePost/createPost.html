@@ -1,35 +1,38 @@
-<div>
-  <a ui-sref='createPost'>Create Post</a>
-  <a ui-sref='postList'>Post List</a>
-  <form>
-      <label>Title</label>
-      <input id="commentField" type='text' placeholder="your description" style="width: 500px;" ng-model='descript'>
-      <label>Add the Instructions Here</label>
-      <textarea id="commentField" ng-model="txtcomment" placeholder="Your Project" style='width: 556px; margin: 0px; height: 204px;'></textarea>
-      <label>Category</label>
-      <select name="categories" class="dropdown" ng-model="category">
-        <option value="Outdoors">Outdoors</option>
-        <option value="Home Improvement">Home Imporvement</option>
-        <option value="Kitchen">Kitchen</option>
-        <option value="Automotive">Automotive</option>
-        <option value="Arts And Craft">Art and Craft</option>
-        <option value="other">Other</option>
+<div class='login-page'>
+    <!-- <a ui-sref='createPost' style="color: orange; font-size: 19px">CREATE POST</a> || -->
+    
 
-      </select></br>
-      <button ui-sref="postList" ng-click='postToPage();' style='margin-top:10px;'>Post Project</button>
-  </form>
+    <h4>Upload on file select</h4>
+    <div>
+      <button type="file" ngf-select="uploadFiles($file, $invalidFiles)"
+              accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+          Select File</button>
+    </div>
+    File:
+    <div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+        <span class="progress" ng-show="f.progress >= 0">
+            <div style="width:{{f.progress}}%"
+                 ng-bind="f.progress + '%'"></div>
+        </span>
+    </div>
+    {{errorMsg}}
 
-  <h4>Upload on file select</h4>
-  <button type="file" ngf-select="uploadFiles($file, $invalidFiles)"
-          accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
-      Select File</button>
-  <br><br>
-  File:
-  <div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
-      <span class="progress" ng-show="f.progress >= 0">
-          <div style="width:{{f.progress}}%"
-               ng-bind="f.progress + '%'"></div>
-      </span>
-  </div>
-  {{errorMsg}}
+
+    <form>
+        <label>Title</label>
+        <input id="commentField" type='text' placeholder="your description" style="width: 500px;" ng-model='descript'>
+        <div><label>Add the Instructions Here</label></div>
+        <textarea id="commentField" ng-model="txtcomment" placeholder="Your Project" style='width: 556px; margin: 0px; height: 204px;'></textarea>
+        <div><label>Category</label>
+        <select name="categories" class="dropdown" ng-model="category">
+          <option value="Outdoors">Outdoors</option>
+          <option value="Home Improvement">Home Imporvement</option>
+          <option value="Kitchen">Kitchen</option>
+          <option value="Automotive">Automotive</option>
+          <option value="Arts And Craft">Art and Craft</option>
+          <option value="other">Other</option>
+        </select></div>
+        <button ui-sref="postList" ng-click='postToPage();' style='margin-top:10px;'>Post Project</button>
+    </form><br>
+    <div><a ui-sref='postList' style="color: orange; font-size: 19px">BACK TO POST LIST</a></div>
 </div>
