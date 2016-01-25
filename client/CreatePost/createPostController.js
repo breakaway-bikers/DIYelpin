@@ -1,9 +1,6 @@
-angular.module('yelpin.createPost', [])
+angular.module('yelpin.createPost', ['ngFileUpload'])
 
-.controller('createPostController', ['$scope', 'appFactory', 'sharedPropertyService', function($scope, appFactory, sharedPropertyService) {
-  //console.log('getting into controller');
-  //this should be set when user is signed in.
-  // $scope.username = $rootscope.user;
+.controller('createPostController', ['$scope', 'appFactory', 'sharedPropertyService', 'Upload', '$timeout', function($scope, appFactory, sharedPropertyService, Upload, $timeout) {
   $scope.descript = '';
   $scope.txtcomment = '';
   $scope.category = '';
@@ -11,51 +8,50 @@ angular.module('yelpin.createPost', [])
   console.log('this is the set property', temp);
 
   $scope.username = temp;
-
-  //not sure if this is necessary if we are storing info in the database
   $scope.comment = [];
 
   $scope.postToPage = function() {
-    console.log('this inside of post', $scope.username)
+    console.log('this inside of post', $scope.username);
     if ($scope.txtcomment != '') {
       console.log($scope.txtcomment);
       console.log($scope.descript);
       $scope.comment.push($scope.txtcomment);
     }
 
-    //this might need work. I'm attempting to send the information to the server using the factory function
     var data = { username: $scope.username, title: $scope.descript, message: $scope.txtcomment, category: $scope.category };
     console.log(data);
-    appFactory.setPost(data)
-    // .then(function(data) {
-      console.log(data);
-    // });
-
+    appFactory.setPost(data);
     $scope.txtcomment = '';
     $scope.descript = '';
     $scope.category = '';
   };
 
-  // $scope.uploader = new FileUploader();
+  //This appears to retrieve the photo. But I cant find a way to then store this image in my mongo DB or whether it is being posted to an external server.
 
-  //using angular file uploader..research more
-  // var uploader = new FileUploader({
-  //   filters: [{
-  //   name: 'yourName1',
-  //   // A user-defined filter
-  //     fn: function(item) {
-  //       return true;
-  //     }
-  //   }]
-  // });
+  $scope.uploadFiles = function(file, errFiles) {
+    $scope.f = file;
+    $scope.errFile = errFiles && errFiles[0];
+    if (file) {
+      file.upload = Upload.upload({
+        url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
+        data: { file: file },
+      });
+      console.log(file.upload);
+      file.upload.then(function(response) {
+        $timeout(function() {
+          file.result = response.data;
+        });
+      },
 
-  //more angular file uploader
-  //Another user-defined filter
-  // uploader.filters.push({
-  //   name: 'yourName2',
-  //     fn: function(item) {
-  //       return true;
-  //     }
-  //   });
+      function(response) {
+        if (response.status > 0)
+          $scope.errorMsg = response.status + ': ' + response.data;
+      },
+
+      function(evt) {
+        file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+      });
+    }
+  };
 
 }]);

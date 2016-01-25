@@ -19,15 +19,17 @@
       <button ui-sref="postList" ng-click='postToPage();' style='margin-top:10px;'>Post Project</button>
   </form>
 
-  <h6>Upload Photo</h6>
-    <input type ="file" nv-file-select uploader="uploader">
-      <li ng-repeat="item in uploader.queue">
-        Name: <span ng bind="item.file.name"></span>
-        <button ng-click="item.upload()">upload me</button>
-      </li>
-
-
-  <!-- Using angular-file-upload  -->
-  <!-- dont think this is doing anything -->
-  <!-- <element nv-file-drop uploader="{FileUploader}"></element> -->
+  <h4>Upload on file select</h4>
+  <button type="file" ngf-select="uploadFiles($file, $invalidFiles)"
+          accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
+      Select File</button>
+  <br><br>
+  File:
+  <div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
+      <span class="progress" ng-show="f.progress >= 0">
+          <div style="width:{{f.progress}}%"
+               ng-bind="f.progress + '%'"></div>
+      </span>
+  </div>
+  {{errorMsg}}
 </div>

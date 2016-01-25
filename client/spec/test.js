@@ -160,7 +160,7 @@ describe('YELPIN', function() {
 
        // TODO make this test pass.
        xit('postToPage should call setPost', function() {
-         spyOn(factory, 'setPost').and.callThrough();
+         spyOn(factory, 'setPost');
          $httpBackend.expectPOST('/createPost').respond(200, {});
          var controller = createController();
          $scope.postToPage();
