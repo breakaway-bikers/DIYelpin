@@ -1,3 +1,9 @@
+<style>
+  li {
+    list-style-type: none;
+  }
+</style>
+
 <div class='login-page'>
   
   <center>
@@ -27,7 +33,7 @@
       <div class="mainInfo">
         <div class="column column-50 column-offset-25">
           <div class="username">{{ item.username }}</div>
-          <a ui-sref="viewPost" ng-click="viewPost(item)" ng-model="item">{{ item.title }}</a>
+          <a ui-sref="viewPost" ng-click="viewPost(item)" ng-model="item" style="color: orange">{{ item.title }}</a>
         </div>
       </div>
       <div class="subInfo">
