@@ -1,18 +1,27 @@
 angular.module('yelpin.factory', [])
 
-.factory('appFactory', ['$http', function($http) {
+.factory('appFactory', ['$http', 'sharedPropertyService', function($http, sharedPropertyService) {
 
   var setPost = function(message) {
     //I've got to fix this pathway
     return $http.post('/createPost', message).then(function(response) {
       return response.data;
       console.log(response.data);
-  });
+    });
+
+  };
+
+  var signOut = function() {
+    sharedPropertyService.setProperty(null);
+    return $http.get('/signin').then(function(response) {
+      return response.data;
+    });
 
   };
 
   return {
     setPost: setPost,
+    signOut: signOut,
   };
 }])
 
