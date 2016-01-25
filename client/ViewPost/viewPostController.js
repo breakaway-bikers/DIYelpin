@@ -1,6 +1,6 @@
 angular.module('yelpin.viewPost', [])
 
-.controller('viewPostController', ['$scope', 'ViewPost', function($scope, ViewPost) {
+.controller('viewPostController', ['$scope', 'ViewPost','sharedPropertyService','$state', function($scope, ViewPost, sharedPropertyService, $state) {
   $scope.receivedData = 'Fetching Data';
 
   $scope.fetchPost = function() {
@@ -8,5 +8,14 @@ angular.module('yelpin.viewPost', [])
     console.log($scope.receivedData);
   };
 
+  $scope.checkAuth = function() {
+    var check = sharedPropertyService.getProperty();
+    console.log('check auth', check);
+    if (check === 'name') {
+      $state.go('signin');
+    }
+  };
+
+  $scope.checkAuth();
   $scope.fetchPost();
 }]);
