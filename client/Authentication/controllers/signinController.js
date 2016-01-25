@@ -1,23 +1,24 @@
 angular.module('yelpin.signin', [])
 
-.controller('signinController', ['$scope', '$http', '$location', function($scope, $http, $location) {
+.controller('signinController', ['$scope', '$http', '$location', 'sharedPropertyService', function($scope, $http, $location, sharedPropertyService) {
   $scope.signinError = false;
 
   $scope.signin = function(user) {
     console.log('POST TO /AUTHENTICATE: ', user);
-    return $http.post('/authenticate', user).then(function(data, status) {
-      if (status === 401) {
-        $scope.signinToggle = true;
-      } else {
-        console.log('RESPONSE FROM SERVER', data.data[0], status);
-        if (data.data[0].username === 'admin') {
-          $location.path('/admin');
-        } else {
-          console.log('logged in');
-          user.auth = true;
+    console.log('setting property', user.username);
+    sharedPropertyService.setProperty(user.username);
+
+    return $http.post('/authenticate', user)
+      .then(function(data, status) {
+        console.log('heres the data and status', data);
+        $scope.user = data.data;
+        if (data.status === 200) {
           $location.path('/postList');
+        } else {
+          //Sign in Error message not working
         }
-      }
-    });
+      }).catch(function(err) {
+        $scope.signinError = true;
+      });
   };
 }]);

@@ -11,22 +11,20 @@ app.use(express.static(__dirname + './../client'));
 app.use(bodyparser.json());
 
 //
-//
-//
-db.createUser({ username: 'daniel', password: 'bacon' });
+// db.createUser({ username: 'daniel', password: 'bacon' });
 db.createPost({ username: 'daniel', title: 'whaaaaaaaa?', message: 'I hate bacon', category: 'recipe' });
-
-db.createUser({ username: 'jon', password: 'elf' });
-db.createPost({ username: 'jon', title: 'get to work!', message: 'working', category: 'work' });
-
-db.createUser({ username: 'juan', password: 'frijoles' });
-db.createPost({ username: 'juan', title: 'burritos', message: 'me gusta mi bicicleta', category: 'food' });
-
-db.createUser({ username: 'raphael', password: 'shoes' });
-db.createPost({ username: 'raphael', title: 'blingex', message: 'Can I wash your window?', category: 'clean' });
-
-db.createUser({ username: 'admin', password: 'admin' });
-db.createPost({ username: 'admin', title: 'administration', message: 'we are hacked', category: 'hack' });
+//
+// db.createUser({ username: 'jon', password: 'elf' });
+// db.createPost({ username: 'jon', title: 'get to work!', message: 'working', category: 'work' });
+//
+// db.createUser({ username: 'juan', password: 'frijoles' });
+// db.createPost({ username: 'juan', title: 'burritos', message: 'me gusta mi bicicleta', category: 'food' });
+//
+// db.createUser({ username: 'raphael', password: 'shoes' });
+// db.createPost({ username: 'raphael', title: 'blingex', message: 'Can I wash your window?', category: 'clean' });
+//
+// db.createUser({ username: 'admin', password: 'admin' });
+// db.createPost({ username: 'admin', title: 'administration', message: 'we are hacked', category: 'hack' });
 
 app.get('/postList', function(req, res, next) {
   db.findAllPosts().then(function(posts) {
@@ -35,32 +33,49 @@ app.get('/postList', function(req, res, next) {
 });
 
 app.post('/authenticate', function(req, res, next) {
-  console.log('get users');
-  console.log(req.data);
-  db.findUser(req.body).then(function(user, err) {
-    if (err) {
-      console.error('error in authentication', err);
-      res.status(401);
+  console.log('/authentication:POST:');
+  console.log(req.body);
+  db.findUser(req.body).then(function(authenticated, err) {
+    console.log('authenticated ', authenticated);
+    console.log('error in authentication handler', err);
+    if (authenticated) {
+      console.log('sending 200');
+      res.status(200).send(authenticated);
     } else {
-      res.status(200).send(user);
+      console.log('sending 401');
+      res.status(401).send(authenticated);
     }
   });
 });
 
 app.post('/createUser', function(req, res, next) {
+  console.log('/CREATEUSER:POST REQ.BODY', req.body)
   db.createUser(req.body).then(function(user, err) {
-    if (err) {
-      console.log(err);
-      res.status(406);
+    console.log('data and error in createUser', user, '----', err);
+    if (user === false) {
+      console.error('createUser ERROR:', err);
+      res.status(406).send(err);
     } else {
-      res.status(200);
+      console.log('createUser 200 OK:');
+      res.status(200).send(user);
     }
   });
 });
 
-//
+app.post('/createPost', function(req, res, next) {
+  console.log('request body', req.body);
+  db.createPost(req.body).then(function(post, err) {
+    if (err) {
+      console.log('create post err:', err);
+      res.status(406);
+    } else {
+      console.log('createPost 200 ok:')
+      res.status(200).send(post);
+    }
+  });
+});
 
-//Have not used  this handler either. I dont think we'll need it
+// Have not used  this handler either. I dont think we'll need it.
 app.post('/viewPost', function(req, res, next) {
   console.log('this is the request body', req.body);
   db.viewPost(req.body).then(function(post) {
@@ -69,6 +84,5 @@ app.post('/viewPost', function(req, res, next) {
 });
 
 //
-//
-//
 app.listen(port);
+module.exports = app;

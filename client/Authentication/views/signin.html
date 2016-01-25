@@ -1,9 +1,29 @@
-<div ng-controller='signinController'>
-	<div class='signin'>
-		<H3>sign in</H3>
-		<input placeholder='username' ng-model='user.username'>
-		<input placeholder='password'ng-model='user.password'>
-		<button ng-click='signin(user)' ng-model='user'>Sign In</button>
-    <p>Dont have an account? <a ng-href="/#/signup">SIGNUP</a></p>
+<div class='login-page'>
+	<div class="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4">
+		<!-- <object type="image/svg+xml" data="../../diy.svg" class="user-avatar"></object> -->
+		<img src="../../DIY.png" class="user-avatar" style="width:70%; height:70%;"/>
+		<div class='signin'>
+	    <div class="column"><H3>Sign-In</H3></div>
+	  </div>
+		<div class="form-content">
+		<div class="form-group">
+			<div class="column"><input class="form-control input-underline input-lg" placeholder='username' ng-model='user.username'></div>
+		</div>
+		<div class="form-group">
+			<div class="column"><input class="form-control input-underline input-lg" placeholder='password'ng-model='user.password'></div>
+		</div>
+		</div>
+			<div class="column"><button class='btn btn-white btn-outline btn-lg btn-rounded' ng-click='signin(user)' ng-model='user'>Sign In</button></div>
+			<div class="column">
+				<h4 style="padding: 25px">Dont have an account?
+					<a ng-href="/#/signup">
+						<div>
+							<br><button class='btn btn-white btn-outline btn-lg btn-rounded'>SIGNUP</button>
+						</div>
+					</a>
+				</h4>
+			</div>
+	</div>
+	<p ng-show="signinError">Invalid Credentials</p>
 	</div>
 </div>

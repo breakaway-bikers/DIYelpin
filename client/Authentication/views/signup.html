@@ -1,9 +1,29 @@
-<div ng-controller='signupController'>
-	<div class='signup'>
-		<H3>sign up for a new account</H3>
-		<input placeholder='username' ng-model='user.username'>
-		<input placeholder='password'ng-model='user.password'>
-		<button ng-click='signup(user)' ng-model='user'>Sign Up</button>
-    <p>Go Back <a ng-href="/#/signin">home</a></p>
+
+<div class="login-page">
+
+	<div class="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4">
+		<!-- <object type="image/svg+xml" data="../../diy.svg" class="user-avatar"></object> -->
+		<img src="../../DIY.png" class="user-avatar" style="width:70%; height:70%;"/>
+		<div class="row">
+	    <div class="column"><center><H3>Sign up for a new account</H3></center></div>
+			<div class="form-content">
+				<div class="column"><input class="form-control input-underline input-lg" placeholder='username' ng-model='user.username'></div>
+				<div class="column"><input class="form-control input-underline input-lg" placeholder='password'ng-model='user.password'></div>
+				<div class="column"><center><br><button class='btn btn-white btn-outline btn-lg btn-rounded' ng-click='signup(user)' ng-model='user'>Sign Up</button></center></div>
+				<div class="column"><h4 style="padding: 25px"><center><p><a class='btn btn-white btn-outline btn-lg btn-rounded' ng-href="/#/signin">Go Back Home</a></p></center></a></h4></div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
 	</div>
 </div>
