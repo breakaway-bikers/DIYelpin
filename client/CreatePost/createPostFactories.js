@@ -11,17 +11,18 @@ angular.module('yelpin.factory', [])
 
   };
 
-  return {
-    setPost: setPost,
-  };
-
   var signOut = function() {
     $scope.username = null;
     return $http.get('/signin').then(function(response) {
       return response.data;
     });
 
-  }
+  };
+
+  return {
+    setPost: setPost,
+    signOut: signOut,
+  };
 }])
 
 .service('sharedPropertyService', [function(value) {
