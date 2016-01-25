@@ -4,7 +4,9 @@ angular.module('yelpin.contest', [])
   ['$scope',
    'ViewPost',
    '$http',
-   function($scope, ViewPost, $http) {
+   'sharedPropertyService',
+   '$state',
+   function($scope, ViewPost, $http, sharedPropertyService, $state) {
 
      $scope.ingredients = {
       1: 'Mustard Greens', 2: 'Collard Greens',
@@ -59,20 +61,27 @@ angular.module('yelpin.contest', [])
 
     };
 
-     $scope.populateDaily();
-
-     $scope.receivedData = 'Fetching Data';
-
-     $scope.fetchedPosts = 'Currently fetching posts';
-
-     $scope.fetchPost = function() {
-      return $http.get('/postList').then(function(res) {
-        console.log(res.data, res.body);
-        $scope.fetchedPosts = res.data;
-      });
+    $scope.checkAuth = function() {
+      var check = sharedPropertyService.getProperty();
+      console.log('check auth', check);
+      if (check === 'name') {
+        $state.go('signin');
+      }
     };
+   $scope.populateDaily();
 
-     $scope.fetchPost();
+   $scope.receivedData = 'Fetching Data';
 
-   },
-]);
+   $scope.fetchedPosts = 'Currently fetching posts';
+
+   $scope.fetchPost = function() {
+    return $http.get('/postList').then(function(res) {
+      console.log(res.data, res.body);
+      $scope.fetchedPosts = res.data;
+    });
+  };
+
+    $scope.checkAuth();
+    $scope.fetchPost();
+
+}])
