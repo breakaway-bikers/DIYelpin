@@ -1,7 +1,7 @@
 <div class='login-page'>
   <h1>POST PAGE</h1>
   <form id="filterbox" class="inputBox">
-  		<input class="filterbox" type='text' ng-model="searchString" placeholder="What are you looking to make?" style="width:17%; height: 5%"/>
+  		<input class="filterbox" type='text' ng-model="searchString" placeholder="What are you looking to make?" style="width:17%; height: 5%; color:black;"/>
   </form>
   	<h7>Search by Category</h7>
   	<select ng-model="categories" class="dropdown" ng-options="item.category for item in fetchedPosts | unique: 'category'"></select>
