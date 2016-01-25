@@ -1,17 +1,22 @@
 angular.module('yelpin.createPost', [])
 
-.controller('createPostController', ['$scope', 'appFactory', function($scope, appFactory) {
+.controller('createPostController', ['$scope', 'appFactory', 'sharedPropertyService', function($scope, appFactory, sharedPropertyService) {
   //console.log('getting into controller');
   //this should be set when user is signed in.
-  $scope.username = '';
+  // $scope.username = $rootscope.user;
   $scope.descript = '';
   $scope.txtcomment = '';
   $scope.category = '';
+  var temp = sharedPropertyService.getProperty();
+  console.log('this is the set property', temp);
+
+  $scope.username = temp;
 
   //not sure if this is necessary if we are storing info in the database
   $scope.comment = [];
 
   $scope.postToPage = function() {
+    console.log('this inside of post', $scope.username)
     if ($scope.txtcomment != '') {
       console.log($scope.txtcomment);
       console.log($scope.descript);
@@ -19,11 +24,12 @@ angular.module('yelpin.createPost', [])
     }
 
     //this might need work. I'm attempting to send the information to the server using the factory function
-    var data = { title: $scope.descript, message: $scope.txtcomment, category: $scope.category };
+    var data = { username: $scope.username, title: $scope.descript, message: $scope.txtcomment, category: $scope.category };
     console.log(data);
-    appFactory.setPost(data).then(function(data) {
+    appFactory.setPost(data)
+    // .then(function(data) {
       console.log(data);
-    });
+    // });
 
     $scope.txtcomment = '';
     $scope.descript = '';
