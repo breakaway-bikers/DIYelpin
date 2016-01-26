@@ -32,16 +32,22 @@
     <div class="row">
       <div class="mainInfo">
         <div class="column column-50 column-offset-25">
-          <div class="username">{{ item.username }}</div>
-          <a ui-sref="viewPost" ng-click="viewPost(item)" ng-model="item" style="color: orange">{{ item.title }}</a>
-        </div>
-      </div>
-      <div class="subInfo">
-        <div class="column column-50 column-offset-25">
-          <div>{{ item.category }}</div>
-          <div>{{ item.votes }}</div>
-        </div>
+          <div class="row-fluid">
+            <span class="span3">
+              <span><a ui-sref="viewPost" class="posttitle" ng-click="viewPost(item)" ng-model="item">{{ item.title }}</a></span>
+            </span>
+            <span class="span3">
+        	    <span class="username">by:{{ item.username }}, </span>
+            </span>
+            <span class="span3">
+              <span>category:{{ item.category }}</span>
+            </span>
+            <span class="span3">
+              <span>votes:{{ item.votes }}</span>
+            </span>
+          </div>
       </div>
     </div>
   </div>
+</div>
 </div>
