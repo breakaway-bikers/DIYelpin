@@ -2,12 +2,14 @@
 
 <div class='login-page'>
 
-<br><br><br><br><br><h1>View Post</h1><br>
+  <br><br><br><br><br><br>
 
-<h2>Posted by: {{ receivedData.username }}</h2><br>
-<h2 style="text-decoration: underline;">Title</h2><h2 style="color: orange"> {{ receivedData.title }} </h2><br>
-<h3>Category: {{ receivedData.category }} </h3><br>
-<h3># of Votes: {{ receivedData.votes }} </h3><br><br><br><br>
-<div>Project: {{ receivedData.message }} </div><br>
+  <h3 style="text-decoration:underline;"> {{ receivedData.title }} </h3><br>
+  <h4>Posted by: {{ receivedData.username }}</h4><br>
+  <div class="description">
+    <div> {{ receivedData.message }} </div><br><br>
+  </div>
+  <h4>Category: {{ receivedData.category }} </h4><br>
+  <h4># of Votes: {{ receivedData.votes }} </h4>
 
 </div>
