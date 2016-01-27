@@ -10,7 +10,7 @@ angular.module('yelpin.contest', [])
 
     $scope.customFilter = function(item,i){
       if(item.category === 'contest'){
-        if(item.date && item.date.toDateString() === new Date().toDateString()){
+        if(item.date && new Date(item.date).toDateString() === new Date().toDateString()){
           return true;
         }
       }
