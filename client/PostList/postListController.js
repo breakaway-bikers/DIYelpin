@@ -1,7 +1,7 @@
 angular.module('yelpin.postList', ['postListService'])
 
 
-.controller('postListController', ['$scope', '$http', 'ViewPost', 'appFactory','$state','sharedPropertyService', function($scope, $http, ViewPost, appFactory, $state, sharedPropertyService) {
+.controller('postListController', ['$scope', '$http', 'ViewPost', 'appFactory','$state','sharedPropertyService','postListFactory', function($scope, $http, ViewPost, appFactory, $state, sharedPropertyService, postListFactory) {
   $scope.fetchedPosts;
 
   $scope.fetchPost = function() {
