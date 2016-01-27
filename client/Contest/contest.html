@@ -25,10 +25,10 @@
           </ul>
         </center>
   </div>
-
+  <button ui-sref="createPost" class="btn btn-white btn-outline btn-lg btn-rounded">Enter Submission</button>
   <center><h2>Vote on Current Submissions Below!</h2></center>
 
-  <div ng-repeat='item in fetchedPosts | filter:"contest"'>
+  <div ng-repeat='item in fetchedPosts | filter: customFilter '>
     <div class="row">
       <div class="mainInfo">
         <div class="column column-50 column-offset-25">
