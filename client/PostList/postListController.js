@@ -4,6 +4,8 @@ angular.module('yelpin.postList', ['postListService'])
 function($scope, ViewPost, appFactory, $state, sharedPropertyService, postListFactory) {
   $scope.fetchedPosts = 'Currently fetching posts';
 
+
+
   $scope.checkAuth = function() {
     var check = sharedPropertyService.getProperty();
     console.log('check auth', check);
@@ -25,9 +27,9 @@ function($scope, ViewPost, appFactory, $state, sharedPropertyService, postListFa
     // item.highlight = false;
     var currentUser = sharedPropertyService.getProperty();
     postListFactory.updateVotedPost({username: currentUser, _id: item._id})
-    .then(function(){
+    .then(function(data){
       item.highlight = !item.highlight;
-      console.log("might have worked");
+      console.log("might have worked", data);
     })
   }
 

@@ -131,8 +131,10 @@ exports.vote = function(votedPost){
     if (err) {
       console.error('error in find all post');
     } else {
-      console.log(")))))))))))",user);
-
+      console.log("^^^^^^^^^^^",user);
+    }
+  }).then(function(user){
+    console.log("^^^^^^^^^^^",user);
 
       for (var i = 0; i < user.votedFor.length; i++){
         console.log(user.votedFor[i]);
@@ -142,7 +144,6 @@ exports.vote = function(votedPost){
           console.log("Removing vote!!!");
 
           user.votedFor.splice(i, 1);
-          user.save();
 
           console.log(">>>>>>>>>",user.votedFor)
           Post.findOne({_id: votedPost._id}, function(err, post){
@@ -151,10 +152,13 @@ exports.vote = function(votedPost){
             } else {
               post.votes--
               console.log("!!!!!!!!!!!",post)
-              post.save()
+              post.save(function(err){
+                if(err) console.log(err);
+              })
               return post;
             }
           })
+          user.save();
           return user;
         }
       }
@@ -175,8 +179,7 @@ exports.vote = function(votedPost){
         }
       })
       return user;
-    }
-  })
+  });
 }
 
 

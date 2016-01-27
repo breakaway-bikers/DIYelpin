@@ -64,6 +64,7 @@ app.post('/vote', function(req, res, next) {
   console.log("+++++++++",req.body)
   db.vote(req.body)
   .then(function(data){
+    console.log("@@@@@@@@@@@@@@@",data)
       res.status(200).send(data);
   })
 })
