@@ -1,3 +1,4 @@
+<!-- Running a quick text.  Add a css file later-->
 <div class='login-page'>
     <!-- <a ui-sref='createPost' style="color: orange; font-size: 19px">CREATE POST</a> || -->
 
@@ -9,16 +10,29 @@
         <input id="commentField" type='text' placeholder="your description" style="width: 500px; color: black; border-radius: 5px;" ng-model='descript'><br><br>
         <div><label>Add the Instructions Here</label></div><br>
         <textarea id="commentField" ng-model="txtcomment" placeholder="Your Project" style='width: 556px; margin: 0px; height: 204px; color:black; border-radius: 5px;'></textarea><br><br>
+
+
+
         <div><label>Category</label><br>
-        <select name="categories" class="dropdown" ng-model="category">
-          <option value="Outdoors">Outdoors</option>
-          <option value="Home Improvement">Home Imporvement</option>
-          <option value="Kitchen">Kitchen</option>
-          <option value="Automotive">Automotive</option>
-          <option value="Arts And Craft">Art and Craft</option>
-          <option value="contest">Contest</option>
-          <option value="other">Other</option>
-        </select></div><br><br>
+          <select name="categories" class="dropdown" ng-model="category" ng-change="checkDropDown()">
+            <option value="Outdoors">Outdoors</option>
+            <option value="Home Improvement">Home Improvement</option>
+            <option value="Kitchen">Kitchen</option>
+            <option value="Automotive">Automotive</option>
+            <option value="Arts And Crafts">Art and Crafts</option>
+            <option value="contest">Contest</option>
+            <option value="Other" >Other</option>
+            <option value="Custom">Custom</option>
+          </select>
+
+          <br>
+          <br>
+           <p model="customField" ng-show ="showCustomCategoryField">
+             <label>Enter your own Category:</label><input ng-model="customCategory" type="text" style="color:black; width:134px; margin-left:5px;" >
+           </p>
+        </div>
+        
+        <br><br>
         <h4>Upload on file select</h4>
         <br>
         <div>
