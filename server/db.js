@@ -141,26 +141,18 @@ exports.viewPost = function(userObj) {
 
 
 //Update a Post to the Database
-exports.updatePost = function(userObj, familyObj) {
+exports.updatePost = function(updatedObj, callback) {
 
-  var update = {title: "Hardcoding the Title in here"};
-  var options = {new : true};
+  // console.log(userObj.username);
+  console.log("---------FROM THE DATABASE--------", updatedObj);
+  return Post.findOneAndUpdate({ _id: updatedObj._id }, updatedObj, callback);
 
-  console.log(userObj.username);
-  return Post.findOneAndUpdate({ username: userObj.username }, update, options, function(err, result) {
-    if (err) {
-      console.error('error in the UPDATE post method');
-    } else {
-      console.log(result);
-      return result;
-    }
-  });
 };
 
 //Delete a Post from the Database
-exports.deletePost = function(userObj) {
+exports.deletePost = function(postObj) {
   console.log("Deleting a Post from the Database");
-  return Post.findOne({ username: userObj.username }, function(err, result) {
+  return Post.remove({ _id: postObj._id }, function(err, result) {
     if (err) {
       console.error('error in the DELETE method');
     } else {

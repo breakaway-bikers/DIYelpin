@@ -68,7 +68,7 @@ app.get('/viewPost', function(req, res, next) {
   });
 });
 
-// Have not used  this handler either. I dont think we'll need it.
+// Using POST Method to update the Post
 app.post('/viewPost', function(req, res, next) {
   console.log('this is the View Post request body', req.body);
   db.viewPost(req.body).then(function(post) {
@@ -76,18 +76,20 @@ app.post('/viewPost', function(req, res, next) {
   });
 });
 
+// Updating the Message using PUT Method
 app.put('/viewPost', function(req, res, next) {
-  console.log("\n\n\n-----------------------------");
+  console.log("\n\n\n--------- FROM THE SERVER --------------------");
   console.log("Trying to Update a Post", req.body);
-  db.updatePost(req.body, req.body).then(function(post) {
-    res.status(200).send(post);
+  db.updatePost(req.body, function(err, data) {
+    res.status(200).send(data);
   })
 })
 
-app.delete('/viewPost', function(req, res, next) {
+// Deleting the using DELETE Method
+app.delete('/post/:_id', function(req, res, next) {
   console.log("-----------------------");
-  console.log("Deleting a Post");
-  db.deletePost(req.body).then(function(post) {
+  console.log("Deleting a Post", req.params);
+  db.deletePost(req.params).then(function(post) {
     res.status(200).send(post);
   })
 })
