@@ -1,6 +1,6 @@
 angular.module('yelpin.myPostList', [])
 
-.controller('myPostListController', ['$scope', '$http', 'ViewPost', 'appFactory','$state','sharedPropertyService', function($scope, $http, ViewPost, appFactory, $state, sharedPropertyService) {
+.controller('myPostListController', ['$scope', '$http', 'ViewPost', 'appFactory','$state','sharedPropertyService', '$timeout', function($scope, $http, ViewPost, appFactory, $state, $timeout, sharedPropertyService) {
   $scope.fetchedPosts = 'Currently fetching posts';
   $scope.updateMessage = false;
 
@@ -58,9 +58,8 @@ angular.module('yelpin.myPostList', [])
     $scope.editMessageShow = true;
     $scope.updateMessage = "Deleting...";
     return $http({
-      url:'/viewPost',
-      method:'DELETE',
-      data: item
+      url:'/post/' + item._id,
+      method:'DELETE'
     }).then(function success(res){
       //remove the item from $scope.fetchedPosts
       if(res.status <300){
