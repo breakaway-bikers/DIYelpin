@@ -1,13 +1,11 @@
 angular.module('yelpin.myPostList', [])
 
 .controller('myPostListController', ['$scope', '$http', 'ViewPost', 'appFactory','$state','$timeout','sharedPropertyService', function($scope, $http, ViewPost, appFactory, $state, $timeout, sharedPropertyService) {
-  $scope.fetchedPosts = 'Currently fetching posts';
+  $scope.fetchedPosts;
   $scope.updateMessage = false;
 
   $scope.fetchPost = function() {
     return $http.get('/postList').then(function(res) {
-      console.log(res.data, res.body);
-      //filter posts based on user
       $scope.fetchedPosts = _.filter(res.data,function(post){
         return post.username === sharedPropertyService.getProperty();
       });
@@ -70,11 +68,6 @@ angular.module('yelpin.myPostList', [])
       console.log('Update failed, no response from the server',res)
     });
   }
-
-  //Made this function for future use
-  $scope.viewPost = function(postData) {
-    ViewPost.set(postData);
-  };
 
   $scope.signOut = function() {
     $scope.username = null;
