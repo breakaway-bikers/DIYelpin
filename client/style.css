@@ -57,3 +57,30 @@ ul {
 	font-size: 2.3rem;
 	color: rgba(230, 138, 9, 1)
 }
+
+
+.votes {
+	float: right;
+	position: relative;
+}
+
+.votes .numberOfVotes {
+	top: 6px;
+  position: relative;
+  font-size: 24px;
+  margin: 0 10px;
+}
+
+
+.span3 img {
+	width: 27px;
+	height: 32px;
+	padding: 2px;
+	cursor: pointer;
+
+}
+
+.voted{
+	border-radius: 3px;
+	background-color: rgba(119, 181, 98, 0.5);
+}
