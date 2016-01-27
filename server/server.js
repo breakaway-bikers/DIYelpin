@@ -61,12 +61,36 @@ app.post('/createPost', function(req, res, next) {
 });
 
 // Have not used  this handler either. I dont think we'll need it.
-app.post('/viewPost', function(req, res, next) {
+app.get('/viewPost', function(req, res, next) {
   console.log('this is the request body', req.body);
   db.viewPost(req.body).then(function(post) {
     res.status(200).send(post);
   });
 });
+
+// Have not used  this handler either. I dont think we'll need it.
+app.post('/viewPost', function(req, res, next) {
+  console.log('this is the View Post request body', req.body);
+  db.viewPost(req.body).then(function(post) {
+    res.status(200).send(post);
+  });
+});
+
+app.put('/viewPost', function(req, res, next) {
+  console.log("\n\n\n-----------------------------");
+  console.log("Trying to Update a Post", req.body);
+  db.updatePost(req.body, req.body).then(function(post) {
+    res.status(200).send(post);
+  })
+})
+
+app.delete('/viewPost', function(req, res, next) {
+  console.log("-----------------------");
+  console.log("Deleting a Post");
+  db.deletePost(req.body).then(function(post) {
+    res.status(200).send(post);
+  })
+})
 
 //
 app.listen(port);
