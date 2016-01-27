@@ -4,14 +4,6 @@ angular.module('yelpin.myPostList', [])
   $scope.fetchedPosts = 'Currently fetching posts';
   $scope.updateMessage = false;
 
-  $scope.checkAuth = function() {
-    var check = sharedPropertyService.getProperty();
-    console.log('check auth', check);
-    if (check === 'name') {
-      $state.go('signin');
-    }
-  };
-
   $scope.fetchPost = function() {
     return $http.get('/postList').then(function(res) {
       console.log(res.data, res.body);
@@ -89,7 +81,7 @@ angular.module('yelpin.myPostList', [])
     appFactory.signOut();
   };
   
-  $scope.checkAuth();
+  sharedPropertyService.checkAuth();
   $scope.fetchPost();
 
 }]);
