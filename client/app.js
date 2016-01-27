@@ -1,4 +1,13 @@
-angular.module('yelpin', ['ui.router', 'yelpin.postList', 'yelpin.viewPost', 'yelpin.services', 'yelpin.signin', 'yelpin.signup', 'yelpin.createPost', 'yelpin.factory', 'yelpin.contest'])
+angular.module('yelpin', ['ui.router', 
+  'yelpin.postList', 
+  'yelpin.viewPost', 
+  'yelpin.services', 
+  'yelpin.signin', 
+  'yelpin.signup', 
+  'yelpin.createPost', 
+  'yelpin.factory', 
+  'yelpin.contest',
+  'yelpin.myPostList'])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -22,6 +31,12 @@ angular.module('yelpin', ['ui.router', 'yelpin.postList', 'yelpin.viewPost', 'ye
       templateUrl: 'PostList/postList.html',
       url: '/postList',
       controller: 'postListController',
+    })
+    //added feature   
+    .state('myPostList', {    
+      templateUrl: 'myPostList/myPostList.html',    
+      url: '/myPostList',   
+      controller: 'myPostListController',   
     })
     .state('viewPost', {
       templateUrl: 'ViewPost/viewPost.html',
