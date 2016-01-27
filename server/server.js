@@ -94,6 +94,13 @@ app.delete('/post/:_id', function(req, res, next) {
   })
 })
 
+app.get('/myPosts/:username', function(req, res, next) {
+  console.log("--------READING USER FROM THE DATABASE-------", req.params);
+  db.viewPost(req.params).then(function(data) {
+    res.status(200).send(data);
+  }) 
+})
+
 //
 app.listen(port);
 module.exports = app;

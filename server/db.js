@@ -85,6 +85,7 @@ exports.createUser = function(obj) {
 };
 
 exports.findUser = function(obj) {
+  console.log("------IN THE DB-------",obj);
   var defer = Q.defer();
   User.find({ username: obj.username }).then(function(user, err) {
     if (err) {
@@ -130,7 +131,7 @@ exports.findAllPosts = function() {
 //Have not used this function yet
 exports.viewPost = function(userObj) {
   console.log("Typeof of Username", userObj.username);
-  return Post.findOne({ username: userObj.username }, function(err, result) {
+  return Post.find({ username: userObj.username }, function(err, result) {
     if (err) {
       console.error('error in the VIEW post method');
     } else {
