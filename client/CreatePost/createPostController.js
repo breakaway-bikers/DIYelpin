@@ -4,18 +4,23 @@ angular.module('yelpin.createPost', [])
   $scope.descript = '';
   $scope.txtcomment = '';
   $scope.category = '';
+  $scope.customCategory = '';
+  $scope.showCustomCategoryField = false;
   var temp = sharedPropertyService.getProperty();
   console.log('this is the set property', temp);
 
+ // Check the drop down value of Categories then show/hide custom category
+   $scope.checkDropDown = function(){
+    if ($scope.category === "Custom"){
+      $scope.showCustomCategoryField = true;
+    } else {
+      $scope.showCustomCategoryField = false;
+    }
+   }
+
   $scope.username = temp;
   $scope.comment = [];
-  $scope.checkAuth = function() {
-    var check = sharedPropertyService.getProperty();
-    console.log('check auth', check);
-    if (check === 'name') {
-      $state.go('signin');
-    }
-  };
+
   $scope.postToPage = function() {
     console.log('this inside of post', $scope.username);
     if ($scope.txtcomment != '') {
@@ -25,7 +30,11 @@ angular.module('yelpin.createPost', [])
     }
 
     var data = { username: $scope.username, title: $scope.descript, message: $scope.txtcomment, category: $scope.category };
-    console.log(data);
+    if ($scope.category === "Custom") {
+      data.category = $scope.customCategory;
+    }
+    console.log(" here;s the data object: ", data);
+
     appFactory.setPost(data);
     $scope.txtcomment = '';
     $scope.descript = '';
@@ -59,5 +68,5 @@ angular.module('yelpin.createPost', [])
   //     });
   //   }
   // };
-  $scope.checkAuth();
+  sharedPropertyService.checkAuth();
 }]);

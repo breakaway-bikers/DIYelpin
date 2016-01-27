@@ -1,19 +1,8 @@
 angular.module('yelpin.postList', ['postListService'])
 
-.controller('postListController', ['$scope', 'ViewPost', 'appFactory','$state','sharedPropertyService', 'postListFactory',
-function($scope, ViewPost, appFactory, $state, sharedPropertyService, postListFactory) {
-  $scope.fetchedPosts = 'Currently fetching posts';
 
-
-
-  $scope.checkAuth = function() {
-    var check = sharedPropertyService.getProperty();
-    console.log('check auth', check);
-    if (check === 'name') {
-      $state.go('signin');
-    }
-  };
-  sharedPropertyService.setProperty('blaine')
+.controller('postListController', ['$scope', '$http', 'ViewPost', 'appFactory','$state','sharedPropertyService', function($scope, $http, ViewPost, appFactory, $state, sharedPropertyService) {
+  $scope.fetchedPosts;
 
   $scope.fetchPost = function() {
     postListFactory.getAll()
@@ -43,7 +32,12 @@ function($scope, ViewPost, appFactory, $state, sharedPropertyService, postListFa
     $scope.username = null;
     appFactory.signOut();
   };
+<<<<<<< HEAD
   // $scope.checkAuth();
+=======
+
+  sharedPropertyService.checkAuth();
+>>>>>>> 9067b7ef62514af976ea088563b8dc8b3e98a1f9
   $scope.fetchPost();
 
 }]);

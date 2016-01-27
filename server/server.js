@@ -70,12 +70,45 @@ app.post('/vote', function(req, res, next) {
 })
 
 // Have not used  this handler either. I dont think we'll need it.
-app.post('/viewPost', function(req, res, next) {
+app.get('/viewPost', function(req, res, next) {
   console.log('this is the request body', req.body);
   db.viewPost(req.body).then(function(post) {
     res.status(200).send(post);
   });
 });
+
+// Using POST Method to update the Post
+app.post('/viewPost', function(req, res, next) {
+  console.log('this is the View Post request body', req.body);
+  db.viewPost(req.body).then(function(post) {
+    res.status(200).send(post);
+  });
+});
+
+// Updating the Message using PUT Method
+app.put('/viewPost', function(req, res, next) {
+  console.log("\n\n\n--------- FROM THE SERVER --------------------");
+  console.log("Trying to Update a Post", req.body);
+  db.updatePost(req.body, function(err, data) {
+    res.status(200).send(data);
+  })
+})
+
+// Deleting the using DELETE Method
+app.delete('/post/:_id', function(req, res, next) {
+  console.log("-----------------------");
+  console.log("Deleting a Post", req.params);
+  db.deletePost(req.params).then(function(post) {
+    res.status(200).send(post);
+  })
+})
+
+app.get('/myPosts/:username', function(req, res, next) {
+  console.log("--------READING USER FROM THE DATABASE-------", req.params);
+  db.viewPost(req.params).then(function(data) {
+    res.status(200).send(data);
+  }) 
+})
 
 //
 app.listen(port);
