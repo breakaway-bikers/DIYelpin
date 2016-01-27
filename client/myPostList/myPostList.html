@@ -1,0 +1,19 @@
+<div class='myPosts_bg'></div>
+  <div class="myPosts">
+    <h1>MY POSTS</h1>
+    <form id="filterbox" class="inputBox">
+    		<input class="searchBox" type='text' ng-model="searchString" placeholder="Search for..."/>
+    </form>
+    <ul id="myPostList">
+    	<li ng-repeat='item in fetchedPosts | filter: searchString | filter: categories'>
+    		<div class="mypost">
+              <div>Title: {{ item.title }}</div>
+              <div>Category: <div ng-include="'./myPostList/categories.html'"></div></div>
+              <div>Message: <textarea style="width: 100%;">{{ item.message }}</textarea>
+              <input type="submit" value="Update" ng-click="updatePost(item)" >
+              <input class="deleteButton" type="submit" value="X" ng-click="deletePost(item)" >
+              <span ng-show="editMessageShow">{{editMessage}}</span>
+      	</div>
+    	</li>
+    </ul>
+</div>
