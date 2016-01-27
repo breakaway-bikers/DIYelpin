@@ -14,7 +14,6 @@ angular.module('postListService',[])
     });
   }
 
-
   return{
     getAll: getAll,
     updateVotedPost: updateVotedPost
