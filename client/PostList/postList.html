@@ -7,7 +7,7 @@
   	<!-- <select ng-model="categories" class="dropdown" ng-options="item.category for item in fetchedPosts | unique: 'categories'"></select> -->
   	<button ui-sref="createPost" class="btn btn-white btn-outline btn-lg btn-rounded" style="margin-top: 10px;">Create Post</button>
   	<div class="container">
-  	<div ng-repeat='item in fetchedPosts | filter: searchString | filter: categories'>
+  	<div ng-repeat='item in fetchedPosts | filter: searchString'>
   		<div class="row">
   	  <div class="mainInfo">
   			<div class="column column-50 column-offset-25">
@@ -15,14 +15,14 @@
             <span class="span3">
               <span><a ui-sref="viewPost" class="posttitle" ng-click="viewPost(item)" ng-model="item">{{ item.title }}</a></span>
             </span>
+            <span class="span3 votes">
+              <img src="../assets/thumbsUp.png" ng-class="{'voted': item.highlight}" alt="thumbsup" ng-click="increment(item)" /><span class="numberOfVotes">{{ item.votes }}</span>
+            </span></br>
             <span class="span3">
         	    <span class="username">by:{{ item.username }}, </span>
             </span>
             <span class="span3">
               <span>category:{{ item.category }}</span>
-            </span>
-            <span class="span3">
-              <span>votes:{{ item.votes }}</span>
             </span>
           </div>
   	  	</div>

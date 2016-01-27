@@ -60,6 +60,14 @@ app.post('/createPost', function(req, res, next) {
   });
 });
 
+app.post('/vote', function(req, res, next) {
+  console.log("+++++++++",req.body)
+  db.vote(req.body)
+  .then(function(data){
+      res.status(200).send(data);
+  })
+})
+
 // Have not used  this handler either. I dont think we'll need it.
 app.post('/viewPost', function(req, res, next) {
   console.log('this is the request body', req.body);

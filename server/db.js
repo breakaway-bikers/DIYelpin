@@ -19,14 +19,6 @@ db.once('open', function() {
   console.log('were connected');
 });
 
-var UserSchema = mongoose.Schema({
-  username: {
-    type: String,
-    index: { unique: true },
-  },
-  password: String,
-});
-
 var PostSchema = mongoose.Schema({
   username: String,
   category: {
@@ -40,6 +32,15 @@ var PostSchema = mongoose.Schema({
   },
   message: String,
   votes: { type: Number, default: 0 },
+});
+
+var UserSchema = mongoose.Schema({
+  username: {
+    type: String,
+    index: { unique: true },
+  },
+  password: String,
+  votedFor: []
 });
 
 var User = mongoose.model('User', UserSchema);
@@ -123,6 +124,61 @@ exports.findAllPosts = function() {
     }
   });
 };
+
+// Voting
+exports.vote = function(votedPost){
+  return User.findOne({username: votedPost.username}, function(err, user){
+    if (err) {
+      console.error('error in find all post');
+    } else {
+      console.log(")))))))))))",user);
+
+
+      for (var i = 0; i < user.votedFor.length; i++){
+        console.log(user.votedFor[i]);
+        console.log(votedPost._id);
+
+        if (user.votedFor[i] === votedPost._id){
+          console.log("Removing vote!!!");
+
+          user.votedFor.splice(i, 1);
+          user.save();
+
+          console.log(">>>>>>>>>",user.votedFor)
+          Post.findOne({_id: votedPost._id}, function(err, post){
+            if (err) {
+              console.error('found error');
+            } else {
+              post.votes--
+              console.log("!!!!!!!!!!!",post)
+              post.save()
+              return post;
+            }
+          })
+          return user;
+        }
+      }
+
+      user.votedFor.push(votedPost._id);
+      user.save();
+
+      console.log(">>>>>>>>>",user.votedFor)
+
+      Post.findOne({_id: votedPost._id}, function(err, post){
+        if (err) {
+          console.error('found error');
+        } else {
+          post.votes++
+          console.log("!!!!!!!!!!!",post)
+          post.save()
+          return post;
+        }
+      })
+      return user;
+    }
+  })
+}
+
 
 //Have not used this function yet
 exports.viewPost = function(id) {

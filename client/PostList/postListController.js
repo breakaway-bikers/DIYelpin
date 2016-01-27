@@ -1,6 +1,7 @@
-angular.module('yelpin.postList', [])
+angular.module('yelpin.postList', ['postListService'])
 
-.controller('postListController', ['$scope', '$http', 'ViewPost', 'appFactory','$state','sharedPropertyService', function($scope, $http, ViewPost, appFactory, $state, sharedPropertyService) {
+.controller('postListController', ['$scope', 'ViewPost', 'appFactory','$state','sharedPropertyService', 'postListFactory',
+function($scope, ViewPost, appFactory, $state, sharedPropertyService, postListFactory) {
   $scope.fetchedPosts = 'Currently fetching posts';
 
   $scope.checkAuth = function() {
@@ -10,13 +11,26 @@ angular.module('yelpin.postList', [])
       $state.go('signin');
     }
   };
+  sharedPropertyService.setProperty('blaine')
 
   $scope.fetchPost = function() {
-    return $http.get('/postList').then(function(res) {
-      console.log(res.data, res.body);
-      $scope.fetchedPosts = res.data;
-    });
+    postListFactory.getAll()
+    .then(function(data){
+      $scope.fetchedPosts = data;
+    })
   };
+
+  // $scope.item.highlight = false;
+  $scope.increment = function(item) {
+    // item.highlight = false;
+    var currentUser = sharedPropertyService.getProperty();
+    postListFactory.updateVotedPost({username: currentUser, _id: item._id})
+    .then(function(){
+      item.highlight = !item.highlight;
+      console.log("might have worked");
+    })
+  }
+
 
   //Made this function for future use
   $scope.viewPost = function(postData) {
@@ -27,7 +41,7 @@ angular.module('yelpin.postList', [])
     $scope.username = null;
     appFactory.signOut();
   };
-  $scope.checkAuth();
+  // $scope.checkAuth();
   $scope.fetchPost();
 
 }]);
