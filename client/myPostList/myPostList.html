@@ -8,7 +8,7 @@
     	<li ng-repeat='item in fetchedPosts | filter: searchString | filter: categories'>
     		<div class="mypost">
               <div>Title: {{ item.title }}</div>
-              <div>Category: <div ng-include="'categories.html'"></div></div>
+              <div>Category: <div ng-include="'./myPostList/categories.html'"></div></div>
               <div>Message: <textarea style="width: 100%;">{{ item.message }}</textarea>
               <input type="submit" value="Update" ng-click="updatePost(item)" >
               <input class="deleteButton" type="submit" value="X" ng-click="deletePost(item)" >
