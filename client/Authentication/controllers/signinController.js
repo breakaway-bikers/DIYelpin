@@ -4,7 +4,7 @@ angular.module('yelpin.signin', [])
   $scope.signinError = false;
 
   $scope.logout = function() {
-    sharedPropertyService.setProperty('name');
+    sharedPropertyService.destoryProperty();
     $location.path('/signin');
   };
 

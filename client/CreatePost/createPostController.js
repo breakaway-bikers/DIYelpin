@@ -21,13 +21,6 @@ angular.module('yelpin.createPost', [])
   $scope.username = temp;
   $scope.comment = [];
 
-  $scope.checkAuth = function() {
-    var check = sharedPropertyService.getProperty();
-    console.log('check auth', check);
-    if (check === 'name') {
-      $state.go('signin');
-    }
-  };
   $scope.postToPage = function() {
     console.log('this inside of post', $scope.username);
     if ($scope.txtcomment != '') {
@@ -75,5 +68,5 @@ angular.module('yelpin.createPost', [])
   //     });
   //   }
   // };
-  $scope.checkAuth();
+  sharedPropertyService.checkAuth();
 }]);

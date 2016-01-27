@@ -8,14 +8,6 @@ angular.module('yelpin.viewPost', [])
     console.log($scope.receivedData);
   };
 
-  $scope.checkAuth = function() {
-    var check = sharedPropertyService.getProperty();
-    console.log('check auth', check);
-    if (check === 'name') {
-      $state.go('signin');
-    }
-  };
-
-  $scope.checkAuth();
+  sharedPropertyService.checkAuth();
   $scope.fetchPost();
 }]);

@@ -61,13 +61,6 @@ angular.module('yelpin.contest', [])
 
     };
 
-    $scope.checkAuth = function() {
-      var check = sharedPropertyService.getProperty();
-      console.log('check auth', check);
-      if (check === 'name') {
-        $state.go('signin');
-      }
-    };
    $scope.populateDaily();
 
    $scope.receivedData = 'Fetching Data';
@@ -76,12 +69,11 @@ angular.module('yelpin.contest', [])
 
    $scope.fetchPost = function() {
     return $http.get('/postList').then(function(res) {
-      console.log(res.data, res.body);
       $scope.fetchedPosts = res.data;
     });
   };
 
-    $scope.checkAuth();
+    sharedPropertyService.checkAuth();
     $scope.fetchPost();
 
 }])

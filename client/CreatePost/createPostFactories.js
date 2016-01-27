@@ -12,11 +12,7 @@ angular.module('yelpin.factory', [])
   };
 
   var signOut = function() {
-    sharedPropertyService.setProperty(null);
-    return $http.get('/signin').then(function(response) {
-      return response.data;
-    });
-
+    sharedPropertyService.destroyProperty();
   };
 
   return {
@@ -25,21 +21,31 @@ angular.module('yelpin.factory', [])
   };
 }])
 
-.service('sharedPropertyService', [function(value) {
+.service('sharedPropertyService',['$window', '$state', function($window, $state) {
   console.log('going into service');
-  var property = 'name';
-  console.log('this is the property', property);
 
   var getProperty = function() {
-    return property;
+    return $window.localStorage.getItem('com.diy');
   };
 
   var setProperty = function(value) {
-    property = value;
+    $window.localStorage.setItem('com.diy',value);
+  };
+
+  var destroyProperty = function() {
+    $window.localStorage.removeItem('com.diy');
+  };
+
+  var checkAuth = function() {
+    if (!$window.localStorage.getItem('com.diy')) {
+      $state.go('signin');
+    }
   };
 
   return {
     getProperty: getProperty,
     setProperty: setProperty,
+    destoryProperty: destroyProperty,
+    checkAuth: checkAuth
   };
 }]);
