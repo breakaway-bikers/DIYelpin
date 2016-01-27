@@ -4,6 +4,9 @@ var Salt_Factor = 10;
 var Q = require('q');
 var mongoURI = 'mongodb://diyelpin:Beansandburrito1600@ds047335.mongolab.com:47335/heroku_ws06b5hx';
 
+// mongo ds047335.mongolab.com:47335/heroku_ws06b5hx -u <diyelpin> -p <Beansandburrito1600>
+// mongo ds047335.mongolab.com:47335/heroku_ws06b5hx -u diyelpin -p Beansandburrito1600
+
  mongoose.connect(process.env.MONGOLAB_URI || mongoURI);
 
 // mongoose.connect('mongodb://localhost/yelpin');
@@ -125,10 +128,41 @@ exports.findAllPosts = function() {
 };
 
 //Have not used this function yet
-exports.viewPost = function(id) {
-  return Post.find({ _id: id }, function(err, result) {
+exports.viewPost = function(userObj) {
+  console.log("Typeof of Username", userObj.username);
+  return Post.findOne({ username: userObj.username }, function(err, result) {
     if (err) {
-      console.error('error in the view post method');
+      console.error('error in the VIEW post method');
+    } else {
+      return result;
+    }
+  });
+};
+
+
+//Update a Post to the Database
+exports.updatePost = function(userObj, familyObj) {
+
+  var update = {title: "Hardcoding the Title in here"};
+  var options = {new : true};
+
+  console.log(userObj.username);
+  return Post.findOneAndUpdate({ username: userObj.username }, update, options, function(err, result) {
+    if (err) {
+      console.error('error in the UPDATE post method');
+    } else {
+      console.log(result);
+      return result;
+    }
+  });
+};
+
+//Delete a Post from the Database
+exports.deletePost = function(userObj) {
+  console.log("Deleting a Post from the Database");
+  return Post.findOne({ username: userObj.username }, function(err, result) {
+    if (err) {
+      console.error('error in the DELETE method');
     } else {
       return result;
     }
