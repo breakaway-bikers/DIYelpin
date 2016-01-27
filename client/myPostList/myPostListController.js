@@ -89,8 +89,8 @@ angular.module('yelpin.myPostList', [])
     $scope.username = null;
     appFactory.signOut();
   };
-  
-  $scope.checkAuth();
+  sharedPropertyService.setProperty('nick');
+  //$scope.checkAuth();
   $scope.fetchPost();
 
 }]);
