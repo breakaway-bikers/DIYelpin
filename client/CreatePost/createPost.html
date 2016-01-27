@@ -10,9 +10,15 @@
         <div><label>Add the Instructions Here</label></div><br>
         <textarea id="commentField" ng-model="txtcomment" placeholder="Your Project" style='width: 556px; margin: 0px; height: 204px; color:black; border-radius: 5px;'></textarea><br><br>
         <div><label>Category</label><br>
-        <!-- NG INCLUDE DROPDOWN -->
-        <div ng-include="'../categories.html'"></div>
-        </div><br><br>
+        <select name="categories" class="dropdown" ng-model="category">
+          <option value="Outdoors">Outdoors</option>
+          <option value="Home Improvement">Home Imporvement</option>
+          <option value="Kitchen">Kitchen</option>
+          <option value="Automotive">Automotive</option>
+          <option value="Arts And Craft">Art and Craft</option>
+          <option value="contest">Contest</option>
+          <option value="other">Other</option>
+        </select></div><br><br>
         <h4>Upload on file select</h4>
         <br>
         <div>
