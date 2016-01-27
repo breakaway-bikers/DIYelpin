@@ -32,12 +32,8 @@ angular.module('yelpin.postList', ['postListService'])
     $scope.username = null;
     appFactory.signOut();
   };
-<<<<<<< HEAD
-  // $scope.checkAuth();
-=======
 
   sharedPropertyService.checkAuth();
->>>>>>> 9067b7ef62514af976ea088563b8dc8b3e98a1f9
   $scope.fetchPost();
 
 }]);
