@@ -1,15 +1,19 @@
 angular.module('yelpin.myPostList', [])
 
-.controller('myPostListController', ['$scope', '$http', 'ViewPost', 'appFactory','$state','$timeout','sharedPropertyService', function($scope, $http, ViewPost, appFactory, $state, $timeout, sharedPropertyService) {
+.controller('myPostListController', ['$scope', '$http', 'ViewPost', 'appFactory','$state','$timeout','sharedPropertyService', 
+  function($scope, $http, ViewPost, appFactory, $state, $timeout, sharedPropertyService) {
   $scope.fetchedPosts;
   $scope.updateMessage = false;
 
   $scope.fetchPost = function() {
-    return $http.get('/postList').then(function(res) {
-      $scope.fetchedPosts = _.filter(res.data,function(post){
-        return post.username === sharedPropertyService.getProperty();
-      });
-    });
+  
+  var username = sharedPropertyService.getProperty()
+
+  return $http.get('/myPosts/' + username)
+    .then(function(res) {
+      $scope.fetchedPosts = res.data;
+    })
+      
   };
 
   $scope.updatePost = function(item){
