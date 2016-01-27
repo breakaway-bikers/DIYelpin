@@ -1,11 +1,10 @@
 angular.module('yelpin.postList', [])
 
 .controller('postListController', ['$scope', '$http', 'ViewPost', 'appFactory','$state','sharedPropertyService', function($scope, $http, ViewPost, appFactory, $state, sharedPropertyService) {
-  $scope.fetchedPosts = 'Currently fetching posts';
+  $scope.fetchedPosts;
 
   $scope.fetchPost = function() {
     return $http.get('/postList').then(function(res) {
-      console.log(res.data, res.body);
       $scope.fetchedPosts = res.data;
     });
   };
