@@ -1,6 +1,6 @@
 angular.module('yelpin.myPostList', [])
 
-.controller('myPostListController', ['$scope', '$http', 'ViewPost', 'appFactory','$state','sharedPropertyService', '$timeout', function($scope, $http, ViewPost, appFactory, $state, $timeout, sharedPropertyService) {
+.controller('myPostListController', ['$scope', '$http', 'ViewPost', 'appFactory','$state','$timeout','sharedPropertyService', function($scope, $http, ViewPost, appFactory, $state, $timeout, sharedPropertyService) {
   $scope.fetchedPosts = 'Currently fetching posts';
   $scope.updateMessage = false;
 
