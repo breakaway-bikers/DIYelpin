@@ -1,4 +1,10 @@
-angular.module('yelpin.contest', [])
+angular.module('yelpin.contest', ['postListService'])
+
+.filter('niceDate', function() {
+  return function(input) {
+    return moment(input).format("MMM D, YYYY");
+  };
+})
 
 .controller('contestController',
   ['$scope',
@@ -6,35 +12,52 @@ angular.module('yelpin.contest', [])
    '$http',
    'sharedPropertyService',
    '$state',
-   function($scope, ViewPost, $http, sharedPropertyService, $state) {
+   'postListFactory',
+   function($scope, ViewPost, $http, sharedPropertyService, $state, postListFactory) {
+    
+    var currentUser = sharedPropertyService.getProperty();
 
     $scope.customFilter = function(item,i){
       if(item.category === 'contest'){
-        if(item.date && new Date(item.date).toDateString() === new Date().toDateString()){
+        if(item.date && new Date($scope.selectedContest.date).toDateString() === new Date(item.date).toDateString()){
           return true;
         }
       }
       return false;
     }
 
-    $scope.fetchPost = function() {
-      return $http.get('/postList').then(function(res) {
-        $scope.fetchedPosts = res.data;
-      });
+    $scope.changeContest = function(contest){
+      console.log('selected', $scope.selectedContest);
+      $scope.dailyIngredients = $scope.selectedContest.ingredients;
     };
 
     $scope.fetchContests = function() {
       console.log('fetching contests');
       return $http.get('/contest').then(function success(res) {
+        $scope.allContests = res.data;
         $scope.dailyIngredients = res.data[res.data.length-1].ingredients;
+        $scope.selectedContest = res.data[res.data.length-1];
+
         console.log('here are the contests', res.data);
       },function error(res){
         console.log('shit broke', res);
       });
     };
 
+    $scope.increment = function(item){
+      postListFactory.increment(item, currentUser);
+    };
+    //Made this function for future use
+    $scope.viewPost = function(postData) {
+      ViewPost.set(postData);
+    };
+
     sharedPropertyService.checkAuth();
-    $scope.fetchPost();
+    
+    postListFactory.fetchAndUpdateVotes(currentUser,function(data){
+      $scope.fetchedPosts = data;
+    });
+
     $scope.fetchContests();
   }
   ]);
