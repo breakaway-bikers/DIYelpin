@@ -45,7 +45,7 @@ angular.module('yelpin', ['ui.router',
       controller: 'viewPostController',
     })
     .state('contest', {
-      templateUrl: 'Contest/contestViews/contest.html',
+      templateUrl: 'Contest/contest.html',
       url: '/contest',
       controller: 'contestController',
     });

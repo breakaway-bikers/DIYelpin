@@ -1,27 +1,38 @@
 angular.module('yelpin.postList', ['postListService'])
 
 
-.controller('postListController', ['$scope', '$http', 'ViewPost', 'appFactory','$state','sharedPropertyService','postListFactory', function($scope, $http, ViewPost, appFactory, $state, sharedPropertyService, postListFactory) {
-  $scope.fetchedPosts;
+.controller('postListController', ['$scope', '$http', 'ViewPost', 'appFactory','$state','sharedPropertyService','postListFactory', '$timeout',
+ function($scope, $http, ViewPost, appFactory, $state, sharedPropertyService, postListFactory, $timeout) {
+  
+  $scope.fetchedPosts = [];
+  $scope.uniqueCategories = [];
+  $scope.sortType = "date";
+  $scope.selectedCategory = "All";
+  var currentUser = sharedPropertyService.getProperty();
 
-  $scope.fetchPost = function() {
-    postListFactory.getAll()
-    .then(function(data){
-      $scope.fetchedPosts = data;
-    })
+  $scope.increment = function(item){
+    postListFactory.increment(item, currentUser);
   };
 
-  // $scope.item.highlight = false;
-  $scope.increment = function(item) {
-    // item.highlight = false;
-    var currentUser = sharedPropertyService.getProperty();
-    postListFactory.updateVotedPost({username: currentUser, _id: item._id})
-    .then(function(data){
-      item.highlight = !item.highlight;
-      console.log("might have worked", data);
-    })
-  }
 
+  $scope.customFilter = function(item,i){
+    if($scope.selectedCategory === 'All' ){
+      return true;
+    }
+
+    if(item.category === $scope.selectedCategory){
+      return true;
+    }
+    return false;
+  };
+
+  $scope.customOrder = function(post){
+    if($scope.sortType === 'votes'){
+      return -post[$scope.sortType];
+    }else if($scope.sortType === 'date'){
+      return post[$scope.sortType];
+    }
+  };
 
   //Made this function for future use
   $scope.viewPost = function(postData) {
@@ -34,6 +45,12 @@ angular.module('yelpin.postList', ['postListService'])
   };
 
   sharedPropertyService.checkAuth();
-  $scope.fetchPost();
+  postListFactory.fetchAndUpdateVotes(currentUser,function(data){
+    
+    $scope.fetchedPosts = data;
+    $scope.uniqueCategories = _.chain(data).pluck('category').unique().value();
+    $scope.uniqueCategories.unshift('All');
+
+  });
 
 }]);

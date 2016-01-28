@@ -71,13 +71,32 @@ app.post('/createPost', function(req, res, next) {
 });
 
 app.post('/vote', function(req, res, next) {
-  console.log("+++++++++",req.body)
   db.vote(req.body)
   .then(function(data){
-    console.log("@@@@@@@@@@@@@@@",data)
       res.status(200).send(data);
   })
 })
+
+
+app.post('/user', function(req, res, next){
+  console.log('<<<<<<<<<',req.body)
+  db.findOneUser(req.body)
+  .then(function(data){
+    res.status(200).send(data);
+  })
+})
+
+app.get('/contest', function(req, res, next) {
+  console.log('fetching contests');
+  db.getContests(function(err,post) {
+    if(err){
+      res.status(400).send(err);
+    }else{
+      res.status(200).send(post);
+    }
+  });
+});
+
 
 // Have not used  this handler either. I dont think we'll need it.
 app.get('/viewPost', function(req, res, next) {
@@ -114,7 +133,7 @@ app.delete('/post/:_id', function(req, res, next) {
 app.get('/myPosts/:username', function(req, res, next) {
   db.viewPost(req.params).then(function(data) {
     res.status(200).send(data);
-  }) 
+  })
 })
 
 // Passport session setup.
