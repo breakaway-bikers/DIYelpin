@@ -89,9 +89,10 @@ app.get('/contest', function(req, res, next) {
 
 
 // Have not used  this handler either. I dont think we'll need it.
-app.get('/viewPost', function(req, res, next) {
-  console.log('this is the request body', req.body);
-  db.viewPost(req.body).then(function(post) {
+app.get('/viewPost/:_id', function(req, res, next) {
+  console.log('this is the request body', req.params);
+  db.viewPost(req.params).then(function(post) {
+    console.log("this is the post>>>>>>", post);
     res.status(200).send(post);
   });
 });

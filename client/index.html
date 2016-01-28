@@ -5,7 +5,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- <link rel="stylesheet" href="milligram.css"> -->
-    <link rel="stylesheet" href="main.css">
+    <!-- <link rel="stylesheet" href="main.css"> -->
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./myPostList/myPostList.css">
     <title>DIYelpin</title>
@@ -15,7 +15,7 @@
     <div class="navbar-fixed-top">
         <div ng-controller="signinController">
             <nav class="navbar navbar-default navbar-fixed-top">
-                <div class="container">
+
                 <center>
                     <button class='btn  btn-outline btn-lg btn-rounded' ui-sref="myPostList">MY POSTS</button>
                     <button class='btn  btn-outline btn-lg btn-rounded' ui-sref="postList">POST LIST</button>
@@ -23,12 +23,12 @@
                     <button class='btn  btn-outline btn-lg btn-rounded' ui-sref="contest">CONTEST</button>
                     <button class='btn  btn-outline btn-lg btn-rounded' ng-click='logout()'>SIGN OUT</button>
                 </center>
-                </div>
-</nav>
+
+            </nav>
         </div>
     </div>
 
-    <center><object type="image/svg+xml" data="diy.svg"></object></center>
+    <!-- <center><object type="image/svg+xml" data="diy.svg"></object></center> -->
     <div class="">
       <div ui-view></div>
     </div>

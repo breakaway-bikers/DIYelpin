@@ -323,6 +323,7 @@ exports.viewPost = function(id) {
     if (err) {
       console.error('error in the view post method',err);
     } else {
+      console.log("found post in db", result);
       return result;
     }
   });
