@@ -7,9 +7,9 @@ var mongoURI = 'mongodb://diyelpin:Beansandburrito1600@ds047335.mongolab.com:473
 // mongo ds047335.mongolab.com:47335/heroku_ws06b5hx -u <diyelpin> -p <Beansandburrito1600>
 // mongo ds047335.mongolab.com:47335/heroku_ws06b5hx -u diyelpin -p Beansandburrito1600
 
-// mongoose.connect(process.env.MONGOLAB_URI || mongoURI);
+mongoose.connect(process.env.MONGOLAB_URI || mongoURI);
 
-mongoose.connect('mongodb://localhost/yelpin');
+// mongoose.connect('mongodb://localhost/yelpin');
 
 var db = mongoose.connection;
 

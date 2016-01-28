@@ -5,35 +5,21 @@ var path = require('path');
 var port = process.env.PORT || 3000;
 var morgan = require('morgan');
 var db = require('./db.js');
+
+// Variables needed for Google Login
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var passport = require('passport')
+var config = require('./config')
+var globalGoogleLoginID;
 
 // app.use(morgan('combined'));
 app.use(express.static(__dirname + './../client'));
 app.use(bodyparser.json());
+
+// Google Login
 app.use(passport.initialize());
 app.use(passport.session());
 
-var allowCrossDomain = function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header('Access-Control-Allow-Credentials', true);
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    next();
-};
-
-var globalGoogleLoginID;
-
-app.use(allowCrossDomain);
-
-/*module.exports = {
-
-    'googleAuth' : {
-        'clientID'      : '323047891383-j17plamoc5o7bm3irccm3sbd0f084ldq.apps.googleusercontent.com',
-        'clientSecret'  : 'Ha5sM3pbbR6TzpZYkhdZl1-6',
-        'callbackURL'   : 'http://127.0.0.1:3000/auth/google/callback'
-    }
-
-};*/
 
 app.get('/postList', function(req, res, next) {
   db.findAllPosts().then(function(posts) {
@@ -111,7 +97,6 @@ app.post('/viewPost', function(req, res, next) {
 
 // Updating the Message using PUT Method
 app.put('/viewPost', function(req, res, next) {
-  console.log("\n\n\n--------- FROM THE SERVER --------------------");
   console.log("Trying to Update a Post", req.body);
   db.updatePost(req.body, function(err, data) {
     res.status(200).send(data);
@@ -120,7 +105,6 @@ app.put('/viewPost', function(req, res, next) {
 
 // Deleting the using DELETE Method
 app.delete('/post/:_id', function(req, res, next) {
-  console.log("-----------------------");
   console.log("Deleting a Post", req.params);
   db.deletePost(req.params).then(function(post) {
     res.status(200).send(post);
@@ -128,7 +112,6 @@ app.delete('/post/:_id', function(req, res, next) {
 })
 
 app.get('/myPosts/:username', function(req, res, next) {
-  console.log("--------READING USER FROM THE DATABASE-------", req.params);
   db.viewPost(req.params).then(function(data) {
     res.status(200).send(data);
   }) 
@@ -152,9 +135,9 @@ passport.deserializeUser(function(obj, done) {
 });
 
 passport.use(new GoogleStrategy({
-    clientID: '323047891383-j17plamoc5o7bm3irccm3sbd0f084ldq.apps.googleusercontent.com',
-    clientSecret: 'Ha5sM3pbbR6TzpZYkhdZl1-6',
-    callbackURL: "http://127.0.0.1:3000/auth/google/callback"
+    clientID: config.googleAuth.clientID,
+    clientSecret: config.googleAuth.clientSecret,
+    callbackURL: config.googleAuth.callbackURL
   },
   function(token, tokenSecret, profile, done) {
       db.findGoogleUser({ username : profile.displayName}, function(err, user) {
@@ -165,10 +148,10 @@ passport.use(new GoogleStrategy({
       } else {
         db.createUser({ username: profile.displayName }, function (err, user) {
           if(err) {
-            console.log("\n\n\n------------",err)
+            console.log(err)
             return done(null, false);
           } else {
-            console.log("\n\n\n------------",user)
+            console.log(user)
             return done(null, user);
           }         
         });
@@ -200,14 +183,10 @@ app.get('/auth/google/callback/',
   passport.authenticate('google', { failureRedirect: '/signin' }),
   function(req, res) {
     globalGoogleLoginID = req.session.passport.user[0].username;
-    console.log("Response Came Back FROM DATABASE", globalGoogleLoginID);
-    // res.status(200).send(req.session.passport.user.username);
-    // res.render("success", { user: req.session.passport.user });
     res.redirect('/#/postList');
   });
 
 app.get('/googleLogin', function(req, res) {
-  console.log("Should be Logging in any minute now ....");
   res.status(200).send(globalGoogleLoginID)
 })
 
