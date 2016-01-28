@@ -24,6 +24,7 @@ app.post('/images', multipartMiddleware, function(req, res, next){
     if (err) {
       console.log("Error from saveImage function", err);
     }
+    // res.responseType ="arraybuffer"; 
     res.status(200).send(dbRes);
   })
 });

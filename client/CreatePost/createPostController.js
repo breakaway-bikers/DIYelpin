@@ -53,6 +53,16 @@ angular.module('yelpin.createPost', [])
   //  *********************************************
   // CONTINUING JUAN'S UPLOAD FEATURE
 
+  function _arrayBufferToBase64( buffer ) {
+    var binary = '';
+    var bytes = new Uint8Array( buffer );
+    var len = bytes.byteLength;
+    for (var i = 0; i < len; i++) {
+        binary += String.fromCharCode( bytes[ i ] );
+    }
+    return window.btoa( binary );
+}
+
   $scope.uploadFiles = function(file, errFiles) {
     $scope.f = file;
     $scope.errFile = errFiles && errFiles[0];
@@ -64,7 +74,12 @@ angular.module('yelpin.createPost', [])
       });
       console.log("file.upload is: ", file.upload);
       file.upload.then(function(response) {
-        console.log("response from the upload request: ", response)
+        console.log("response from the upload request: ", response);
+        console.log("the actual data array", response.data.img.data.data);
+
+        var dataNow64bit = _arrayBufferToBase64(response.data.img.data.data);
+        // $scope.image = response.data.img.data.data;
+        $scope.image = dataNow64bit;
         $timeout(function() {
           file.result = response.data;
         });

@@ -36,7 +36,7 @@ exports.saveImage = function(imgPath){
 
   var a = new Img;
   a.img.data = fs.readFileSync(imgPath);
-  a.img.contentType = 'image/png';
+  a.img.contentType = 'image/jpg';
   return a.save(function (err, a) {
     if (err) {
       console.log("\n\n\nERROR saving image to the database.  Read below");
