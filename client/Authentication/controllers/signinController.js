@@ -1,6 +1,7 @@
 angular.module('yelpin.signin', [])
 
-.controller('signinController', ['$scope', '$http', '$location', 'sharedPropertyService', function($scope, $http, $location, sharedPropertyService) {
+.controller('signinController', ['$scope', '$http', '$location', '$window','sharedPropertyService', 
+  function($scope, $http, $location, $window, sharedPropertyService) {
   $scope.signinError = false;
 
   $scope.logout = function() {
@@ -27,4 +28,28 @@ angular.module('yelpin.signin', [])
         $scope.signinError = true;
       });
   };
+
+  $scope.googleLogin = function() {
+    return $http.get('/googleLogin').then(function(response) {
+      console.log(response);
+      return response.data;
+    })
+  }
+
+  $scope.check = function() {
+    
+    var id = $window.localStorage.getItem('com.diy');
+    var userID;
+    
+    if (!id) {
+      $scope.googleLogin().then(function(response) {
+        console.log(response);
+        userID = response;
+        $window.localStorage.setItem('com.diy', userID);
+      });
+    }
+  };
+
+  $scope.check();
+
 }]);
