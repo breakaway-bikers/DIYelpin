@@ -2,7 +2,11 @@ angular.module('yelpin.contest', ['postListService'])
 
 .filter('niceDate', function() {
   return function(input) {
-    return moment(input).format("MMM D, YYYY");
+    if(!input){
+      return "none";
+    }else{
+      return moment(input).format("MMM D, YYYY");
+    }
   };
 })
 
