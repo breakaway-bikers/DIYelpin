@@ -3,6 +3,7 @@ var Bcrypt = require('bcrypt');
 var Salt_Factor = 10;
 var Q = require('q');
 var mongoURI = 'mongodb://diyelpin:Beansandburrito1600@ds047335.mongolab.com:47335/heroku_ws06b5hx';
+var fs = require('fs');  // added for image handling
 
 // mongo ds047335.mongolab.com:47335/heroku_ws06b5hx -u <diyelpin> -p <Beansandburrito1600>
 // mongo ds047335.mongolab.com:47335/heroku_ws06b5hx -u diyelpin -p Beansandburrito1600
@@ -16,11 +17,52 @@ var db = mongoose.connection;
 var User;
 var exports = module.exports;
 
+
 db.on('error', console.error.bind(console, 'connection error'));
 
 db.once('open', function() {
   console.log('were connected');
 });
+
+// Image handling
+// **********************************
+var ImageSchema = new mongoose.Schema({
+    img: { data: Buffer, contentType: String }
+});
+
+var Img = mongoose.model('Image', ImageSchema);
+
+
+exports.saveImage = function(imgPath){
+  // for now always remove all images
+  exports.removeAllImages();
+
+  var a = new Img;
+  a.img.data = fs.readFileSync(imgPath);
+  a.img.contentType = 'image/png';
+  return a.save(function (err, a) {
+    if (err) {
+      console.log("\n\n\nERROR saving image to the database.  Read below");
+      throw err;
+      console.log("\n\n\n");
+
+    }
+    console.error('saved img to mongo!!!!   :)');
+  })
+}
+
+exports.removeAllImages = function () {
+  // empty the collection of pics  (Remove this )
+  Img.remove(function (err) {
+    if (err) throw err;
+    console.error('removed all images from the DB');
+  });
+}
+
+
+
+// ***************************
+
 
 var PostSchema = mongoose.Schema({
   username: String,

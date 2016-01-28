@@ -7,7 +7,8 @@ angular.module('yelpin', ['ui.router',
   'yelpin.createPost', 
   'yelpin.factory', 
   'yelpin.contest',
-  'yelpin.myPostList'])
+  'yelpin.myPostList',
+  'ngFileUpload'])
 
 .config(function($stateProvider, $urlRouterProvider) {
 

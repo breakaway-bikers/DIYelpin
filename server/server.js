@@ -6,10 +6,28 @@ var port = process.env.PORT || 3000;
 var morgan = require('morgan');
 var db = require('./db.js');
 
+// middleware for recieving multipart data (aka images)
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
+
+
 // app.use(morgan('combined'));
 app.use(express.static(__dirname + './../client'));
 app.use(bodyparser.json());
 
+// Image post
+app.post('/images', multipartMiddleware, function(req, res, next){
+  // console.log("\n\n\nHere is the image post request.files", req.files, "\n\n\n\n");
+  // console.log("\n\n\nHere is the image path", req.files.file.path, "\n\n\n\n"); 
+  var imgPath = req.files.file.path;
+  db.saveImage(imgPath).then(function(res, err){
+    if (err) {
+      console.log("Error from saveImage function", err);
+    }
+    // console.log("Image was saved to the database");
+    res.status(200).send(res);
+  })
+});
 
 app.get('/postList', function(req, res, next) {
   db.findAllPosts().then(function(posts) {
