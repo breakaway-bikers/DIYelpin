@@ -4,6 +4,7 @@
     <form id="filterbox" class="inputBox">
     	<input class="searchBox" type='text' ng-model="searchString" placeholder="Search for..."/>
     </form>
+    
     <ul id="myPostList">
     	<li ng-repeat='item in fetchedPosts | filter: searchString | filter: categories'>
     		<div class="mypost">

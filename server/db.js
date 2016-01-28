@@ -189,7 +189,7 @@ exports.getContests = function(callback){
       console.error('error in get contests',err);
       return callback(err,null);
     }
-    
+
     //check if a contest was created for today (it will be last)
     if(!data.length || data[data.length-1].date.toDateString() !== new Date().toDateString()){
       //we need to make a new contest for today
@@ -321,7 +321,7 @@ exports.updatePost = function(updatedObj, callback) {
 exports.viewPost = function(id) {
   return Post.find({ _id: id }, function(err, result) {
     if (err) {
-      console.error('error in the view post method');
+      console.error('error in the view post method',err);
     } else {
       return result;
     }

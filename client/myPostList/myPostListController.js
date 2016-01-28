@@ -7,12 +7,15 @@ angular.module('yelpin.myPostList', [])
 
   $scope.fetchPost = function() {
   
-  var username = sharedPropertyService.getProperty()
+    var username = sharedPropertyService.getProperty()
 
-  return $http.get('/myPosts/' + username)
-    .then(function(res) {
+    return $http.get('/myPosts/' + username)
+    .then(function success(res) {
+      console.log('here is the response',res)
       $scope.fetchedPosts = res.data;
-    })
+    }, function fail(res){
+      console.log('failed!',res);
+    });
       
   };
 
