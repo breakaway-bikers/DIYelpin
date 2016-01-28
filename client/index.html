@@ -22,6 +22,9 @@
                     <button class='btn  btn-outline btn-lg btn-rounded' ui-sref="createPost">MAKE A POST</button>
                     <button class='btn  btn-outline btn-lg btn-rounded' ui-sref="contest">CONTEST</button>
                     <button class='btn  btn-outline btn-lg btn-rounded' ng-click='logout()'>SIGN OUT</button>
+
+
+                    <a href="/auth/google/"><span class="fa fa-google-plus"></span>Google</a>
                 </center>
                 </div>
 </nav>
@@ -40,6 +43,7 @@
     <script src="app.js"></script>
     <script src="./Authentication/controllers/signinController.js"></script>
     <script src="./Authentication/controllers/signupController.js"></script>
+    <script src="./Authentication/controllers/googleLoginController.js"></script>
     <script src="./PostList/postListController.js"></script>
     <script src="./myPostList/myPostListController.js"></script>
     <script src="./ViewPost/viewPostController.js"></script>

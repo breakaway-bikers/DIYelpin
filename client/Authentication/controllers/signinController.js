@@ -27,4 +27,12 @@ angular.module('yelpin.signin', [])
         $scope.signinError = true;
       });
   };
+
+/*  $scope.googleLogin = function() {
+    return $http.get('/googleLogin').then(function(response) {
+      console.log(response.data);
+      return response.data
+    })
+  }*/
+
 }]);

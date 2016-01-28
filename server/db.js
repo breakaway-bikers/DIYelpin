@@ -7,9 +7,9 @@ var mongoURI = 'mongodb://diyelpin:Beansandburrito1600@ds047335.mongolab.com:473
 // mongo ds047335.mongolab.com:47335/heroku_ws06b5hx -u <diyelpin> -p <Beansandburrito1600>
 // mongo ds047335.mongolab.com:47335/heroku_ws06b5hx -u diyelpin -p Beansandburrito1600
 
- mongoose.connect(process.env.MONGOLAB_URI || mongoURI);
+// mongoose.connect(process.env.MONGOLAB_URI || mongoURI);
 
-// mongoose.connect('mongodb://localhost/yelpin');
+mongoose.connect('mongodb://localhost/yelpin');
 
 var db = mongoose.connection;
 
@@ -40,7 +40,7 @@ var PostSchema = mongoose.Schema({
 var UserSchema = mongoose.Schema({
   username: {
     type: String,
-    index: { unique: true },
+    index: { unique : true }
   },
   password: String,
   votedFor: []
@@ -50,7 +50,12 @@ var User = mongoose.model('User', UserSchema);
 var Post = mongoose.model('Post', PostSchema);
 
 exports.createUser = function(obj) {
-  console.log(obj.password);
+  
+  console.log("1. USERNAME", obj);
+  if (!obj.password) {
+    obj.password = '123';
+  }
+  
   var defer = Q.defer();
 
   Bcrypt.genSalt(Salt_Factor, function(err, salt) {
@@ -69,10 +74,12 @@ exports.createUser = function(obj) {
       console.log('some hash here ', hash);
       obj.password = hash;
       console.log('password after hashing', obj.password);
+      console.log("2. USERNAME", obj);
       var user = new User(obj);
+      console.log("3. USER", user);
       user.save(function(err, user) {
         if (err) {
-          console.log('DB CREATEUSER ERROR', err);
+          console.log('\n\n\n------------------\nDB CREATEUSER ERROR', user);
           defer.resolve(false);
         } else {
           console.log('DB CREATE USER SUCCESS');
@@ -105,6 +112,17 @@ exports.findUser = function(obj) {
   });
 
   return defer.promise;
+};
+
+exports.findGoogleUser = function(obj, callback) {
+
+  if (!obj.password) {
+    obj.password = '123';
+  }
+
+  console.log("------IN THE DB-------",obj);
+  var defer = Q.defer();
+  return User.find({ username: obj.username }, callback);
 };
 
 exports.createPost = function(obj) {
