@@ -67,6 +67,7 @@ app.post('/vote', function(req, res, next) {
   })
 })
 
+
 app.post('/user', function(req, res, next){
   console.log('<<<<<<<<<',req.body)
   db.findOneUser(req.body)
@@ -74,6 +75,18 @@ app.post('/user', function(req, res, next){
     res.status(200).send(data);
   })
 })
+
+app.get('/contest', function(req, res, next) {
+  console.log('fetching contests');
+  db.getContests(function(err,post) {
+    if(err){
+      res.status(400).send(err);
+    }else{
+      res.status(200).send(post);
+    }
+  });
+});
+
 
 // Have not used  this handler either. I dont think we'll need it.
 app.get('/viewPost', function(req, res, next) {

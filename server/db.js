@@ -19,8 +19,11 @@ db.once('open', function() {
   console.log('were connected');
 });
 
+
+
 var PostSchema = mongoose.Schema({
   username: String,
+  date: String,
   category: {
     type: String,
     required: true,
@@ -34,6 +37,12 @@ var PostSchema = mongoose.Schema({
   votes: { type: Number, default: 0 },
 });
 
+var ContestSchema = mongoose.Schema({
+  date: Date,
+  ingredients:Array,
+  winner: [PostSchema]
+});
+
 var UserSchema = mongoose.Schema({
   username: {
     type: String,
@@ -45,6 +54,7 @@ var UserSchema = mongoose.Schema({
 
 var User = mongoose.model('User', UserSchema);
 var Post = mongoose.model('Post', PostSchema);
+var Contest = mongoose.model('Contest', ContestSchema);
 
 exports.createUser = function(obj) {
   console.log(obj.password);
@@ -103,9 +113,103 @@ exports.findUser = function(obj) {
   return defer.promise;
 };
 
+var makeNewContest = function(callback){
+  console.log('making new contest for ', new Date().toDateString());
+
+  var ingredients = {
+    1: 'Mustard Greens', 2: 'Collard Greens',
+    3: 'Dandelion Greens', 4: 'Kumquats',
+    5: 'Quail', 6: 'Black Garlic',
+    7: 'Tomatillos', 8: 'Rhubarb',
+    9: 'Baby Fennel', 10: 'Cactus Pears',
+    11: 'Zucchini', 12: 'Strawberries',
+    13: 'Avocados', 14: 'Escarole',
+    15: 'Duck Breast', 16: 'Rainbow Chard',
+    17: 'Jicama', 18: 'Blueberries',
+    19: 'Pineapple', 20: 'Mussels',
+    21: 'Corn', 22: 'Lime',
+    23: 'Carrots', 24: 'Celery',
+    25: 'Spinach', 26: 'Onion',
+    27: 'Rice', 28: 'Raspberries',
+    29: 'Endive', 30: 'Scallions',
+    31: 'Peas', 32: 'Chili Peppers',
+    33: 'Coffee', 34: 'Muskmelon',
+    35: 'Grapes', 36: 'Peaches',
+    37: 'Mango', 38: 'Hazelnuts',
+    39: 'Green Bell Peppers',
+  };
+
+  var populateDaily = function() {
+    var dailyIngredients = [];
+    for (var i = 0; i < 5; i++) {
+
+      //generate random number
+      var random = Math.floor(Math.random() * 39) + 1;
+      var ingredient = ingredients[random];
+      var duplicate = false;
+
+      //search dailyIngredients for the current ingredient
+      for (var j = 0; j < dailyIngredients.length; j++) {
+        var daily = dailyIngredients[j];
+        if (ingredient === daily) {
+          duplicate = true;
+        }
+      }
+
+      //if ingredient was already selected
+      if (duplicate) {
+        //run current loop iteration again
+        i -= 1;
+        continue;
+      } else if (!duplicate) {
+        //otherwise push to dailyIngredients
+        dailyIngredients.push(ingredient);
+      }
+    }
+    return dailyIngredients;
+  };
+
+  var contest = new Contest({
+    date:new Date(),
+    ingredients:populateDaily()
+  });
+
+  contest.save(function(err){
+    if(err){
+      console.log('error creating daily ingredients',err);
+    }
+    return callback(err,contest);
+  })
+};
+
+exports.getContests = function(callback){
+
+  Contest.find({},function(err,data){
+
+    if(err) {
+      console.error('error in get contests',err);
+      return callback(err,null);
+    }
+
+
+    //check if a contest was created for today (it will be last)
+    if(!data.length || data[data.length-1].date.toDateString() !== new Date().toDateString()){
+      //we need to make a new contest for today
+      makeNewContest(callback);
+    }else{
+      return callback(err,data);
+    }
+
+  });
+};
+
 exports.createPost = function(obj) {
   var post = new Post(obj);
   console.log('heres the post', post);
+
+  //save the date that the post was created
+  post.date = new Date();
+
   return post.save(function(err, post) {
     if (err) {
       console.error('error in creating the post', err);
@@ -199,6 +303,20 @@ exports.findOneUser = function (user){
     }
   })
 }
+
+
+
+//Update a Post to the Database
+exports.updatePost = function(updatedObj, callback) {
+
+  //update the date that the post was created
+  updatedObj.date = new Date();
+
+  // console.log(userObj.username);
+  console.log("---------FROM THE DATABASE--------", updatedObj);
+  return Post.findOneAndUpdate({ _id: updatedObj._id }, updatedObj, callback);
+};
+
 
 
 //Have not used this function yet

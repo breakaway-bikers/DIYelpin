@@ -14,6 +14,7 @@ angular.module('postListService',[])
     });
   }
 
+
   var getUserVotes = function (data) {
     return $http.post('/user', data).then(function(res){
       return res.data;
@@ -38,7 +39,7 @@ angular.module('postListService',[])
         } else if (item.votes !== 0) {
           item.votes--;
         } else {
-          item.highlight = false; 
+          item.highlight = false;
         }
         $timeout(function () {
           buttonDisable = false;
@@ -46,7 +47,6 @@ angular.module('postListService',[])
       }
     });
   };
-
 
   return{
     getAll: getAll,
