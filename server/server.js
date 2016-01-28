@@ -18,9 +18,13 @@ app.use(bodyparser.json());
 // Image post
 app.post('/images', multipartMiddleware, function(req, res, next){
   // console.log("\n\n\nHere is the image post request.files", req.files, "\n\n\n\n");
-  // console.log("\n\n\nHere is the image path", req.files.file.path, "\n\n\n\n"); 
+  console.log("\n\n\nHere is the image path", req.files.file.path, "\n\n\n\n");
+  console.log("\n\n\n\nHere is the request: ", req.body.postData);
+
+
   var imgPath = req.files.file.path;
-  db.saveImage(imgPath).then(function(dbRes, err){
+  
+  db.saveImage(imgPath, req.body.postData).then(function(dbRes, err){
     if (err) {
       console.log("Error from saveImage function", err);
     }

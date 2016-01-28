@@ -41,6 +41,14 @@
           Select File</button>
         </div>
         <br>
+
+        <!-- Test File:
+        <form style="">
+          <input type="file" name="pic"  ng-model="userFile">
+          <input type="submit" ng-click="saveFile($userFile)">
+        </form> -->
+
+
         Uploaded File:
         <div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
           <span class="progress" ng-show="f.progress >= 0">
@@ -50,11 +58,12 @@
         </div>
         {{errorMsg}}<br><br>
 
-        <!-- Display the the image returned from the server -->
-        <img ng-src="data:image/jpg;base64,{{image}}">
-        <br>
+        <!-- Testing purposes:Display the the image returned from the server -->
+        <!-- <img ng-src="data:image/jpg;base64,{{image}}">
+        <br> -->
 
-        <button ui-sref="postList" class="btn btn-white btn-outline btn-lg btn-rounded" ng-click='postToPage();' style='font-size: 19px;margin-top:10px;'>Post Project</button>
+<!--         <button ui-sref="postList" -->        
+       <button class="btn btn-white btn-outline btn-lg btn-rounded" ng-click='postToPage();' style='font-size: 19px;margin-top:10px;'>Post Project</button>
     </form><br><br>
     <div><button ui-sref='postList' class="btn btn-white btn-outline btn-lg btn-rounded" style="font-size: 19px">BACK TO POST LIST</button></div>
 </div>

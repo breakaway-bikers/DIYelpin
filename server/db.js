@@ -30,21 +30,28 @@ var ImageSchema = new mongoose.Schema({
 var Img = mongoose.model('Image', ImageSchema);
 
 
-exports.saveImage = function(imgPath){
+exports.saveImage = function(imgPath, postObj){
+  console.log("\n\nHere is the postObj: ", postObj);
   // for now always remove all images
   exports.removeAllImages();
 
   var a = new Img;
   a.img.data = fs.readFileSync(imgPath);
   a.img.contentType = 'image/jpg';
+  postObj.image = a;
+  console.log("\n\n\npost data is: ", postObj);
+
+  exports.createPost(postObj);
+
   return a.save(function (err, a) {
     if (err) {
       console.log("\n\n\nERROR saving image to the database.  Read below");
       throw err;
       console.log("\n\n\n");
+      console.error('saved img to mongo!!!!   :)');
 
     }
-    console.error('saved img to mongo!!!!   :)');
+
   })
 }
 
@@ -76,6 +83,7 @@ var PostSchema = mongoose.Schema({
   },
   message: String,
   votes: { type: Number, default: 0 },
+  image: [ImageSchema]  // added 
 });
 
 var ContestSchema = mongoose.Schema({

@@ -6,6 +6,7 @@
 
   <h3 style="text-decoration:underline;"> {{ receivedData.title }} </h3><br>
   <h4>Posted by: {{ receivedData.username }}</h4><br>
+  <img ng-src="data:image/jpg;base64,{{receivedData.image}}">
   <div class="description">
     <div> {{ receivedData.message }} </div><br><br>
   </div>

@@ -42,7 +42,11 @@ angular.module('yelpin.createPost', [])
     }
     console.log(" here;s the data object: ", data);
 
-    appFactory.setPost(data);
+    // Caputure the data object 
+    $scope.postData = data;
+
+    // Data will now be sent from the post image function
+    //appFactory.setPost(data);
     $scope.txtcomment = '';
     $scope.descript = '';
     $scope.category = '';
@@ -52,6 +56,9 @@ angular.module('yelpin.createPost', [])
 
   //  *********************************************
   // CONTINUING JUAN'S UPLOAD FEATURE
+  // $scope.saveFile = function (userFile){
+  //   console.log("The user file is: ", userFile);
+  // }
 
   function _arrayBufferToBase64( buffer ) {
     var binary = '';
@@ -66,16 +73,18 @@ angular.module('yelpin.createPost', [])
   $scope.uploadFiles = function(file, errFiles) {
     $scope.f = file;
     $scope.errFile = errFiles && errFiles[0];
-    console.log("the file is: ", file);
+    // console.log("the file is: ", file);
     if (file) {
       file.upload = Upload.upload({
         url: '/images',
-        data: { file: file },
+        data: { file: file, postData: $scope.postData},
       });
       console.log("file.upload is: ", file.upload);
+      console.log("file is", file);
+      console.log ("The post data is: ", $scope.postData);
       file.upload.then(function(response) {
-        console.log("response from the upload request: ", response);
-        console.log("the actual data array", response.data.img.data.data);
+        // console.log("response from the upload request: ", response);
+        // console.log("the actual data array", response.data.img.data.data);
 
         var dataNow64bit = _arrayBufferToBase64(response.data.img.data.data);
         // $scope.image = response.data.img.data.data;
