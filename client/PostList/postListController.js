@@ -30,7 +30,11 @@ angular.module('yelpin.postList', ['postListService'])
     if($scope.sortType === 'votes'){
       return -post[$scope.sortType];
     }else if($scope.sortType === 'date'){
-      return post[$scope.sortType];
+      if(post[$scope.sortType] === "none"){
+        return new Date("1-1-1970"); 
+
+      }
+      return new Date(post[$scope.sortType]);
     }
   };
 
