@@ -4,9 +4,6 @@ var Salt_Factor = 10;
 var Q = require('q');
 var mongoURI = 'mongodb://diyelpin:Beansandburrito1600@ds047335.mongolab.com:47335/heroku_ws06b5hx';
 
-// mongo ds047335.mongolab.com:47335/heroku_ws06b5hx -u <diyelpin> -p <Beansandburrito1600>
-// mongo ds047335.mongolab.com:47335/heroku_ws06b5hx -u diyelpin -p Beansandburrito1600
-
  mongoose.connect(process.env.MONGOLAB_URI || mongoURI);
 
 // mongoose.connect('mongodb://localhost/yelpin');
@@ -96,7 +93,6 @@ exports.createUser = function(obj) {
 };
 
 exports.findUser = function(obj) {
-  console.log("------IN THE DB-------",obj);
   var defer = Q.defer();
   User.find({ username: obj.username }).then(function(user, err) {
     if (err) {
@@ -119,7 +115,7 @@ exports.findUser = function(obj) {
 
 var makeNewContest = function(callback){
   console.log('making new contest for ', new Date().toDateString());
-  
+
   var ingredients = {
     1: 'Mustard Greens', 2: 'Collard Greens',
     3: 'Dandelion Greens', 4: 'Kumquats',
@@ -177,7 +173,7 @@ var makeNewContest = function(callback){
     date:new Date(),
     ingredients:populateDaily()
   });
-  
+
   contest.save(function(err){
     if(err){
       console.log('error creating daily ingredients',err);
@@ -189,7 +185,7 @@ var makeNewContest = function(callback){
 exports.getContests = function(callback){
 
   Contest.find({},function(err,data){
-    
+
     if(err) {
       console.error('error in get contests',err);
       return callback(err,null);
@@ -210,7 +206,7 @@ exports.getContests = function(callback){
 exports.createPost = function(obj) {
   var post = new Post(obj);
   console.log('heres the post', post);
-  
+
   //save the date that the post was created
   post.date = new Date();
 
@@ -244,6 +240,11 @@ exports.vote = function(votedPost){
   }).then(function(user){
     console.log("^^^^^^^^^^^",user);
 
+      if(votedPost._id === null){
+        console.log('Cannot Save null');
+        return;
+      }
+
       for (var i = 0; i < user.votedFor.length; i++){
         console.log(user.votedFor[i]);
         console.log(votedPost._id);
@@ -258,7 +259,9 @@ exports.vote = function(votedPost){
             if (err) {
               console.error('found error');
             } else {
-              post.votes--
+              if (post.votes !== 0){
+                post.votes--
+              }
               console.log("!!!!!!!!!!!",post)
               post.save(function(err){
                 if(err) console.log(err);
@@ -287,21 +290,20 @@ exports.vote = function(votedPost){
         }
       })
       return user;
-  });
+    });
 }
 
-
-//Have not used this function yet
-exports.viewPost = function(userObj) {
-  console.log("Typeof of Username", userObj.username);
-  return Post.find({ username: userObj.username }, function(err, result) {
+exports.findOneUser = function (user){
+  return User.findOne({username: user.username}, function(err, user){
     if (err) {
-      console.error('error in the VIEW post method');
+      console.error('error finding a user');
     } else {
-      return result;
+      console.log("^^^^^^^^^^^",user);
+      return user;
     }
-  });
-};
+  })
+}
+
 
 
 //Update a Post to the Database
@@ -313,15 +315,15 @@ exports.updatePost = function(updatedObj, callback) {
   // console.log(userObj.username);
   console.log("---------FROM THE DATABASE--------", updatedObj);
   return Post.findOneAndUpdate({ _id: updatedObj._id }, updatedObj, callback);
-
 };
 
-//Delete a Post from the Database
-exports.deletePost = function(postObj) {
-  console.log("Deleting a Post from the Database");
-  return Post.remove({ _id: postObj._id }, function(err, result) {
+
+
+//Have not used this function yet
+exports.viewPost = function(id) {
+  return Post.find({ _id: id }, function(err, result) {
     if (err) {
-      console.error('error in the DELETE method');
+      console.error('error in the view post method');
     } else {
       return result;
     }
