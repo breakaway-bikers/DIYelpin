@@ -20,12 +20,11 @@ app.post('/images', multipartMiddleware, function(req, res, next){
   // console.log("\n\n\nHere is the image post request.files", req.files, "\n\n\n\n");
   // console.log("\n\n\nHere is the image path", req.files.file.path, "\n\n\n\n"); 
   var imgPath = req.files.file.path;
-  db.saveImage(imgPath).then(function(res, err){
+  db.saveImage(imgPath).then(function(dbRes, err){
     if (err) {
       console.log("Error from saveImage function", err);
     }
-    // console.log("Image was saved to the database");
-    res.status(200).send(res);
+    res.status(200).send(dbRes);
   })
 });
 
