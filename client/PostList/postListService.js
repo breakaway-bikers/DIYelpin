@@ -48,10 +48,28 @@ angular.module('postListService',[])
     });
   };
 
+  var fetchAndUpdateVotes = function(currentUser,callback) {
+    var userVotes = {};
+    getAll().then(function(data){
+      getUserVotes({username: currentUser})
+        .then(function(user){
+
+          _.each(user.votedFor, function(id){
+            userVotes[id] = id;
+          });
+
+          _.each(data, function(post){
+            if (userVotes.hasOwnProperty(post._id)){
+              post.highlight = true;
+            }
+          });
+      });
+      return callback(data);
+    });
+  };
+
   return{
-    getAll: getAll,
-    updateVotedPost: updateVotedPost,
-    getUserVotes: getUserVotes,
-    increment: increment
+    increment: increment,
+    fetchAndUpdateVotes: fetchAndUpdateVotes
   }
 }])

@@ -39,8 +39,7 @@ var PostSchema = mongoose.Schema({
 
 var ContestSchema = mongoose.Schema({
   date: Date,
-  ingredients:Array,
-  winner: [PostSchema]
+  ingredients:Array
 });
 
 var UserSchema = mongoose.Schema({
@@ -170,7 +169,7 @@ var makeNewContest = function(callback){
   };
 
   var contest = new Contest({
-    date:new Date(),
+    date: new Date(),
     ingredients:populateDaily()
   });
 
@@ -190,8 +189,7 @@ exports.getContests = function(callback){
       console.error('error in get contests',err);
       return callback(err,null);
     }
-
-
+    
     //check if a contest was created for today (it will be last)
     if(!data.length || data[data.length-1].date.toDateString() !== new Date().toDateString()){
       //we need to make a new contest for today
