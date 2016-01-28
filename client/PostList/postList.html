@@ -24,9 +24,8 @@
             <span class="span3">
               <span>category:{{ item.category }}</span>
             </span>
-            <!-- display the image -->
-
-            <img ng-src="data:image/jpg;base64,{{item.image}}" style="width:210px; height:180px">
+            <!-- display the image if it exists-->
+            <img ng-src="{{item.imagelink}}" ng-show="item.image[0]" style="width:210px; height:180px">
           </div>
   	  	</div>
   		</div>

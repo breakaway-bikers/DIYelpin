@@ -76,9 +76,9 @@ function _arrayBufferToBase64( buffer ) {
           });
           // change the images to base64
           _.each(data, function(post){
-            console.log("here is the post: ", post);
+            // console.log("here is the post: ", post);
             if (post.image[0]){
-              post.image = _arrayBufferToBase64(post.image[0].img.data.data);
+              post.imagelink =  "data:image/jpg;base64," + _arrayBufferToBase64(post.image[0].img.data.data);
               // console.log(post.image);
             } 
             // if (post.image[0])

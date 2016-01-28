@@ -25,7 +25,6 @@ angular.module('yelpin.postList', ['postListService'])
   sharedPropertyService.checkAuth();
   postListFactory.fetchAndUpdateVotes(currentUser,function(data){
     $scope.fetchedPosts = data;
-    console.log("data",data);
   });
 
 }]);
