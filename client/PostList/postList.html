@@ -2,12 +2,16 @@
   <h1>POST PAGE</h1>
   <form id="filterbox" class="inputBox">
   		<input class="filterbox" type='text' ng-model="searchString" placeholder="Search for..." style="width:17%; height: 5%; color:black;"/>
+    	<select ng-model="selectedCategory" class="dropdown" ng-options="item for item in uniqueCategories">
+      </select>
+      <select ng-model="sortType" class="dropdown" >
+        <option value="date">Date</option>
+        <option value="votes">Votes</option>
+      </select>
   </form>
-  	<!-- <h7>Search by Category</h7> -->
-  	<!-- <select ng-model="categories" class="dropdown" ng-options="item.category for item in fetchedPosts | unique: 'categories'"></select> -->
   	<button ui-sref="createPost" class="btn btn-white btn-outline btn-lg btn-rounded" style="margin-top: 10px;">Create Post</button>
   	<div class="container">
-  	<div ng-repeat='item in fetchedPosts | filter: searchString'>
+  	<div ng-repeat="item in fetchedPosts | filter: searchString | filter: customFilter | orderBy : customOrder">
   		<div class="row">
   	  <div class="mainInfo">
   			<div class="column column-50 column-offset-25">
@@ -24,6 +28,9 @@
             <span class="span3">
               <span>category:{{ item.category }}</span>
             </span>
+             <div class="span3">
+              <span>date:{{ item.date | niceDate }}</span>
+            </div>
           </div>
   	  	</div>
   		</div>
