@@ -14,6 +14,17 @@ app.use(bodyparser.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
+var allowCrossDomain = function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Credentials', true);
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+};
+
+var globalGoogleLoginID;
+
+app.use(allowCrossDomain);
+
 /*module.exports = {
 
     'googleAuth' : {
@@ -188,13 +199,17 @@ app.get('/auth/google/',
 app.get('/auth/google/callback/', 
   passport.authenticate('google', { failureRedirect: '/signin' }),
   function(req, res) {
-    console.log("Response Came Back FROM DATABASE", res);
-    res.redirect('/#/postList/');
+    globalGoogleLoginID = req.session.passport.user[0].username;
+    console.log("Response Came Back FROM DATABASE", globalGoogleLoginID);
+    // res.status(200).send(req.session.passport.user.username);
+    // res.render("success", { user: req.session.passport.user });
+    res.redirect('/#/postList');
   });
 
-/*app.get('/googleLogin', function(req, res) {
+app.get('/googleLogin', function(req, res) {
   console.log("Should be Logging in any minute now ....");
-})*/
+  res.status(200).send(globalGoogleLoginID)
+})
 
 //
 app.listen(port);
