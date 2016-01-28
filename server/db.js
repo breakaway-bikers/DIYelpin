@@ -302,26 +302,34 @@ exports.findOneUser = function (user){
   })
 }
 
+//Have not used this function yet
+exports.viewPost = function(userObj) {
+  console.log("Typeof of Username", userObj.username);
+  return Post.find({ username: userObj.username }, function(err, result) {
+    if (err) {
+      console.error('error in the VIEW post method');
+    } else {
+      return result;
+    }
+  });
+};
 
 
 //Update a Post to the Database
 exports.updatePost = function(updatedObj, callback) {
 
-  //update the date that the post was created
-  updatedObj.date = new Date();
-
   // console.log(userObj.username);
   console.log("---------FROM THE DATABASE--------", updatedObj);
   return Post.findOneAndUpdate({ _id: updatedObj._id }, updatedObj, callback);
+
 };
 
-
-
-//Have not used this function yet
-exports.viewPost = function(id) {
-  return Post.find({ _id: id }, function(err, result) {
+//Delete a Post from the Database
+exports.deletePost = function(postObj) {
+  console.log("Deleting a Post from the Database");
+  return Post.remove({ _id: postObj._id }, function(err, result) {
     if (err) {
-      console.error('error in the view post method',err);
+      console.error('error in the DELETE method');
     } else {
       return result;
     }
