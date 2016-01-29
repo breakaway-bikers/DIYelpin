@@ -14,4 +14,25 @@ console.log($stateParams._id);
 
   sharedPropertyService.checkAuth();
   $scope.fetchPost();
-}]);
+}])
+
+.directive('markdown', function($window) {
+  var converter = new showdown.Converter();
+  return {
+    restrict: 'E',
+    scope: true,
+    link: function(scope, element, attrs) {
+      var text;
+
+      scope.$watch(function(){
+        return element.html();
+      },function(){
+
+        text = element.html();
+        var htmlText = converter.makeHtml(text);
+        element.html(htmlText);
+      });
+    }
+  }
+})
+
