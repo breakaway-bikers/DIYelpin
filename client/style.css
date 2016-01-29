@@ -1,8 +1,23 @@
 body {
-	font-family: Consolas, monaco, monospace;
+	font-family: 'Schoolbell', cursive;
 	background-color: #3CA2E0;
   margin:0;
   padding:0;
+  height: inherit;
+  background-image: url('assets/blueprint.jpg');
+  background-repeat: repeat-y;
+  color: #fff;
+/*  position: relative;
+  overflow: hidden;*/
+}
+
+.bg-image {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  opacity: 0.2;
 }
 
 nav{
@@ -38,6 +53,21 @@ nav img{
   top: -5px;
 }
 
+input{
+    border: 1px solid #7B7878;
+    width: 200px;
+    height: 15px;
+    padding: 6px;
+    border-radius: 3px;
+}
+
+select{
+    border: 1px solid #7B7878;
+    width: 200px;
+    height: 30px;
+    padding: 5px;
+    border-radius: 3px;
+}
 .btn{
   background-color: #fff;
   border: 1px solid #888;
@@ -62,22 +92,61 @@ nav img{
 }
 
 .post {
+  width: 250px;
+  height: 290px;
+  position: absolute;
+  top:0;
+  left:0;
+  overflow: hidden;
+  background-color: white;
   font-size: 12px;
+  border-radius: 5px;
   border: 2px solid rgba(0, 0, 0, 0.2);
   -webkit-box-shadow: 2px 3px 6px -1px rgba(0,0,0,0.56);
   -moz-box-shadow: 2px 3px 6px -1px rgba(0,0,0,0.56);
   box-shadow: 2px 3px 6px -1px rgba(0,0,0,0.56);
-  border-radius: 5px;
-  background-color: white;
-  margin: 8px auto;
-  width: 210px;
+}
+
+.post-holder{  
+  width: 250px;
+  height: 290px;
+  margin: 7px;
   display: inline-block;
-  padding: 8px;
-  height: 310px;
-  margin: 5px;
   position: relative;
   vertical-align: top;
 }
+
+.all-posts-filters{
+  padding: 15px;
+}
+
+@keyframes example {
+    to {    
+    width: 280px;
+    height: 330px;
+    z-index: 3;
+    top: -15px;
+    left: -15px;
+    box-shadow: 2px 3px 6px 2px rgba(0,0,0,0.56);
+  }
+}
+
+/* The element to apply the animation to */
+.post:hover {
+    animation: example 0.3s forwards;
+
+}
+
+.postContent {
+  position: absolute;
+  z-index: 2;
+  background-color: rgba(0,0,0,0.7);
+  bottom: 0;
+  height: 110px;
+  color: #fff;
+  width: 100%;
+}
+
 
 a {
 	color: #E68A09;
@@ -179,6 +248,7 @@ ul {
     border: 1px solid;
     background-color: #fff;
     overflow: scroll;
+    color: #000;
 }
 
 .create-page textarea{
@@ -194,6 +264,28 @@ ul {
     height: 400px;
     width: 45%;
     position: relative;
+}
+
+.postImg{
+  overflow: hidden;
+  max-height: 340px;
+  min-width: 280px;
+  cursor: pointer;
+}
+
+.postImg img{
+  max-height: 340px;
+  min-width: 300px;
+  position: absolute;
+  left: -20px;
+}
+
+.long-img{
+  width:180px;
+}
+
+.fat-img{
+  height:210px;
 }
 
 .btn-google{
