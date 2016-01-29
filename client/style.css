@@ -161,6 +161,41 @@ ul {
 	float: right;
 }
 
+.create-page{
+  position: relative;
+}
+
+.markdown-preview{
+    position: absolute;
+    left: 50%;
+    top: -18px;
+    height: 400px;
+    width: 45%;
+}
+
+.markdown-preview-area{
+    height: 82%;
+    width: 100%;
+    border: 1px solid;
+    background-color: #fff;
+    overflow: scroll;
+}
+
+.create-page textarea{
+    height: 80%;
+    width: 100%;
+}
+
+.project-description-area {
+    position: relative;
+}
+
+.markdown-code{
+    height: 400px;
+    width: 45%;
+    position: relative;
+}
+
 .btn-google{
   color:#fff;
   background-color:#dd4b39;
