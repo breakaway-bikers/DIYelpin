@@ -147,7 +147,7 @@ exports.createGoogleUser = function(obj, callback) {
     } else {
       console.log('SUCCES SAVINE GOOGLE USER')
       console.log(user);
-      return callback(user);
+      return callback(err, user);
     }
   })
 
@@ -155,12 +155,8 @@ exports.createGoogleUser = function(obj, callback) {
 
 exports.findGoogleUser = function(userObj, callback) {
 
-  if (!userObj.password) {
-    userObj.password = '123';
-  }
-
-  console.log("------IN THE DB-------",userObj);
-  return User.find({ username: userObj.username }, callback);
+  console.log("------IN THE DB-------", userObj);
+  return User.findOne({ username: userObj.username }, callback);
 }
 
 
