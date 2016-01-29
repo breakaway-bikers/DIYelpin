@@ -3,4 +3,3 @@ node_modules/*
 client/.DS_Store
 coverage/*
 client/.DS_Store
-server/config
