@@ -40,26 +40,22 @@ angular.module('yelpin.createPost', [])
     if ($scope.category === "Custom") {
       data.category = $scope.customCategory;
     }
-    console.log(" here;s the data object: ", data);
 
     // Capture the data object 
     $scope.postData = data;
 
 
-    // If an image file was chosen, use file upload to send the data and the file
+    // If an image file was chosen, use angular Upload (ng-file-upload) to send the data and the file
     if ($scope.f){
       file = $scope.f;
       file.upload = Upload.upload({
         url: '/createPost',
         data: { file: file, postData: $scope.postData},
       });
-      // console.log("file.upload is: ", file.upload);
-      // console.log("file is", file);
-      // console.log ("The post data is: ", $scope.postData);
+      
       file.upload.then(function(response) {
         // console.log("response from the upload request: ", response);
         // console.log("the actual data array", response.data.img.data.data);
-
         // var dataNow64bit = _arrayBufferToBase64(response.data.img.data.data);
         // $scope.image = response.data.img.data.data;
         // $scope.image = dataNow64bit;
@@ -67,16 +63,6 @@ angular.module('yelpin.createPost', [])
           file.result = response.data;
         });
       })
-  
-      // function(response) {
-      //   if (response.status > 0)
-      //     $scope.errorMsg = response.status + ': ' + response.data;
-      // },
-  
-      // function(evt) {
-      //   file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-      // });
-    
 
     } else {  // No image file submitted, use the http post 
       appFactory.setPost(data);

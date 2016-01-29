@@ -49,6 +49,8 @@
           Select File</button>
         </div>
 
+        <p>File selected: {{f.name}}</p>
+
         <!-- Show the results of uploading the file -->
         <!-- Uploaded File:
         <div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
@@ -70,7 +72,6 @@
         <!-- <img ng-src="data:image/jpg;base64,{{image}}">
         <br> -->
 
-<!--         <button ui-sref="postList" -->        
     
         {{errorMsg}}
         <button ui-sref="postList" class="btn btn-white btn-outline btn-lg btn-rounded" ng-click='postToPage();'>Post Project</button>
