@@ -35,7 +35,6 @@ console.log($stateParams._id);
   var converter = new showdown.Converter();
   return {
     restrict: 'E',
-    scope: true,
     link: function(scope, element, attrs) {
       var text;
 
