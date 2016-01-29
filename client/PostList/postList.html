@@ -1,4 +1,5 @@
 <div class='login-page'>
+
   <div class="header">
     <h1>POST PAGE</h1>
     <form id="filterbox" class="inputBox">
@@ -22,6 +23,9 @@
             <span class="span3">
               <span class="username">by:{{ item.username }}, </span>
             </span>
+             <div class="span3">
+              <span>date:{{ item.date | niceDate }}</span>
+            </div>
           </div>
           <div class="footer">
             <div class="cat">

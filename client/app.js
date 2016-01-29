@@ -7,7 +7,8 @@ angular.module('yelpin', ['ui.router',
   'yelpin.createPost',
   'yelpin.factory',
   'yelpin.contest',
-  'yelpin.myPostList'])
+  'yelpin.myPostList',
+  ])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -48,6 +49,9 @@ angular.module('yelpin', ['ui.router',
       url: '/contest',
       controller: 'contestController',
     });
+
   $urlRouterProvider.otherwise('/signin');
 
 });
+
+// expose our config directly to our application using module.exports

@@ -3,13 +3,35 @@ angular.module('yelpin.postList', ['postListService'])
 
 .controller('postListController', ['$scope', '$http', 'ViewPost', 'appFactory','$state','sharedPropertyService','postListFactory', '$timeout',
  function($scope, $http, ViewPost, appFactory, $state, sharedPropertyService, postListFactory, $timeout) {
-  $scope.fetchedPosts;
+  
+  $scope.fetchedPosts = [];
+  $scope.uniqueCategories = [];
+  $scope.sortType = "date";
+  $scope.selectedCategory = "All";
   var currentUser = sharedPropertyService.getProperty();
-  var userVotes = {};
-
 
   $scope.increment = function(item){
     postListFactory.increment(item, currentUser);
+  };
+
+
+  $scope.customFilter = function(item,i){
+    if($scope.selectedCategory === 'All' ){
+      return true;
+    }
+
+    if(item.category === $scope.selectedCategory){
+      return true;
+    }
+    return false;
+  };
+
+  $scope.customOrder = function(post){
+    if($scope.sortType === 'votes'){
+      return -post[$scope.sortType];
+    }else if($scope.sortType === 'date'){
+      return post[$scope.sortType];
+    }
   };
 
   //Made this function for future use
@@ -24,7 +46,11 @@ angular.module('yelpin.postList', ['postListService'])
 
   sharedPropertyService.checkAuth();
   postListFactory.fetchAndUpdateVotes(currentUser,function(data){
+    
     $scope.fetchedPosts = data;
+    $scope.uniqueCategories = _.chain(data).pluck('category').unique().value();
+    $scope.uniqueCategories.unshift('All');
+
   });
 
 }]);
