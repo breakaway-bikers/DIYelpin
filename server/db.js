@@ -34,37 +34,21 @@ var Img = mongoose.model('Image', ImageSchema);
 
 
 exports.saveImage = function(imgPath, postObj){
-  console.log("\n\nHere is the postObj: ", postObj);
+  // console.log("\n\nHere is the postObj: ", postObj);
   // for now always remove all images
-  exports.removeAllImages();
+  // exports.removeAllImages();
 
-  var a = new Img;
-  a.img.data = fs.readFileSync(imgPath);
-  a.img.contentType = 'image/jpg';
-  postObj.image = a;
-  console.log("\n\n\npost data is: ", postObj);
-
-  exports.createPost(postObj);
-
-  return a.save(function (err, a) {
-    if (err) {
-      console.log("\n\n\nERROR saving image to the database.  Read below");
-      throw err;
-      console.log("\n\n\n");
-      console.error('saved img to mongo!!!!   :)');
-
-    }
-
-  })
+  if (imgPath){  // If an image exists, save it to the Img collection
+    var a = new Img;
+    a.img.data = fs.readFileSync(imgPath);
+    a.img.contentType = 'image/jpg';
+    postObj.image = a;
+    // console.log("\n\n\npost data is: ", postObj);
+     // exports.createPost(postObj);  // Create a the post with the postObj 
+  } 
+    return exports.createPost(postObj)
 }
 
-exports.removeAllImages = function () {
-  // empty the collection of pics  (Remove this )
-  Img.remove(function (err) {
-    if (err) throw err;
-    console.error('removed all images from the DB');
-  });
-}
 
 
 
