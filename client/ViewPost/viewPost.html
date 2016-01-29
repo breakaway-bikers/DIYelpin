@@ -2,8 +2,10 @@
 
 <div class='login-page'>
 
+
   <h3> {{ receivedData.title }} </h3>
   <h4>Posted by: {{ receivedData.username }}</h4>
+  <img ng-src="{{receivedData.imagelink}}" ng-show="receivedData.image[0]">
   <div class="description">
     <markdown ng-bind="receivedData.message"></markdown>
   </div>

@@ -42,6 +42,16 @@
         </div>
 
         <h4>Upload on file select</h4>
+        <br>
+        <div>          
+           <button type="file" ngf-select="uploadFiles($file, $invalidFiles)"
+            accept="image/*" style="color:black; border-radius: 5px;" ngf-max-height="10000" ngf-max-size="20MB">
+          Select File</button>
+        </div>
+
+        <!-- Show the results of uploading the file -->
+        <!-- Uploaded File:
+        <div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
         <div>
           <button type="file" ngf-select="uploadFiles($file, $invalidFiles)"
           accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
@@ -54,6 +64,14 @@
             <div ng-bind="f.progress + '%'"></div>
           </span>
         </div>
+        {{errorMsg}}<br><br> -->
+
+        <!-- Display the the image returned from the server -->
+        <!-- <img ng-src="data:image/jpg;base64,{{image}}">
+        <br> -->
+
+<!--         <button ui-sref="postList" -->        
+    
         {{errorMsg}}
         <button ui-sref="postList" class="btn btn-white btn-outline btn-lg btn-rounded" ng-click='postToPage();'>Post Project</button>
     </form>

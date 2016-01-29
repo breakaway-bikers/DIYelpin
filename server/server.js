@@ -6,6 +6,10 @@ var port = process.env.PORT || 3000;
 var morgan = require('morgan');
 var db = require('./db.js');
 
+// middleware for recieving multipart data (aka images)
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
+
 // Variables needed for Google Login
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var passport = require('passport')
@@ -19,6 +23,28 @@ app.use(bodyparser.json());
 // Google Login
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Image post
+app.post('/createPost', multipartMiddleware, function(req, res, next){
+  // console.log("\n\n\nHere is the image post request.files", req.files, "\n\n\n\n");
+  // console.log("\n\n\nHere is the image path", req.files.file.path, "\n\n\n\n");
+  // console.log("\n\n\n\nHere is the request: ", req.body.postData);
+
+  var imgPath = false;
+
+  if (req.files) {   
+    imgPath = req.files.file.path;
+    req.body = req.body.postData;
+  } 
+
+  db.saveThePost(imgPath, req.body).then(function(dbRes, err){
+    if (err) {
+      console.log("Error from saveImage function", err);
+    }
+    // res.responseType ="arraybuffer"; 
+    res.status(200).send(dbRes);
+  })
+});
 
 
 app.get('/postList', function(req, res, next) {
@@ -57,18 +83,18 @@ app.post('/createUser', function(req, res, next) {
   });
 });
 
-app.post('/createPost', function(req, res, next) {
-  console.log('request body', req.body);
-  db.createPost(req.body).then(function(post, err) {
-    if (err) {
-      console.log('create post err:', err);
-      res.status(406);
-    } else {
-      console.log('createPost 200 ok:')
-      res.status(200).send(post);
-    }
-  });
-});
+// app.post('/createPost', function(req, res, next) {
+//   console.log('request body', req.body);
+//   db.createPost(req.body).then(function(post, err) {
+//     if (err) {
+//       console.log('create post err:', err);
+//       res.status(406);
+//     } else {
+//       console.log('createPost 200 ok:')
+//       res.status(200).send(post);
+//     }
+//   });
+// });
 
 app.post('/vote', function(req, res, next) {
   db.vote(req.body)
@@ -161,25 +187,27 @@ passport.use(new GoogleStrategy({
   },
   function(token, tokenSecret, profile, done) {
 
-      if (profile.displayName === '') {
+      console.log("-------------", typeof profile.displayName);
+
+      if (!profile.displayName) {
         profile.displayName = profile.id;
       }
 
       db.findGoogleUser({ username : profile.displayName }, function(err, user) {
       console.log("This is the user", user);
-      
-      if (user.length > 0) {
+
+      if (!err || user.length > 0 ) {
         console.log("USER EXISTS IN THE DATABASE:", user);
         return done(null, user);
       } else {
         db.createGoogleUser({ username: profile.displayName }, function (err, user) {
           console.log("CREATING A NEW GOOGLE USER: ", user);
-          if(err) {
-            console.log(err)
-            return done(null, false);
-          } else {
-            console.log(user)
+          if(!err) {
+            console.log("CREATED USER:", user)
             return done(null, user);
+          } else {
+            console.log("ERROR:", err);
+            return done(null, false);
           }
         });
       } // end of the if/else condition
