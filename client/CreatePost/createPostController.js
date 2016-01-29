@@ -50,7 +50,7 @@ angular.module('yelpin.createPost', [])
     if ($scope.f){
       file = $scope.f;
       file.upload = Upload.upload({
-        url: '/images',
+        url: '/createPost',
         data: { file: file, postData: $scope.postData},
       });
       // console.log("file.upload is: ", file.upload);

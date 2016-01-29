@@ -33,7 +33,7 @@ var ImageSchema = new mongoose.Schema({
 var Img = mongoose.model('Image', ImageSchema);
 
 
-exports.saveImage = function(imgPath, postObj){
+exports.saveThePost = function(imgPath, postObj){
   // console.log("\n\nHere is the postObj: ", postObj);
   // for now always remove all images
   // exports.removeAllImages();

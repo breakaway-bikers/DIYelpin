@@ -25,15 +25,19 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Image post
-app.post('/images', multipartMiddleware, function(req, res, next){
+app.post('/createPost', multipartMiddleware, function(req, res, next){
   // console.log("\n\n\nHere is the image post request.files", req.files, "\n\n\n\n");
-  console.log("\n\n\nHere is the image path", req.files.file.path, "\n\n\n\n");
-  console.log("\n\n\n\nHere is the request: ", req.body.postData);
+  // console.log("\n\n\nHere is the image path", req.files.file.path, "\n\n\n\n");
+  // console.log("\n\n\n\nHere is the request: ", req.body.postData);
 
+  var imgPath = false;
 
-  var imgPath = req.files.file.path;
-  
-  db.saveImage(imgPath, req.body.postData).then(function(dbRes, err){
+  if (req.files) {   
+    imgPath = req.files.file.path;
+    req.body = req.body.postData;
+  } 
+
+  db.saveThePost(imgPath, req.body).then(function(dbRes, err){
     if (err) {
       console.log("Error from saveImage function", err);
     }
@@ -79,18 +83,18 @@ app.post('/createUser', function(req, res, next) {
   });
 });
 
-app.post('/createPost', function(req, res, next) {
-  console.log('request body', req.body);
-  db.createPost(req.body).then(function(post, err) {
-    if (err) {
-      console.log('create post err:', err);
-      res.status(406);
-    } else {
-      console.log('createPost 200 ok:')
-      res.status(200).send(post);
-    }
-  });
-});
+// app.post('/createPost', function(req, res, next) {
+//   console.log('request body', req.body);
+//   db.createPost(req.body).then(function(post, err) {
+//     if (err) {
+//       console.log('create post err:', err);
+//       res.status(406);
+//     } else {
+//       console.log('createPost 200 ok:')
+//       res.status(200).send(post);
+//     }
+//   });
+// });
 
 app.post('/vote', function(req, res, next) {
   db.vote(req.body)
