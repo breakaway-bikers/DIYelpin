@@ -14,9 +14,19 @@ angular.module('yelpin.factory', [])
     sharedPropertyService.destroyProperty();
   };
 
+  var postToPage = function(file){
+    file.upload = Upload.upload({
+          url: '/createPost',
+          data: { file: file, postData: $scope.postData},
+        });    
+    return file.upload
+  };
+  
+
   return {
     setPost: setPost,
     signOut: signOut,
+    postToPage: postToPage
   };
 }])
 

@@ -48,22 +48,16 @@ angular.module('yelpin.createPost', [])
     // If an image file was chosen, use angular Upload (ng-file-upload) to send the data and the file
     if ($scope.f){
       file = $scope.f;
-      file.upload = Upload.upload({
-        url: '/createPost',
-        data: { file: file, postData: $scope.postData},
-      });
-      
-      file.upload.then(function(response) {
-        // console.log("response from the upload request: ", response);
-        // console.log("the actual data array", response.data.img.data.data);
-        // var dataNow64bit = _arrayBufferToBase64(response.data.img.data.data);
-        // $scope.image = response.data.img.data.data;
-        // $scope.image = dataNow64bit;
-        $timeout(function() {
-          file.result = response.data;
-        });
-      })
-
+      app.Factory.postToPage(file).then(function(response) {
+          // console.log("response from the upload request: ", response);
+          // console.log("the actual data array", response.data.img.data.data);
+          // var dataNow64bit = _arrayBufferToBase64(response.data.img.data.data);
+          // $scope.image = response.data.img.data.data;
+          // $scope.image = dataNow64bit;
+          $timeout(function() {
+            file.result = response.data;
+          });
+        })
     } else {  // No image file submitted, use the http post 
       appFactory.setPost(data);
     }
