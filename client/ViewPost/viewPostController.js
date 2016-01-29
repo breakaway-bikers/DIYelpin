@@ -13,21 +13,22 @@ angular.module('yelpin.viewPost', [])
   $scope.fetchPost();
 }])
 
-
 .directive('markdown', function($window) {
   var converter = new showdown.Converter();
   return {
     restrict: 'E',
     scope: true,
     link: function(scope, element, attrs) {
-      console.log('[' + element.text() +']');
-      console.log('received data',scope.$parent.receivedData);
-      if(scope.$parent.receivedData.message){
-        var htmlText = converter.makeHtml(scope.receivedData.message);
+      var text;
+
+      scope.$watch(function(){
+        return element.html();
+      },function(){
+
+        text = element.html();
+        var htmlText = converter.makeHtml(text);
         element.html(htmlText);
-      }else{
-        element.html('[no message]');
-      }
+      });
     }
   }
 })
