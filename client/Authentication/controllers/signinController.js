@@ -1,6 +1,6 @@
 angular.module('yelpin.signin', [])
 
-.controller('signinController', ['$scope', '$http', '$location', '$window','sharedPropertyService', 
+.controller('signinController', ['$scope', '$http', '$location', '$window','sharedPropertyService',
   function($scope, $http, $location, $window, sharedPropertyService) {
   $scope.signinError = false;
 
@@ -38,10 +38,10 @@ angular.module('yelpin.signin', [])
   }
 
   $scope.check = function() {
-    
+
     // var id = $window.localStorage.getItem('com.diy');
     var userID;
-    
+
     if (!userID) {
       $scope.googleLogin().then(function(response) {
         console.log(response);
@@ -50,5 +50,11 @@ angular.module('yelpin.signin', [])
       });
     }
   };
+
+  $scope.github = function () {
+      window.location.replace('https://github.com/login/oauth/authorize?client_id=' + 'a69c21ebf61de036fe57' + '&redirect_uri=' + window.location.origin + '&scope=user')
+  }
+
+
 
 }]);

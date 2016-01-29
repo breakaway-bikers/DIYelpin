@@ -26,7 +26,7 @@ app.use(passport.session());
 
 // Image post
 app.post('/createPost', multipartMiddleware, function(req, res, next){
-  /*  
+  /*
   if post includes an image:
     -> the body of the post is at req.body.postData
     -> the image file is at req.files.file.path
@@ -37,12 +37,12 @@ app.post('/createPost', multipartMiddleware, function(req, res, next){
 
   var img = false;
 
-  if (req.files) {   // if an image is added 
+  if (req.files) {   // if an image is added
     imgPath = req.files.file.path;
     req.body = req.body.postData;
-    img = req.files.file; 
+    img = req.files.file;
     // console.log("\n\nserver side filename: ", img.name, "\n\n");
-  } 
+  }
 
   db.saveThePost(img, req.body).then(function(dbRes, err){
     if (err) {
@@ -238,7 +238,7 @@ app.get('/auth/google/callback/',
     } else {
       res.redirect('/#/signin');
     }
-    
+
   });
 
 app.get('/googleLogin', function(req, res) {

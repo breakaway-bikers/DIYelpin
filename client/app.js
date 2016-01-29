@@ -1,4 +1,5 @@
-angular.module('yelpin', ['ui.router',
+angular.module('yelpin', ['infinite-scroll',
+  'ui.router',
   'yelpin.postList',
   'yelpin.viewPost',
   'yelpin.services',
@@ -13,13 +14,17 @@ angular.module('yelpin', ['ui.router',
 
 
 .config(function($stateProvider, $urlRouterProvider) {
-
+  $urlRouterProvider
+    .when('/?:params', function($stateParams){
+      console.log("))))))))",$stateParams)
+    })
   $stateProvider
     .state('signin', {
       templateUrl: 'Authentication/views/signin.html',
       url: '/signin',
       controller: 'signinController',
     })
+
     .state('signup', {
       templateUrl: 'Authentication/views/signup.html',
       url: '/signup',
