@@ -167,7 +167,7 @@ passport.use(new GoogleStrategy({
 
       db.findGoogleUser({ username : profile.displayName }, function(err, user) {
       console.log("This is the user", user);
-      
+
       if (user.length > 0) {
         console.log("USER EXISTS IN THE DATABASE:", user);
         return done(null, user);
@@ -207,7 +207,7 @@ app.get('/auth/google/',
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
 app.get('/auth/google/callback/',
-  passport.authenticate('google', { failureRedirect: '/signin' }),
+  passport.authenticate('google', { failureRedirect: '/#/signin' }),
   function(req, res) {
     console.log("USERNAME: ",req.session.passport.user);
     globalGoogleLoginID = req.session.passport.user[0].username;
