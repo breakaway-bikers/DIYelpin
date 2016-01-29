@@ -2,16 +2,16 @@
 
   <div class="header">
     <h1>POST PAGE</h1>
-  <form id="filterbox" class="inputBox">
-      <input class="filterbox" type='text' ng-model="searchString" placeholder="Search for..." style="width:17%; height: 5%; color:black;"/>
-      <select ng-model="selectedCategory" class="dropdown" ng-options="item for item in uniqueCategories">
+  <form>
+      <input type='text' ng-model="searchString" placeholder="Search for..."/>
+      <select ng-model="selectedCategory" ng-options="item for item in uniqueCategories">
       </select>
-      <select ng-model="sortType" class="dropdown" >
+      <select ng-model="sortType" >
         <option value="date">Date</option>
         <option value="votes">Votes</option>
       </select>
   </form>
-    <a ui-sref="createPost" class="btn btn-white btn-outline btn-lg btn-rounded" style="margin-top: 10px;">Create Post</a>
+  <a ui-sref="createPost" class="btn">Create Post</a>
   </div>
   	<!-- <h7>Search by Category</h7> -->
   	<!-- <select ng-model="categories" class="dropdown" ng-options="item.category for item in fetchedPosts | unique: 'categories'"></select> -->
@@ -19,7 +19,8 @@
       	<div class="post" ng-repeat='item in fetchedPosts | filter: searchString | filter: customFilter | orderBy : customOrder'>
 
           <div class="postImg">
-              <img src="http://placehold.it/210x180" alt="" />
+              <!-- display the image if it exists-->
+            <img ng-src="{{item.imagelink}}" ng-show="item.image[0]" style="width:210px; height:180px">
           </div>
           <div class="postContent">
             <span class="span3">
@@ -28,9 +29,11 @@
             <span class="span3">
               <span class="username">by:{{ item.username }}, </span>
             </span>
+
              <div class="span3">
               <span>date:{{ item.date | niceDate }}</span>
             </div>
+
           </div>
           <div class="footer">
             <div class="cat">

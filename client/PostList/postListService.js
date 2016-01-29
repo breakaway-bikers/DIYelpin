@@ -48,6 +48,17 @@ angular.module('postListService',[])
     });
   };
 
+
+function _arrayBufferToBase64( buffer ) {
+    var binary = '';
+    var bytes = new Uint8Array( buffer );
+    var len = bytes.byteLength;
+    for (var i = 0; i < len; i++) {
+        binary += String.fromCharCode( bytes[ i ] );
+    }
+    return window.btoa( binary );
+}
+
   var fetchAndUpdateVotes = function(currentUser,callback) {
     var userVotes = {};
     getAll().then(function(data){
@@ -62,6 +73,16 @@ angular.module('postListService',[])
             if (userVotes.hasOwnProperty(post._id)){
               post.highlight = true;
             }
+          });
+          // change the images to base64
+          _.each(data, function(post){
+            // console.log("here is the post: ", post);
+            if (post.image[0]){
+              post.imagelink =  "data:image/jpg;base64," + _arrayBufferToBase64(post.image[0].img.data.data);
+              // console.log(post.image);
+            } 
+            // if (post.image[0])
+            //   console.log ("Here is the image buffer", post.image[0].img.data.data)
           });
       });
       return callback(data);
