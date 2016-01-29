@@ -179,16 +179,16 @@ passport.use(new GoogleStrategy({
   },
   function(token, tokenSecret, profile, done) {
 
-      console.log("-------------", typeof profile.displayName);
+      console.log("-------------", typeof profile.displayName, " +++ ",profile.displayName);
 
-      if (profile.displayName === '') {
-        profile.displayName = profile.id;
+      if (!profile.displayName) {
+        profile.displayName = 'DIYelpin'
       }
 
       db.findGoogleUser({ username : profile.displayName }, function(err, user) {
       console.log("This is the user", user);
 
-      if (user.length > 0 ) {
+      if (user) {
         console.log("USER EXISTS IN THE DATABASE:", user);
         return done(null, user);
       } else {
@@ -230,8 +230,13 @@ app.get('/auth/google/callback/',
   passport.authenticate('google', { failureRedirect: '/#/signin' }),
   function(req, res) {
     console.log("USERNAME: ",req.session.passport.user);
-    globalGoogleLoginID = req.session.passport.user[0].username;
-    res.redirect('/#/postList');
+    if (req.session.passport.user) {
+      globalGoogleLoginID = req.session.passport.user.username;
+      res.redirect('/#/postList');
+    } else {
+      res.redirect('/#/signin');
+    }
+    
   });
 
 app.get('/googleLogin', function(req, res) {
