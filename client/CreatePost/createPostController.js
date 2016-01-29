@@ -7,7 +7,7 @@ angular.module('yelpin.createPost', [])
   $scope.customCategory = '';
   $scope.showCustomCategoryField = false;
   var temp = sharedPropertyService.getProperty();
-  console.log('this is the set property', temp);
+  // console.log('this is the set property', temp);
 
  // Check the drop down value of Categories then show/hide custom category
    $scope.checkDropDown = function(){
@@ -42,67 +42,68 @@ angular.module('yelpin.createPost', [])
     }
     console.log(" here;s the data object: ", data);
 
-    // Caputure the data object 
+    // Capture the data object 
     $scope.postData = data;
 
-    // Data will now be sent from the post image function
-    //appFactory.setPost(data);
+
+    // If an image file was chosen, use file upload to send the data and the file
+    if ($scope.f){
+      file = $scope.f;
+      file.upload = Upload.upload({
+        url: '/images',
+        data: { file: file, postData: $scope.postData},
+      });
+      // console.log("file.upload is: ", file.upload);
+      // console.log("file is", file);
+      // console.log ("The post data is: ", $scope.postData);
+      file.upload.then(function(response) {
+        // console.log("response from the upload request: ", response);
+        // console.log("the actual data array", response.data.img.data.data);
+
+        // var dataNow64bit = _arrayBufferToBase64(response.data.img.data.data);
+        // $scope.image = response.data.img.data.data;
+        // $scope.image = dataNow64bit;
+        $timeout(function() {
+          file.result = response.data;
+        });
+      })
+  
+      // function(response) {
+      //   if (response.status > 0)
+      //     $scope.errorMsg = response.status + ': ' + response.data;
+      // },
+  
+      // function(evt) {
+      //   file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+      // });
+    
+
+    } else {  // No image file submitted, use the http post 
+      appFactory.setPost(data);
+    }
+
     $scope.txtcomment = '';
     $scope.descript = '';
     $scope.category = '';
   };
 
-  //This appears to retrieve the photo. But I cant find a way to then store this image in my mongo DB or whether it is being posted to an external server.
 
   //  *********************************************
-  // CONTINUING JUAN'S UPLOAD FEATURE
-  // $scope.saveFile = function (userFile){
-  //   console.log("The user file is: ", userFile);
+  //  No longer used.  Keep in case we want to display the image on the create post page
+  //   function _arrayBufferToBase64( buffer ) {
+  //     var binary = '';
+  //     var bytes = new Uint8Array( buffer );
+  //     var len = bytes.byteLength;
+  //     for (var i = 0; i < len; i++) {
+  //         binary += String.fromCharCode( bytes[ i ] );
+  //     }
+  //     return window.btoa( binary );
   // }
-
-  function _arrayBufferToBase64( buffer ) {
-    var binary = '';
-    var bytes = new Uint8Array( buffer );
-    var len = bytes.byteLength;
-    for (var i = 0; i < len; i++) {
-        binary += String.fromCharCode( bytes[ i ] );
-    }
-    return window.btoa( binary );
-}
 
   $scope.uploadFiles = function(file, errFiles) {
     $scope.f = file;
     $scope.errFile = errFiles && errFiles[0];
     // console.log("the file is: ", file);
-    if (file) {
-      file.upload = Upload.upload({
-        url: '/images',
-        data: { file: file, postData: $scope.postData},
-      });
-      console.log("file.upload is: ", file.upload);
-      console.log("file is", file);
-      console.log ("The post data is: ", $scope.postData);
-      file.upload.then(function(response) {
-        // console.log("response from the upload request: ", response);
-        // console.log("the actual data array", response.data.img.data.data);
-
-        var dataNow64bit = _arrayBufferToBase64(response.data.img.data.data);
-        // $scope.image = response.data.img.data.data;
-        $scope.image = dataNow64bit;
-        $timeout(function() {
-          file.result = response.data;
-        });
-      },
-  
-      function(response) {
-        if (response.status > 0)
-          $scope.errorMsg = response.status + ': ' + response.data;
-      },
-  
-      function(evt) {
-        file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-      });
-    }
   };
   //  ***************************************
 
