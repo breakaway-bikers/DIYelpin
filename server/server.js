@@ -187,10 +187,10 @@ passport.use(new GoogleStrategy({
   },
   function(token, tokenSecret, profile, done) {
 
-      console.log("-------------", typeof profile.displayName);
+      console.log("-------------", typeof profile.displayName, " +++ ",profile.displayName);
 
-      if (profile.displayName === '') {
-        profile.displayName = profile.id;
+      if (!profile.displayName) {
+        profile.displayName = 'DIYelpin' + Math.floor(Math.random() * 10);
       }
 
       db.findGoogleUser({ username : profile.displayName }, function(err, user) {
