@@ -41,7 +41,7 @@ app.post('/createPost', multipartMiddleware, function(req, res, next){
     imgPath = req.files.file.path;
     req.body = req.body.postData;
     img = req.files.file; 
-    console.log("\n\nserver side filename: ", img.name, "\n\n");
+    // console.log("\n\nserver side filename: ", img.name, "\n\n");
   } 
 
   db.saveThePost(img, req.body).then(function(dbRes, err){

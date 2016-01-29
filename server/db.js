@@ -40,7 +40,7 @@ exports.saveThePost = function(img, postObj){
     var a = new Img;
     a.img.data = fs.readFileSync(img.path);
     a.img.contentType = 'image/jpg';
-    console.log("\n\nhere is the database side filename",  img.name, "\n\n");
+    // console.log("here is the database side filename", img.name);
     a.img.name = img.name;
     postObj.image = a;
   } 
