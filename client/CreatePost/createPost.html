@@ -1,15 +1,15 @@
 <!-- Running a quick text.  Add a css file later-->
-<div class='login-page'>
+<div class='create-page'>
     <!-- <a ui-sref='createPost' style="color: orange; font-size: 19px">CREATE POST</a> || -->
 
     <h3>Share Your Project</h3>
     <form class="inputbox">
+        
         <label>Title</label>
         <input id="commentField" type='text' placeholder="your description" ng-model='descript'>
-        <div><label>Add the Instructions Here (Markdown formatted)</label></div>
-        <textarea id="commentField" ng-model="txtcomment" placeholder="Your Project"></textarea>
-
-        <div><label>Category</label>
+        
+        <div class="categoryPicker">
+          <label>Category</label>
           <select name="categories" class="dropdown" ng-model="category" ng-change="checkDropDown()">
             <option value="Outdoors">Outdoors</option>
             <option value="Home Improvement">Home Improvement</option>
@@ -21,14 +21,26 @@
             <option value="Custom">Custom</option>
           </select>
 
-           <p model="customField" ng-show ="showCustomCategoryField">
+           <div model="customField" ng-show ="showCustomCategoryField">
              <label>Enter your own Category:</label><input ng-model="customCategory" type="text">
-           </p>
+           </div>
         </div>
-        <div>
-          <h2>Markdown Preview</h2>
-          <Markdown ng-bind="txtcomment"></Markdown>
+
+        <div class="project-description-area">
+          
+          <div class="markdown-code">
+            <h2>Add Instructions</h2>
+            <textarea ng-model="txtcomment" placeholder="Your Project"></textarea>
+          </div>
+
+          <div class="markdown-preview">
+            <h2>Markdown Preview</h2>
+            <div class="markdown-preview-area">
+              <Markdown ng-bind="txtcomment"></Markdown>
+            </div>
+          </div>
         </div>
+
         <h4>Upload on file select</h4>
         <br>
         <div>          
@@ -36,6 +48,8 @@
             accept="image/*" style="color:black; border-radius: 5px;" ngf-max-height="10000" ngf-max-size="20MB">
           Select File</button>
         </div>
+
+        <p>File selected: {{f.name}}</p>
 
         <!-- Show the results of uploading the file -->
         <!-- Uploaded File:
@@ -58,10 +72,8 @@
         <!-- <img ng-src="data:image/jpg;base64,{{image}}">
         <br> -->
 
-<!--         <button ui-sref="postList" -->        
     
         {{errorMsg}}
         <button ui-sref="postList" class="btn btn-white btn-outline btn-lg btn-rounded" ng-click='postToPage();'>Post Project</button>
     </form>
-    <div><button ui-sref='postList' class="btn btn-white btn-outline btn-lg btn-rounded">BACK TO POST LIST</button></div>
 </div>

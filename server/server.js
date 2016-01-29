@@ -26,22 +26,26 @@ app.use(passport.session());
 
 // Image post
 app.post('/createPost', multipartMiddleware, function(req, res, next){
-  // console.log("\n\n\nHere is the image post request.files", req.files, "\n\n\n\n");
-  // console.log("\n\n\nHere is the image path", req.files.file.path, "\n\n\n\n");
-  // console.log("\n\n\n\nHere is the request: ", req.body.postData);
+  /*
+  if post includes an image:
+    -> the body of the post is at req.body.postData
+    -> the image file is at req.files.file.path
+
+  if post does not have an image:
+    -> the body of the post is as req.body
+  */
 
   var imgPath = false;
 
-  if (req.files) {   
+  if (req.files) {   // if an image is added
     imgPath = req.files.file.path;
     req.body = req.body.postData;
-  } 
+  }
 
   db.saveThePost(imgPath, req.body).then(function(dbRes, err){
     if (err) {
-      console.log("Error from saveImage function", err);
+      console.log("Error from saveThePost function", err);
     }
-    // res.responseType ="arraybuffer"; 
     res.status(200).send(dbRes);
   })
 });
@@ -83,18 +87,6 @@ app.post('/createUser', function(req, res, next) {
   });
 });
 
-// app.post('/createPost', function(req, res, next) {
-//   console.log('request body', req.body);
-//   db.createPost(req.body).then(function(post, err) {
-//     if (err) {
-//       console.log('create post err:', err);
-//       res.status(406);
-//     } else {
-//       console.log('createPost 200 ok:')
-//       res.status(200).send(post);
-//     }
-//   });
-// });
 
 app.post('/vote', function(req, res, next) {
   db.vote(req.body)
@@ -187,6 +179,8 @@ passport.use(new GoogleStrategy({
   },
   function(token, tokenSecret, profile, done) {
 
+      console.log("-------------", typeof profile.displayName);
+
       if (profile.displayName === '') {
         profile.displayName = profile.id;
       }
@@ -194,18 +188,18 @@ passport.use(new GoogleStrategy({
       db.findGoogleUser({ username : profile.displayName }, function(err, user) {
       console.log("This is the user", user);
 
-      if (user.length > 0) {
+      if (user.length > 0 ) {
         console.log("USER EXISTS IN THE DATABASE:", user);
         return done(null, user);
       } else {
         db.createGoogleUser({ username: profile.displayName }, function (err, user) {
           console.log("CREATING A NEW GOOGLE USER: ", user);
-          if(err) {
-            console.log(err)
-            return done(null, false);
-          } else {
-            console.log(user)
+          if(!err) {
+            console.log("CREATED USER:", user)
             return done(null, user);
+          } else {
+            console.log("ERROR:", err);
+            return done(null, false);
           }
         });
       } // end of the if/else condition
