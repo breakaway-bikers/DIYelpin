@@ -5,7 +5,10 @@ var Q = require('q');
 var mongoURI = 'mongodb://diyelpin:Beansandburrito1600@ds047335.mongolab.com:47335/heroku_ws06b5hx';
 var fs = require('fs');  // added for image handling
 
- mongoose.connect(process.env.MONGOLAB_URI || mongoURI);
+// mongo ds047335.mongolab.com:47335/heroku_ws06b5hx -u <diyelpin> -p <Beansandburrito1600>
+// mongo ds047335.mongolab.com:47335/heroku_ws06b5hx -u diyelpin -p Beansandburrito1600
+
+mongoose.connect(process.env.MONGOLAB_URI || mongoURI);
 
 // mongoose.connect('mongodb://localhost/yelpin');
 
@@ -94,7 +97,7 @@ var ContestSchema = mongoose.Schema({
 var UserSchema = mongoose.Schema({
   username: {
     type: String,
-    index: { unique: true },
+    index: { unique : true }
   },
   password: String,
   votedFor: []
@@ -105,7 +108,12 @@ var Post = mongoose.model('Post', PostSchema);
 var Contest = mongoose.model('Contest', ContestSchema);
 
 exports.createUser = function(obj) {
-  console.log(obj.password);
+  
+  console.log("1. USERNAME", obj);
+  if (!obj.password) {
+    obj.password = '123';
+  }
+  
   var defer = Q.defer();
 
   Bcrypt.genSalt(Salt_Factor, function(err, salt) {
@@ -124,10 +132,12 @@ exports.createUser = function(obj) {
       console.log('some hash here ', hash);
       obj.password = hash;
       console.log('password after hashing', obj.password);
+      console.log("2. USERNAME", obj);
       var user = new User(obj);
+      console.log("3. USER", user);
       user.save(function(err, user) {
         if (err) {
-          console.log('DB CREATEUSER ERROR', err);
+          console.log('\n\n\n------------------\nDB CREATEUSER ERROR', user);
           defer.resolve(false);
         } else {
           console.log('DB CREATE USER SUCCESS');
@@ -160,6 +170,19 @@ exports.findUser = function(obj) {
 
   return defer.promise;
 };
+
+
+exports.findGoogleUser = function(obj, callback) {
+
+  if (!obj.password) {
+    obj.password = '123';
+  }
+
+  console.log("------IN THE DB-------",obj);
+  var defer = Q.defer();
+  return User.find({ username: obj.username }, callback);
+}
+
 
 var makeNewContest = function(callback){
   console.log('making new contest for ', new Date().toDateString());
@@ -363,6 +386,17 @@ exports.viewPost = function(userObj) {
   });
 };
 
+exports.findOnePost = function(id) {
+  return Post.find({ _id: id }, function(err, result) {
+    if (err) {
+      console.error('error in the view post method',err);
+    } else {
+      console.log("found post in db", result);
+      return result;
+    }
+  });
+};
+
 
 //Update a Post to the Database
 exports.updatePost = function(updatedObj, callback) {
@@ -380,6 +414,7 @@ exports.deletePost = function(postObj) {
     if (err) {
       console.error('error in the DELETE method');
     } else {
+      console.log("found post in db", result);
       return result;
     }
   });

@@ -10,10 +10,19 @@ var db = require('./db.js');
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
 
+// Variables needed for Google Login
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var passport = require('passport')
+var config = require('./config')
+var globalGoogleLoginID;
 
 // app.use(morgan('combined'));
 app.use(express.static(__dirname + './../client'));
 app.use(bodyparser.json());
+
+// Google Login
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Image post
 app.post('/images', multipartMiddleware, function(req, res, next){
@@ -32,6 +41,7 @@ app.post('/images', multipartMiddleware, function(req, res, next){
     res.status(200).send(dbRes);
   })
 });
+
 
 app.get('/postList', function(req, res, next) {
   db.findAllPosts().then(function(posts) {
@@ -111,9 +121,10 @@ app.get('/contest', function(req, res, next) {
 
 
 // Have not used  this handler either. I dont think we'll need it.
-app.get('/viewPost', function(req, res, next) {
-  console.log('this is the request body', req.body);
-  db.viewPost(req.body).then(function(post) {
+app.get('/viewPost/:_id', function(req, res, next) {
+  console.log('this is the request body', req.params);
+  db.findOnePost(req.params).then(function(post) {
+    console.log("this is the post>>>>>>", post);
     res.status(200).send(post);
   });
 });
@@ -128,7 +139,6 @@ app.post('/viewPost', function(req, res, next) {
 
 // Updating the Message using PUT Method
 app.put('/viewPost', function(req, res, next) {
-  console.log("\n\n\n--------- FROM THE SERVER --------------------");
   console.log("Trying to Update a Post", req.body);
   db.updatePost(req.body, function(err, data) {
     res.status(200).send(data);
@@ -137,7 +147,6 @@ app.put('/viewPost', function(req, res, next) {
 
 // Deleting the using DELETE Method
 app.delete('/post/:_id', function(req, res, next) {
-  console.log("-----------------------");
   console.log("Deleting a Post", req.params);
   db.deletePost(req.params).then(function(post) {
     res.status(200).send(post);
@@ -145,10 +154,82 @@ app.delete('/post/:_id', function(req, res, next) {
 })
 
 app.get('/myPosts/:username', function(req, res, next) {
-  console.log("--------READING USER FROM THE DATABASE-------", req.params);
   db.viewPost(req.params).then(function(data) {
     res.status(200).send(data);
   })
+})
+
+// Passport session setup.
+//   To support persistent login sessions, Passport needs to be able to
+//   serialize users into and deserialize users out of the session.  Typically,
+//   this will be as simple as storing the user ID when serializing, and finding
+//   the user by ID when deserializing.  However, since this example does not
+//   have a database of user records, the complete Google profile is
+//   serialized and deserialized.
+passport.serializeUser(function(user, done) {
+  console.log(":::::------- Serialize: ", user);
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  console.log(":::::------- deserialize: ", obj);
+  done(null, obj);
+});
+
+passport.use(new GoogleStrategy({
+    clientID: config.googleAuth.clientID,
+    clientSecret: config.googleAuth.clientSecret,
+    callbackURL: config.googleAuth.callbackURL
+  },
+  function(token, tokenSecret, profile, done) {
+      db.findGoogleUser({ username : profile.displayName}, function(err, user) {
+      console.log("CAME BACK FROM THE DATABASE");
+      if (user) {
+        console.log("USER RETURNED FROM THE DATABASE:", user);
+        return done(null, user);
+      } else {
+        db.createUser({ username: profile.displayName }, function (err, user) {
+          if(err) {
+            console.log(err)
+            return done(null, false);
+          } else {
+            console.log(user)
+            return done(null, user);
+          }
+        });
+      } // end of the if/else condition
+
+    }); // end database condition
+  }
+));
+
+// GET /auth/google
+//   Use passport.authenticate() as route middleware to authenticate the
+//   request.  The first step in Google authentication will involve
+//   redirecting the user to google.com.  After authorization, Google
+//   will redirect the user back to this application at /auth/google/callback
+app.get('/auth/google/',
+  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }),
+  function(req, res){
+    // The request will be redirected to Google for authentication, so this
+    // function will not be called.
+    console.log("Sending a Request to Google:", req.body);
+  });
+
+// GET /auth/google/callback
+//   Use passport.authenticate() as route middleware to authenticate the
+//   request.  If authentication fails, the user will be redirected back to the
+//   login page.  Otherwise, the primary route function function will be called,
+//   which, in this example, will redirect the user to the home page.
+app.get('/auth/google/callback/',
+  passport.authenticate('google', { failureRedirect: '/signin' }),
+  function(req, res) {
+    globalGoogleLoginID = req.session.passport.user[0].username;
+    res.redirect('/#/postList');
+  });
+
+app.get('/googleLogin', function(req, res) {
+  res.status(200).send(globalGoogleLoginID)
 })
 
 //
