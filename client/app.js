@@ -8,8 +8,7 @@ angular.module('yelpin', ['infinite-scroll',
   'yelpin.createPost',
   'yelpin.factory',
   'yelpin.contest',
-  'yelpin.myPostList',
-  ])
+  'yelpin.myPostList'])
 
 .config(function($stateProvider, $urlRouterProvider) {
 

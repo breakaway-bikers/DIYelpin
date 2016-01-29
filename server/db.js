@@ -60,11 +60,6 @@ var Contest = mongoose.model('Contest', ContestSchema);
 
 exports.createUser = function(obj) {
   
-  console.log("1. USERNAME", obj);
-  if (!obj.password) {
-    obj.password = '123';
-  }
-  
   var defer = Q.defer();
 
   Bcrypt.genSalt(Salt_Factor, function(err, salt) {
@@ -83,12 +78,10 @@ exports.createUser = function(obj) {
       console.log('some hash here ', hash);
       obj.password = hash;
       console.log('password after hashing', obj.password);
-      console.log("2. USERNAME", obj);
       var user = new User(obj);
-      console.log("3. USER", user);
       user.save(function(err, user) {
         if (err) {
-          console.log('\n\n\n------------------\nDB CREATEUSER ERROR', user);
+          console.log('DB CREATEUSER ERROR', user);
           defer.resolve(false);
         } else {
           console.log('DB CREATE USER SUCCESS');
@@ -122,16 +115,30 @@ exports.findUser = function(obj) {
   return defer.promise;
 };
 
+exports.createGoogleUser = function(obj, callback) {
 
-exports.findGoogleUser = function(obj, callback) {
+  console.log("Creating Google User:", obj);
+  var user = new User(obj);
+  user.save(function(err, user) {
+    if (err) {
+      console.log("ERROR Creating Google user: ", err);
+    } else {
+      console.log('SUCCES SAVINE GOOGLE USER')
+      console.log(user);
+      return callback(user);
+    }
+  })
 
-  if (!obj.password) {
-    obj.password = '123';
+}
+
+exports.findGoogleUser = function(userObj, callback) {
+
+  if (!userObj.password) {
+    userObj.password = '123';
   }
 
-  console.log("------IN THE DB-------",obj);
-  var defer = Q.defer();
-  return User.find({ username: obj.username }, callback);
+  console.log("------IN THE DB-------",userObj);
+  return User.find({ username: userObj.username }, callback);
 }
 
 
