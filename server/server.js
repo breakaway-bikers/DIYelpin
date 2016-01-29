@@ -101,7 +101,7 @@ app.get('/contest', function(req, res, next) {
 // Have not used  this handler either. I dont think we'll need it.
 app.get('/viewPost/:_id', function(req, res, next) {
   console.log('this is the request body', req.params);
-  db.viewPost(req.params).then(function(post) {
+  db.findOnePost(req.params).then(function(post) {
     console.log("this is the post>>>>>>", post);
     res.status(200).send(post);
   });
@@ -164,7 +164,7 @@ passport.use(new GoogleStrategy({
       console.log("CAME BACK FROM THE DATABASE");
       if (user) {
         console.log("USER RETURNED FROM THE DATABASE:", user);
-        return done(null, user);       
+        return done(null, user);
       } else {
         db.createUser({ username: profile.displayName }, function (err, user) {
           if(err) {
@@ -173,7 +173,7 @@ passport.use(new GoogleStrategy({
           } else {
             console.log(user)
             return done(null, user);
-          }         
+          }
         });
       } // end of the if/else condition
 
@@ -199,7 +199,7 @@ app.get('/auth/google/',
 //   request.  If authentication fails, the user will be redirected back to the
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
-app.get('/auth/google/callback/', 
+app.get('/auth/google/callback/',
   passport.authenticate('google', { failureRedirect: '/signin' }),
   function(req, res) {
     globalGoogleLoginID = req.session.passport.user[0].username;

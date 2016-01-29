@@ -337,6 +337,17 @@ exports.viewPost = function(userObj) {
   });
 };
 
+exports.findOnePost = function(id) {
+  return Post.find({ _id: id }, function(err, result) {
+    if (err) {
+      console.error('error in the view post method',err);
+    } else {
+      console.log("found post in db", result);
+      return result;
+    }
+  });
+};
+
 
 //Update a Post to the Database
 exports.updatePost = function(updatedObj, callback) {
