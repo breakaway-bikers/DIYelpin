@@ -1,5 +1,6 @@
 body {
 	font-family: 'Schoolbell', cursive;
+  font-s
 	background-color: #3CA2E0;
   margin:0;
   padding:0;
@@ -7,8 +8,6 @@ body {
   background-image: url('assets/blueprint.jpg');
   background-repeat: repeat-y;
   color: #fff;
-/*  position: relative;
-  overflow: hidden;*/
 }
 
 .bg-image {
@@ -23,7 +22,7 @@ body {
 nav{
   position: absolute;
   z-index: 2;
-  background-color: #0249B5;
+  background-color: rgba(33, 75, 148, 0.75);
   width: 100%;
   top: 0;
   color: #fff;
@@ -38,12 +37,12 @@ nav ul{
 nav ul li{
   display: inline-block;
   padding: 22px 20px;
-  border-left: 1px solid #fff;
+  border-left: 1px dashed #6A9AEC;
   cursor: pointer;
 }
 
 nav ul li:hover{
-  background-color: #1567E2;
+  background-color: rgba(106, 154, 236, 0.5);
 }
 
 nav img{
@@ -81,14 +80,16 @@ select{
   margin-top:80px;
 }
 .footer {
-    border-top: 1px solid rgba(0, 0, 0, 0.2);
-    width: 95%;
-    bottom: 0;
-    position: absolute;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  width: 95%;
+  bottom: 0;
+  position: absolute;
+  padding-top: 3px;
 }
 
 .grid-pad {
   text-align: center;
+  padding:20px;
 }
 
 .post {
@@ -215,8 +216,9 @@ ul {
 }
 
 .voted{
-	border-radius: 3px;
-	background-color: rgba(119, 181, 98, 0.5);
+  border-radius: 3px;
+  background-color: rgba(102, 155, 236, 0.35);
+  border: 1px solid #6D9BE3;
 }
 
 
@@ -302,4 +304,65 @@ ul {
   color:#fff;
   background-color:#c23321;
   border-color:rgba(0,0,0,0.2)
+}
+
+.contest-description{
+  margin: 0 auto;
+  background-color: rgba(23, 53, 109, 0.64);
+  border-radius: 5px;
+  padding: 7px 20%;
+}
+
+.contest-description h4{
+  font-size: 30px;
+  margin: 10px;
+}
+
+.contest-description ul{
+  list-style: none;
+  border: 1px dashed #fff;
+}
+
+.submissions-pane h2{
+  text-align: center;
+}
+
+.contest-wrapper{
+  position: relative;
+}
+
+.contest-filters{
+  margin:10px;
+}
+
+.view-post-page{
+  text-align: center; 
+}
+
+.view-post-page h1 {
+  border-bottom: 3px dashed #fff;
+  display: inline-block;
+}
+.description{
+  position: absolute;
+  top: 0;
+  right: 10px;
+  padding: 0 40px;
+  width: 40%;
+}
+.view-post-page img{
+  max-width: 50%;
+  max-height: 400px;
+  display: block;
+  padding: 0 20px;
+ 
+}
+
+.post-split-wrapper{
+  position: relative;
+  margin-top: 30px;
+}
+
+.post-view-data{
+  background-color: rgba(23, 53, 109, 0.64);
 }

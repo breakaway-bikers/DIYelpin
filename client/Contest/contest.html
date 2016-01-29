@@ -1,28 +1,27 @@
-<div class='login-page'>
-  Date: <select style="margin-top: 20px;" ng-change="changeContest()" ng-model="selectedContest" ng-options="contest.date for contest in allContests"></select>
-  <center>
-    <h1>DAILY FOOD CONTEST!</h1>
-    <h2>Rules</h2>
-  </center>
-
-  <div>
-    <p>Every day, we'll post five random ingredients. Your challenge is to
+<div class='contest-page'>
+  <div class="contest-filters">
+    <span>Date:</span> <select style="margin-top: 20px;" ng-change="changeContest()" ng-model="selectedContest" ng-options="contest.date for contest in allContests"></select>
+  </div>
+  <div class="contest-wrapper">
+    <div class="contest-description">
+      <h1>DAILY FOOD CONTEST!</h1>
+      <p>Every day, we post five random ingredients. Your challenge is to
       come up with a winning recipe that uses those ingredients. DIYelpin users
       vote on their favorite recipes to elect a daily winner.</p>
       <p>Your recipe <i>must use ALL five</i> ingredients, and <i>may not use
         any additional ingredients</i> other than the five ones listed for that day.</p>
-
-        <center>
-          <h4>Today's 5 Ingredients</h4>
-          <ul>
-            <li ng-repeat="ingredient in dailyIngredients track by $index">{{ ingredient }}</li>
-          </ul>
-        </center>
+      <center>
+        <h4>Today's 5 Ingredients</h4>
+        <ul>
+          <li ng-repeat="ingredient in dailyIngredients track by $index">{{ ingredient }}</li>
+        </ul>
+      </center>
+    </div>
+    
+    <div class="submissions-pane">
+      <h2>Current Submissions Below!</h2>
+      <ng-include src="'../postList.html'">
+    </div>
   </div>
-  <button ui-sref="createPost" class="btn btn-white btn-outline btn-lg btn-rounded">Enter Submission</button>
-  <center><h2>Vote on Current Submissions Below!</h2></center>
-  <ng-include src="'../postList.html'">
-
-</div>
 </div>
 
