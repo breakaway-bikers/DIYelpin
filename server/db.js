@@ -27,18 +27,21 @@ db.once('open', function() {
 // Image handling
 // **********************************
 var ImageSchema = new mongoose.Schema({
-    img: { data: Buffer, contentType: String }
+    // Added name property
+    img: { data: Buffer, contentType: String, name: String }
 });
 
 var Img = mongoose.model('Image', ImageSchema);
 
 
-exports.saveThePost = function(imgPath, postObj){
+exports.saveThePost = function(img, postObj){
 
-  if (imgPath){  
+  if (img){  
     var a = new Img;
-    a.img.data = fs.readFileSync(imgPath);
+    a.img.data = fs.readFileSync(img.path);
     a.img.contentType = 'image/jpg';
+    console.log("\n\nhere is the database side filename",  img.name, "\n\n");
+    a.img.name = img.name;
     postObj.image = a;
   } 
     return exports.createPost(postObj)

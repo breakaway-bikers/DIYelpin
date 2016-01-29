@@ -35,14 +35,16 @@ app.post('/createPost', multipartMiddleware, function(req, res, next){
     -> the body of the post is as req.body
   */
 
-  var imgPath = false;
+  var img = false;
 
   if (req.files) {   // if an image is added 
     imgPath = req.files.file.path;
-    req.body = req.body.postData;   
+    req.body = req.body.postData;
+    img = req.files.file; 
+    console.log("\n\nserver side filename: ", img.name, "\n\n");
   } 
 
-  db.saveThePost(imgPath, req.body).then(function(dbRes, err){
+  db.saveThePost(img, req.body).then(function(dbRes, err){
     if (err) {
       console.log("Error from saveThePost function", err);
     }

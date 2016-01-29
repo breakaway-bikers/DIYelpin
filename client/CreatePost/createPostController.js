@@ -1,6 +1,6 @@
 angular.module('yelpin.createPost', [])
 
-.controller('createPostController', ['$scope', 'appFactory', 'sharedPropertyService', '$state', 'Upload', '$timeout', function($scope, appFactory, sharedPropertyService, $state, Upload, $timeout) {
+.controller('createPostController', ['$scope', 'appFactory', 'sharedPropertyService', '$state', '$timeout', function($scope, appFactory, sharedPropertyService, $state, $timeout) {
   $scope.descript = '';
   $scope.txtcomment = '';
   $scope.category = '';
@@ -48,7 +48,7 @@ angular.module('yelpin.createPost', [])
     // If an image file was chosen, use angular Upload (ng-file-upload) to send the data and the file
     if ($scope.f){
       file = $scope.f;
-      app.Factory.postToPage(file).then(function(response) {
+      appFactory.postToPage(file, $scope.postData).then(function(response) {
           // console.log("response from the upload request: ", response);
           // console.log("the actual data array", response.data.img.data.data);
           // var dataNow64bit = _arrayBufferToBase64(response.data.img.data.data);
