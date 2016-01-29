@@ -19,6 +19,13 @@ angular.module('yelpin.myPostList', [])
       
   };
 
+  // Get the image file
+  $scope.uploadFiles = function(file, errFiles) {
+    $scope.f = file;
+    $scope.errFile = errFiles && errFiles[0];
+    // console.log("the file is: ", file);
+  };
+
   $scope.updatePost = function(item){
     console.log('updating',item);
     $scope.editMessageShow = true;
