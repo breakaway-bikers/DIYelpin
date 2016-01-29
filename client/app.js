@@ -1,4 +1,5 @@
-angular.module('yelpin', ['ui.router',
+angular.module('yelpin', ['infinite-scroll',
+  'ui.router',
   'yelpin.postList',
   'yelpin.viewPost',
   'yelpin.services',
