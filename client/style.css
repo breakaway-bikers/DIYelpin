@@ -270,7 +270,7 @@ ul {
 
 .postImg{
   overflow: hidden;
-  max-height: 340px;
+  height: 340px;
   min-width: 280px;
   cursor: pointer;
 }
@@ -282,13 +282,6 @@ ul {
   left: -20px;
 }
 
-.long-img{
-  width:180px;
-}
-
-.fat-img{
-  height:210px;
-}
 
 .btn-google{
   color:#fff;
@@ -325,6 +318,7 @@ ul {
 
 .submissions-pane h2{
   text-align: center;
+  background-color: rgba(23, 53, 109, 0.64);
 }
 
 .contest-wrapper{
@@ -335,6 +329,11 @@ ul {
   margin:10px;
 }
 
+.ingredient-list li{
+  display: inline-block;
+  font-size: 30px;
+  padding: 9px 40px;
+}
 .view-post-page{
   text-align: center; 
 }
@@ -346,9 +345,8 @@ ul {
 .description{
   position: absolute;
   top: 0;
-  right: 10px;
+  right: 0px;
   padding: 0 40px;
-  width: 40%;
 }
 .view-post-page img{
   max-width: 50%;
@@ -360,7 +358,7 @@ ul {
 
 .post-split-wrapper{
   position: relative;
-  margin-top: 30px;
+  margin: 30px;
 }
 
 .post-view-data{
