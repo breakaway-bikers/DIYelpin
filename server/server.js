@@ -182,13 +182,20 @@ passport.use(new GoogleStrategy({
     callbackURL: config.googleAuth.callbackURL
   },
   function(token, tokenSecret, profile, done) {
-      db.findGoogleUser({ username : profile.displayName}, function(err, user) {
-      console.log("CAME BACK FROM THE DATABASE");
-      if (user) {
-        console.log("USER RETURNED FROM THE DATABASE:", user);
+
+      if (profile.displayName === '') {
+        profile.displayName = profile.id;
+      }
+
+      db.findGoogleUser({ username : profile.displayName }, function(err, user) {
+      console.log("This is the user", user);
+      
+      if (user.length > 0) {
+        console.log("USER EXISTS IN THE DATABASE:", user);
         return done(null, user);
       } else {
-        db.createUser({ username: profile.displayName }, function (err, user) {
+        db.createGoogleUser({ username: profile.displayName }, function (err, user) {
+          console.log("CREATING A NEW GOOGLE USER: ", user);
           if(err) {
             console.log(err)
             return done(null, false);
@@ -224,6 +231,7 @@ app.get('/auth/google/',
 app.get('/auth/google/callback/',
   passport.authenticate('google', { failureRedirect: '/signin' }),
   function(req, res) {
+    console.log("USERNAME: ",req.session.passport.user);
     globalGoogleLoginID = req.session.passport.user[0].username;
     res.redirect('/#/postList');
   });

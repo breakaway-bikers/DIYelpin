@@ -11,6 +11,7 @@ angular.module('yelpin', ['ui.router',
   'ngFileUpload'
   ])
 
+
 .config(function($stateProvider, $urlRouterProvider) {
 
   $stateProvider

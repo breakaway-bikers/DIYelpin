@@ -30,6 +30,7 @@ angular.module('yelpin.signin', [])
   };
 
   $scope.googleLogin = function() {
+    console.log("Entering Google Login");
     return $http.get('/googleLogin').then(function(response) {
       console.log(response);
       return response.data;
@@ -49,7 +50,5 @@ angular.module('yelpin.signin', [])
       });
     }
   };
-
-  $scope.check();
 
 }]);

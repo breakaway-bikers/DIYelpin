@@ -2,13 +2,14 @@
 
 <div class='login-page'>
 
-  <h3 style="text-decoration:underline;"> {{ receivedData.title }} </h3><br>
-  <h4>Posted by: {{ receivedData.username }}</h4><br>
+
+  <h3> {{ receivedData.title }} </h3>
+  <h4>Posted by: {{ receivedData.username }}</h4>
   <img ng-src="{{receivedData.imagelink}}" ng-show="receivedData.image[0]">
   <div class="description">
-    <div> {{ receivedData.message }} </div><br><br>
+    <markdown ng-bind="receivedData.message"></markdown>
   </div>
-  <h4>Category: {{ receivedData.category }} </h4><br>
+  <h4>Category: {{ receivedData.category }} </h4>
   <h4># of Votes: {{ receivedData.votes }} </h4>
 
 </div>

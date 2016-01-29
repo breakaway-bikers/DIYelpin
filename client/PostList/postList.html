@@ -2,16 +2,21 @@
 
   <div class="header">
     <h1>POST PAGE</h1>
-    <form id="filterbox" class="inputBox">
-      <input class="filterbox" type='text' ng-model="searchString" placeholder="Search for..."/>
-    </form>
+  <form id="filterbox" class="inputBox">
+      <input class="filterbox" type='text' ng-model="searchString" placeholder="Search for..." style="width:17%; height: 5%; color:black;"/>
+      <select ng-model="selectedCategory" class="dropdown" ng-options="item for item in uniqueCategories">
+      </select>
+      <select ng-model="sortType" class="dropdown" >
+        <option value="date">Date</option>
+        <option value="votes">Votes</option>
+      </select>
+  </form>
     <a ui-sref="createPost" class="btn btn-white btn-outline btn-lg btn-rounded" style="margin-top: 10px;">Create Post</a>
   </div>
   	<!-- <h7>Search by Category</h7> -->
   	<!-- <select ng-model="categories" class="dropdown" ng-options="item.category for item in fetchedPosts | unique: 'categories'"></select> -->
   	<div class="grid grid-pad">
-      	<div class="col-1-6" ng-repeat='item in fetchedPosts | filter: searchString'>
-          <div class="post">
+      	<div class="post" ng-repeat='item in fetchedPosts | filter: searchString | filter: customFilter | orderBy : customOrder'>
 
           <div class="postImg">
               <!-- display the image if it exists-->
@@ -44,7 +49,6 @@
       			<div class="column column-50 column-offset-25">
       			</div>
       	  </div> -->
-        </div>
       </div>
 
   	  <!-- <div>{{ item.message }}</div> //This should be displayed in a seperate view for the actual post -->
