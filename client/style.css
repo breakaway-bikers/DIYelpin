@@ -178,6 +178,7 @@ ul {
     width: 100%;
     border: 1px solid;
     background-color: #fff;
+    overflow: scroll;
 }
 
 .create-page textarea{
