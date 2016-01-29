@@ -3,38 +3,23 @@
   <head>
     <meta charset="utf-8">
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <!-- <link rel="stylesheet" href="milligram.css"> -->
-    <!-- <link rel="stylesheet" href="main.css"> -->
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./myPostList/myPostList.css">
     <title>DIYelpin</title>
   </head>
   <body ng-app='yelpin'>
 
-    <div class="navbar-fixed-top">
-        <div ng-controller="signinController">
-            <nav class="navbar navbar-default navbar-fixed-top">
+    <nav ng-controller="signinController">
+      <img src="DIY.png">
+      <ul>
+        <!-- this need to be next to each other to prevent a space on the webpage -->
+          <li ui-sref="myPostList">MY POSTS</li><li ui-sref="postList">POST LIST</li><li ui-sref="createPost">MAKE A POST</li><li ui-sref="contest">CONTEST</li><li ng-click='logout()'>SIGN OUT</li>
+      </ul>
+    </nav>
 
-                <center>
-                    <button class='btn  btn-outline btn-lg btn-rounded' ui-sref="myPostList">MY POSTS</button>
-                    <button class='btn  btn-outline btn-lg btn-rounded' ui-sref="postList">POST LIST</button>
-                    <button class='btn  btn-outline btn-lg btn-rounded' ui-sref="createPost">MAKE A POST</button>
-                    <button class='btn  btn-outline btn-lg btn-rounded' ui-sref="contest">CONTEST</button>
-                    <button class='btn  btn-outline btn-lg btn-rounded' ng-click='logout()'>SIGN OUT</button>
-
-
-                    <a href="/auth/google/" ng-click="check()"><span class="fa fa-google-plus"></span>Google</a>
-                </center>
-
-            </nav>
-        </div>
-    </div>
 
     <!-- <center><object type="image/svg+xml" data="diy.svg"></object></center> -->
-    <div class="">
-      <div ui-view></div>
-    </div>
+    <div ui-view class="appBody"></div>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
     <!-- <script src="./../node_modules/angular-ui-router/release/angular-ui-router.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
