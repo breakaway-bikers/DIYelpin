@@ -161,25 +161,27 @@ passport.use(new GoogleStrategy({
   },
   function(token, tokenSecret, profile, done) {
 
-      if (profile.displayName === '') {
+      console.log("-------------", typeof profile.displayName);
+
+      if (!profile.displayName) {
         profile.displayName = profile.id;
       }
 
       db.findGoogleUser({ username : profile.displayName }, function(err, user) {
       console.log("This is the user", user);
-      
-      if (user.length > 0) {
+
+      if (!err || user.length > 0 ) {
         console.log("USER EXISTS IN THE DATABASE:", user);
         return done(null, user);
       } else {
         db.createGoogleUser({ username: profile.displayName }, function (err, user) {
           console.log("CREATING A NEW GOOGLE USER: ", user);
-          if(err) {
-            console.log(err)
-            return done(null, false);
-          } else {
-            console.log(user)
+          if(!err) {
+            console.log("CREATED USER:", user)
             return done(null, user);
+          } else {
+            console.log("ERROR:", err);
+            return done(null, false);
           }
         });
       } // end of the if/else condition
