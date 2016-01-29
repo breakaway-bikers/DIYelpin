@@ -1,11 +1,11 @@
-angular.module('yelpin', ['ui.router', 
-  'yelpin.postList', 
-  'yelpin.viewPost', 
-  'yelpin.services', 
-  'yelpin.signin', 
-  'yelpin.signup', 
-  'yelpin.createPost', 
-  'yelpin.factory', 
+angular.module('yelpin', ['ui.router',
+  'yelpin.postList',
+  'yelpin.viewPost',
+  'yelpin.services',
+  'yelpin.signin',
+  'yelpin.signup',
+  'yelpin.createPost',
+  'yelpin.factory',
   'yelpin.contest',
   'yelpin.myPostList',
   ])
@@ -33,15 +33,15 @@ angular.module('yelpin', ['ui.router',
       url: '/postList',
       controller: 'postListController',
     })
-    //added feature   
-    .state('myPostList', {    
-      templateUrl: 'myPostList/myPostList.html',    
-      url: '/myPostList',   
-      controller: 'myPostListController',   
+    //added feature
+    .state('myPostList', {
+      templateUrl: 'myPostList/myPostList.html',
+      url: '/myPostList',
+      controller: 'myPostListController',
     })
     .state('viewPost', {
       templateUrl: 'ViewPost/viewPost.html',
-      url: '/viewPost',
+      url: '/viewPost/{username}/{_id}',
       controller: 'viewPostController',
     })
     .state('contest', {
