@@ -39,10 +39,10 @@ angular.module('yelpin.signin', [])
 
   $scope.check = function() {
     
-    var id = $window.localStorage.getItem('com.diy');
+    // var id = $window.localStorage.getItem('com.diy');
     var userID;
     
-    if (!id) {
+    if (!userID) {
       $scope.googleLogin().then(function(response) {
         console.log(response);
         userID = response;

@@ -155,8 +155,8 @@ exports.createGoogleUser = function(obj, callback) {
 
 exports.findGoogleUser = function(userObj, callback) {
 
-  console.log("------IN THE DB-------",userObj);
-  return User.find({ username: userObj.username }, callback);
+  console.log("------IN THE DB-------", userObj);
+  return User.findOne({ username: userObj.username }, callback);
 }
 
 
