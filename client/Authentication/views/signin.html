@@ -5,6 +5,12 @@
 		<div class='signin'>
 	    <div class="column"><H3>Sign-In</H3></div>
 	  </div>
+
+		<a href="/auth/google/" class="btn btn-block btn-social btn-google">
+		  <span class="fa fa-google"></span>
+		  Sign in with Google
+		</a>
+
 		<div class="form-content">
 		<div class="form-group">
 			<div class="column"><input class="form-control input-underline input-lg" placeholder='username' ng-model='user.username'></div>
@@ -14,6 +20,8 @@
 		</div>
 		</div>
 			<div class="column"><button class='btn btn-white btn-outline btn-lg btn-rounded' ng-click='signin(user)' ng-model='user'>Sign In</button></div>
+
+
 			<div class="column">
 				<h4 style="padding: 25px">Dont have an account?
 					<a ng-href="/#/signup">

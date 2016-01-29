@@ -160,3 +160,19 @@ ul {
 	display: inline-block;
 	float: right;
 }
+
+.btn-google{
+  color:#fff;
+  background-color:#dd4b39;
+  border-color:rgba(0,0,0,0.2)
+}
+.btn-google:focus,.btn-google.focus{
+  color:#fff;
+  background-color:#c23321;
+  border-color:rgba(0,0,0,0.2)
+}
+.btn-google:hover{
+  color:#fff;
+  background-color:#c23321;
+  border-color:rgba(0,0,0,0.2)
+}
