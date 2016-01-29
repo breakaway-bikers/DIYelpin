@@ -1,16 +1,4 @@
-angular.module('yelpin', ['ui.router',
-  'yelpin.postList',
-  'yelpin.viewPost',
-  'yelpin.services',
-  'yelpin.signin',
-  'yelpin.signup',
-  'yelpin.createPost',
-  'yelpin.factory',
-  'yelpin.contest',
-  'yelpin.myPostList',
-  'ngFileUpload'
-  ])
-
+angular.module('yelpin', ['ui.router', 'yelpin.postList', 'yelpin.viewPost', 'yelpin.services', 'yelpin.signin', 'yelpin.signup', 'yelpin.createPost', 'yelpin.factory', 'yelpin.contest', 'ngFileUpload'])
 
 .config(function($stateProvider, $urlRouterProvider) {
 
@@ -35,25 +23,16 @@ angular.module('yelpin', ['ui.router',
       url: '/postList',
       controller: 'postListController',
     })
-    //added feature
-    .state('myPostList', {
-      templateUrl: 'myPostList/myPostList.html',
-      url: '/myPostList',
-      controller: 'myPostListController',
-    })
     .state('viewPost', {
       templateUrl: 'ViewPost/viewPost.html',
-      url: '/viewPost/{username}/{_id}',
+      url: '/viewPost',
       controller: 'viewPostController',
     })
     .state('contest', {
-      templateUrl: 'Contest/contest.html',
+      templateUrl: 'Contest/contestViews/contest.html',
       url: '/contest',
       controller: 'contestController',
     });
-
   $urlRouterProvider.otherwise('/signin');
 
 });
-
-// expose our config directly to our application using module.exports

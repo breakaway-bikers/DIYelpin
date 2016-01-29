@@ -19,7 +19,8 @@
       	<div class="post" ng-repeat='item in fetchedPosts | filter: searchString | filter: customFilter | orderBy : customOrder'>
 
           <div class="postImg">
-              <img src="http://placehold.it/210x180" alt="" />
+              <!-- display the image if it exists-->
+            <img ng-src="{{item.imagelink}}" ng-show="item.image[0]" style="width:210px; height:180px">
           </div>
           <div class="postContent">
             <span class="span3">
@@ -28,9 +29,11 @@
             <span class="span3">
               <span class="username">by:{{ item.username }}, </span>
             </span>
+
              <div class="span3">
               <span>date:{{ item.date | niceDate }}</span>
             </div>
+
           </div>
           <div class="footer">
             <div class="cat">
