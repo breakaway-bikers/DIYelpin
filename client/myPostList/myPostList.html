@@ -1,6 +1,5 @@
 <div ng-include src="'../navbar.html'"></div>
 
-<div class='myPosts_bg'></div>
   <div class="myPosts">
     <h1>MY POSTS</h1>
     <form id="filterbox" class="inputBox">
@@ -12,7 +11,7 @@
     		<div class="mypost">
           <div>Title: {{ item.title }}</div>
           <div>Category: <div ng-include="'./myPostList/categories.html'"></div></div>
-          <div>Message: <textarea style="width: 100%;" ng-model="item.message"></textarea>
+          <div>Message: <textarea ng-model="item.message"></textarea>
 
 
 
