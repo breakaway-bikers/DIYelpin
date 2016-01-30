@@ -67,7 +67,7 @@ nav img{
 
 .login-page a.button{
 	font-size: 23px;
-	color: black;
+	color: #fff;
 	cursor: pointer;
 }
 
@@ -115,7 +115,7 @@ form.enter input[type=text] {
   border-bottom: 2px dashed rgba(239, 138, 9, 0.5);
   width: 300px;
   font-size: 18px;
-	color: black;
+	color: #fff;
 	margin: 2px 0;
 
 }
@@ -249,7 +249,7 @@ a {
 }
 
 .description {
-	background-color: white;
+	background-color: rgba(255, 255, 255, 0.8);;
 	width: 60%;
 	color: black;
 	font-size: 1.7rem;
@@ -480,4 +480,8 @@ ul {
 
 .categoryPicker{
   margin:15px 0;
+}
+
+.login-page{
+  color:#000;
 }
