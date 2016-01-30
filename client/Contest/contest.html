@@ -13,15 +13,15 @@
       <p>Your recipe <i>must use ALL five</i> ingredients, and <i>may not use
         any additional ingredients</i> other than the five ones listed for that day.</p>
       <center>
-        <h4>Today's 5 Ingredients</h4>
-        <ul>
+        <h4>Today's Five</h4>
+        <ul class="ingredient-list">
           <li ng-repeat="ingredient in dailyIngredients track by $index">{{ ingredient }}</li>
         </ul>
       </center>
     </div>
 
     <div class="submissions-pane">
-      <h2>Current Submissions Below!</h2>
+      <h2>Submissions</h2>
       <ng-include src="'../postList.html'">
     </div>
   </div>

@@ -1,7 +1,7 @@
 angular.module('yelpin.myPostList', [])
 
-.controller('myPostListController', ['$scope', '$http', 'ViewPost', 'appFactory','$state','$timeout','sharedPropertyService', 
-  function($scope, $http, ViewPost, appFactory, $state, $timeout, sharedPropertyService) {
+.controller('myPostListController', ['$scope', '$http', 'ViewPost', 'appFactory','$state','$timeout','sharedPropertyService', 'Upload', 
+  function($scope, $http, ViewPost, appFactory, $state, $timeout, sharedPropertyService, Upload) {
   $scope.fetchedPosts;
   $scope.updateMessage = false;
 
@@ -19,7 +19,7 @@ angular.module('yelpin.myPostList', [])
       
   };
 
-  // Get the image file
+  // Get the new image file
   $scope.uploadFiles = function(file, errFiles) {
     $scope.f = file;
     $scope.errFile = errFiles && errFiles[0];
