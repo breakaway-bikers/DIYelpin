@@ -23,6 +23,7 @@ console.log($stateParams._id);
       console.log("::::::", data);
       $scope.receivedData = data[0];
       // set imagelink to be in the format base64 that is needed by <img ng-src="{{receivedData.imagelink}}"> in the viewPost.html file>
+
       console.log("here is the image[0] length: ", $scope.receivedData.image[0])
       if ($scope.receivedData.image.length){
         $scope.receivedData.imagelink = "data:image/jpg;base64," + _arrayBufferToBase64($scope.receivedData.image[0].img.data.data);
@@ -53,4 +54,3 @@ console.log($stateParams._id);
     }
   }
 })
-

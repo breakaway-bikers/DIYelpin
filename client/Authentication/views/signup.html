@@ -1,17 +1,28 @@
 
-<div class="login-page">
-
-	<div class="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4">
+<div class='login-page'>
 		<!-- <object type="image/svg+xml" data="../../diy.svg" class="user-avatar"></object> -->
-		<img src="../../DIY.png" class="user-avatar" style="width:70%; height:70%;"/>
-	    <div class="column"><center><H3>Sign up for a new account</H3></center></div>
-			<div class="form-content">
-				<div class="column"><input class="form-control input-underline input-lg" placeholder='username' ng-model='user.username'></div>
-				<div class="column"><input class="form-control input-underline input-lg" placeholder='password'ng-model='user.password'></div>
-				<div class="column"><center><br><button class='btn btn-white btn-outline btn-lg btn-rounded' ng-click='signup(user)' ng-model='user'>Sign Up</button></center></div>
-				<div class="column"><h4 style="padding: 25px"><center><p><a class='btn btn-white btn-outline btn-lg btn-rounded' ng-href="/#/signin">Go Back Home</a></p></center></a></h4></div>
-			</div>
-	</div>
+		<img src="../../DIY.png"/>
+
+		<div class="entranceForm">
+			<form class="enter">
+				<H3>Sign up for a new account</H3>
+
+				<div class="groups">
+					<input type="text" placeholder='username' ng-model='user.username'>
+					<span class='bar'><span>
+				</div>
+
+				<div class="groups">
+					<input type="text" placeholder='password' ng-model='user.password'>
+					<span class='bar'><span>
+				</div>
+
+				<a class='button' ng-click='signup(user)' ng-model='user' value='Sign In'>Sign Up</a>
+			</form>
+		</div>
+
+		<div><a ng-href="/#/signin">Go Back Home</a></div>
+</div>
 
 
 

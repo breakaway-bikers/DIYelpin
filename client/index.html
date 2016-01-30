@@ -9,18 +9,7 @@
     <title>DIYelpin</title>
   </head>
   <body ng-app='yelpin'>
-    <nav ng-controller="signinController">
-      <img src="DIY.png">
-      <ul>
-        <!-- this need to be next to each other to prevent a space on the webpage -->
-          <li ui-sref="myPostList">MY POSTS</li><li ui-sref="postList">POST LIST</li><li ui-sref="createPost">MAKE A POST</li><li ui-sref="contest">CONTEST</li><li ng-click='logout()'>SIGN OUT</li>
-      </ul>
-    </nav>
-
-
     <!-- <center><object type="image/svg+xml" data="diy.svg"></object></center> -->
-
-
     <div ui-view class="appBody"></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>

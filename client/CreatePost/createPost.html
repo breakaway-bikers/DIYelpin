@@ -1,13 +1,14 @@
+<div ng-include src="'../navbar.html'"></div>
+
 <!-- Running a quick text.  Add a css file later-->
 <div class='create-page'>
     <!-- <a ui-sref='createPost' style="color: orange; font-size: 19px">CREATE POST</a> || -->
 
     <h1>Share Your Project</h1>
     <form class="inputbox">
-        
         <div>Title*</div>
         <input id="commentField" type='text' placeholder="your description" ng-model='descript'>
-        
+
         <div class="categoryPicker">
           <div>Category*</div>
           <select name="categories" class="dropdown" ng-model="category" ng-change="checkDropDown()">
@@ -25,18 +26,18 @@
              <label>Enter your own Category:</label><input ng-model="customCategory" type="text">
            </div>
         </div>
-        <div class="imagePicker"> 
-        <div>Image</div>            
+        <div class="imagePicker">
+        <div>Image</div>
            <button class="img-button" type="file" ngf-select="uploadFiles($file, $invalidFiles)"
             accept="image/*" ngf-max-height="10000" ngf-max-size="20MB">
           Add an Image</button>
            <span ng-show="f">{{f.name}}</span>
         </div>
 
-       
+
 
         <div class="project-description-area">
-          
+
           <div class="markdown-code">
             <h2>Add Instructions (Markdown Formatted)</h2>
             <textarea ng-model="txtcomment" placeholder="Your Awesome Project Description"></textarea>
@@ -50,6 +51,8 @@
           </div>
         </div>
 
+
         <button ui-sref="postList" class="post-button" ng-click='postToPage();'>Post Project</button>
+
     </form>
 </div>
