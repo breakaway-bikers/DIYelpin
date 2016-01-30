@@ -1,0 +1,39 @@
+<div ng-include src="'../navbar.html'"></div>
+
+  <div class="myPosts">
+    <h1>MY POSTS</h1>
+    <form id="filterbox" class="inputBox">
+    	<input class="searchBox" type='text' ng-model="searchString" placeholder="Search for..."/>
+    </form>
+
+    <ul id="myPostList">
+    	<li ng-repeat='item in fetchedPosts | filter: searchString | filter: categories'>
+    		<div class="mypost">
+          <div>Title: {{ item.title }}</div>
+          <div>Category: <div ng-include="'./myPostList/categories.html'"></div></div>
+          <div>Message: <textarea ng-model="item.message"></textarea>
+
+
+
+            <!-- Change the image -->
+          <p>Image file: {{item.image[0].img.name}}</p>
+
+          <!-- <h4>Change your image</h4> -->
+        <div>
+           <!-- <button type="file" ngf-select="uploadFiles($file, $invalidFiles)" -->
+           <button type="file" ngf-select="uploadFiles($file, $invalidFiles)"
+            accept="image/*" style="color:black; border-radius: 5px;" ngf-max-height="10000" ngf-max-size="20MB">
+          Change image</button>
+        </div>
+
+        <p>Replacement File: {{f.name}}</p>
+
+          <!--  -->
+
+          <input type="submit" value="Update" ng-click="updatePost(item)" >
+          <input class="deleteButton" type="submit" value="X" ng-click="deletePost(item)" >
+          <span ng-show="editMessageShow">{{editMessage}}</span>
+      	</div>
+    	</li>
+    </ul>
+</div>

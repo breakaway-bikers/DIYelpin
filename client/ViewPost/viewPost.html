@@ -1,8 +1,17 @@
-<h1>View Post</h1>
-<a ui-sref='createPost'>Create Post</a>
-<a ui-sref='postList'>Post List</a>
-<div>Posted by: {{ receivedData.username }}</div>
-<div> {{ receivedData.title }} </div>
-<div>Category: {{ receivedData.category }} </div>
-<div># of Votes: {{ receivedData.votes }} </div>
-<div>Description: {{ receivedData.message }} </div>
+<div ng-include src="'../navbar.html'"></div>
+<div class='view-post-page'>
+  <h1> {{ receivedData.title }} </h1>
+
+  <div class="post-view-data">
+    <div>Posted by: {{ receivedData.username }}</div>
+    <div>Category: {{ receivedData.category }} </div>
+    <div># of Votes: {{ receivedData.votes }} </div>
+  </div>
+
+  <div class="post-split-wrapper">
+    <img class="post-image-view" ng-src="{{receivedData.imagelink}}" ng-show="receivedData.image[0]">
+    <div class="description">
+      <markdown ng-bind="receivedData.message"></markdown>
+    </div>
+  </div>
+</div>

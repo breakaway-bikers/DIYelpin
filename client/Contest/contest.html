@@ -1,0 +1,28 @@
+<div ng-include src="'../navbar.html'"></div>
+
+<div class='contest-page'>
+  <div class="contest-filters">
+    <span>Date:</span> <select style="margin-top: 20px;" ng-change="changeContest()" ng-model="selectedContest" ng-options="contest.date for contest in allContests"></select>
+  </div>
+  <div class="contest-wrapper">
+    <div class="contest-description">
+      <h1>DAILY FOOD CONTEST!</h1>
+      <p>Every day, we post five random ingredients. Your challenge is to
+      come up with a winning recipe that uses those ingredients. DIYelpin users
+      vote on their favorite recipes to elect a daily winner.</p>
+      <p>Your recipe <i>must use ALL five</i> ingredients, and <i>may not use
+        any additional ingredients</i> other than the five ones listed for that day.</p>
+      <center>
+        <h4>Today's Five</h4>
+        <ul class="ingredient-list">
+          <li ng-repeat="ingredient in dailyIngredients track by $index">{{ ingredient }}</li>
+        </ul>
+      </center>
+    </div>
+
+    <div class="submissions-pane">
+      <h2>Submissions</h2>
+      <ng-include src="'../postList.html'">
+    </div>
+  </div>
+</div>

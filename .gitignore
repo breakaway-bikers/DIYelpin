@@ -1,4 +1,5 @@
 node_modules/*
-*.DS_Store
+.DS_Store
+client/.DS_Store
 coverage/*
-.gitignore
+client/.DS_Store

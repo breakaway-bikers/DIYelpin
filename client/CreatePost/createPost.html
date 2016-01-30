@@ -1,38 +1,58 @@
-<div class='login-page'>
+<div ng-include src="'../navbar.html'"></div>
+
+<!-- Running a quick text.  Add a css file later-->
+<div class='create-page'>
     <!-- <a ui-sref='createPost' style="color: orange; font-size: 19px">CREATE POST</a> || -->
 
-
-    <h4>Upload on file select</h4>
-    <div>
-      <button type="file" ngf-select="uploadFiles($file, $invalidFiles)"
-              accept="image/*" style="color:black;" ngf-max-height="1000" ngf-max-size="1MB">
-          Select File</button>
-    </div>
-    File:
-    <div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
-        <span class="progress" ng-show="f.progress >= 0">
-            <div style="width:{{f.progress}}%"
-                 ng-bind="f.progress + '%'"></div>
-        </span>
-    </div>
-    {{errorMsg}}
-
-
+    <h1>Share Your Project</h1>
     <form class="inputbox">
-        <label>Title</label>
-        <input id="commentField" type='text' placeholder="your description" style="width: 500px; color: black;" ng-model='descript'>
-        <div><label>Add the Instructions Here</label></div>
-        <textarea id="commentField" ng-model="txtcomment" placeholder="Your Project" style='width: 556px; margin: 0px; height: 204px; color:black;'></textarea>
-        <div><label>Category</label>
-        <select name="categories" class="dropdown" ng-model="category">
-          <option value="Outdoors">Outdoors</option>
-          <option value="Home Improvement">Home Imporvement</option>
-          <option value="Kitchen">Kitchen</option>
-          <option value="Automotive">Automotive</option>
-          <option value="Arts And Craft">Art and Craft</option>
-          <option value="other">Other</option>
-        </select></div>
-        <button ui-sref="postList" ng-click='postToPage();' style='margin-top:10px;color:black;'>Post Project</button>
-    </form><br>
-    <div><a ui-sref='postList' style="color: orange; font-size: 19px">BACK TO POST LIST</a></div>
+        <div>Title*</div>
+        <input id="commentField" type='text' placeholder="your description" ng-model='descript'>
+
+        <div class="categoryPicker">
+          <div>Category*</div>
+          <select name="categories" class="dropdown" ng-model="category" ng-change="checkDropDown()">
+            <option value="Outdoors">Outdoors</option>
+            <option value="Home Improvement">Home Improvement</option>
+            <option value="Kitchen">Kitchen</option>
+            <option value="Automotive">Automotive</option>
+            <option value="Arts And Crafts">Art and Crafts</option>
+            <option value="contest">Contest</option>
+            <option value="Other" >Other</option>
+            <option value="Custom">Custom</option>
+          </select>
+
+           <div model="customField" ng-show ="showCustomCategoryField" class="customCategory">
+             <label>Enter your own Category:</label><input ng-model="customCategory" type="text">
+           </div>
+        </div>
+        <div class="imagePicker">
+        <div>Image</div>
+           <button class="img-button" type="file" ngf-select="uploadFiles($file, $invalidFiles)"
+            accept="image/*" ngf-max-height="10000" ngf-max-size="20MB">
+          Add an Image</button>
+           <span ng-show="f">{{f.name}}</span>
+        </div>
+
+
+
+        <div class="project-description-area">
+
+          <div class="markdown-code">
+            <h2>Add Instructions (Markdown Formatted)</h2>
+            <textarea ng-model="txtcomment" placeholder="Your Awesome Project Description"></textarea>
+          </div>
+
+          <div class="markdown-preview">
+            <h2>Preview</h2>
+            <div class="markdown-preview-area">
+              <Markdown ng-bind="txtcomment"></Markdown>
+            </div>
+          </div>
+        </div>
+
+
+        <button ui-sref="postList" class="post-button" ng-click='postToPage();'>Post Project</button>
+
+    </form>
 </div>

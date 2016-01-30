@@ -1,0 +1,32 @@
+<div class="grid grid-pad">
+
+  <!-- start post -->
+  <div class="post-holder"  ng-repeat='item in fetchedPosts | filter: searchString | filter: customFilter | orderBy : customOrder'>
+    <div class="post">
+
+      <div class="postImg" ui-sref="viewPost({username: item.username, _id: item._id})">
+          <!-- display the image if it exists-->
+        <img ng-src="{{item.imagelink}}" ng-show="item.image[0]" >
+      </div>
+      <div class="postContent">
+        <div  class="posttitle" ng-model="item">{{ item.title }}</div>
+        <span class="username">by:{{ item.username }}, </span>
+        <span>date:{{ item.date | niceDate }}</span>
+
+        <div class="footer">
+          <div class="cat">
+            <i>category: </i></br>
+            <i>{{ item.category }}</i>
+          </div>
+          <div class=" votes">
+            <img src="../assets/thumbsUp.png" ng-class="{'voted': item.highlight}" alt="thumbsup" ng-click="increment(item)" /><span class="numberOfVotes">{{ item.votes }}</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  <!-- end post -->
+
+</div>
