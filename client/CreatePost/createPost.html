@@ -2,14 +2,14 @@
 <div class='create-page'>
     <!-- <a ui-sref='createPost' style="color: orange; font-size: 19px">CREATE POST</a> || -->
 
-    <h3>Share Your Project</h3>
+    <h1>Share Your Project</h1>
     <form class="inputbox">
         
-        <label>Title</label>
+        <div>Title*</div>
         <input id="commentField" type='text' placeholder="your description" ng-model='descript'>
         
         <div class="categoryPicker">
-          <label>Category</label>
+          <div>Category*</div>
           <select name="categories" class="dropdown" ng-model="category" ng-change="checkDropDown()">
             <option value="Outdoors">Outdoors</option>
             <option value="Home Improvement">Home Improvement</option>
@@ -21,58 +21,35 @@
             <option value="Custom">Custom</option>
           </select>
 
-           <div model="customField" ng-show ="showCustomCategoryField">
+           <div model="customField" ng-show ="showCustomCategoryField" class="customCategory">
              <label>Enter your own Category:</label><input ng-model="customCategory" type="text">
            </div>
         </div>
+        <div class="imagePicker"> 
+        <div>Image</div>            
+           <button class="img-button" type="file" ngf-select="uploadFiles($file, $invalidFiles)"
+            accept="image/*" ngf-max-height="10000" ngf-max-size="20MB">
+          Add an Image</button>
+           <span ng-show="f">{{f.name}}</span>
+        </div>
+
+       
 
         <div class="project-description-area">
           
           <div class="markdown-code">
-            <h2>Add Instructions</h2>
-            <textarea ng-model="txtcomment" placeholder="Your Project"></textarea>
+            <h2>Add Instructions (Markdown Formatted)</h2>
+            <textarea ng-model="txtcomment" placeholder="Your Awesome Project Description"></textarea>
           </div>
 
           <div class="markdown-preview">
-            <h2>Markdown Preview</h2>
+            <h2>Preview</h2>
             <div class="markdown-preview-area">
               <Markdown ng-bind="txtcomment"></Markdown>
             </div>
           </div>
         </div>
 
-        <h4>Image:</h4>
-        <div>          
-           <button type="file" ngf-select="uploadFiles($file, $invalidFiles)"
-            accept="image/*" style="color:black; border-radius: 5px;" ngf-max-height="10000" ngf-max-size="20MB">
-          Add image</button>
-        </div>
-
-        <p>File selected: {{f.name}}</p>
-
-        <!-- Show the results of uploading the file -->
-        <!-- Uploaded File:
-        <div style="font:smaller">{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
-        <div>
-          <button type="file" ngf-select="uploadFiles($file, $invalidFiles)"
-          accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
-          Select File</button>
-        </div>
-        
-        Uploaded File:
-        <div >{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
-          <span class="progress" ng-show="f.progress >= 0">
-            <div ng-bind="f.progress + '%'"></div>
-          </span>
-        </div>
-        {{errorMsg}}<br><br> -->
-
-        <!-- Display the the image returned from the server -->
-        <!-- <img ng-src="data:image/jpg;base64,{{image}}">
-        <br> -->
-
-    
-        {{errorMsg}}
-        <button ui-sref="postList" class="btn btn-white btn-outline btn-lg btn-rounded" ng-click='postToPage();'>Post Project</button>
+        <button ui-sref="postList" class="post-button" ng-click='postToPage();'>Post Project</button>
     </form>
 </div>
