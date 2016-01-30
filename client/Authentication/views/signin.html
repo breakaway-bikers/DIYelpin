@@ -1,42 +1,40 @@
 <div class='login-page'>
-	<div class="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4">
 		<!-- <object type="image/svg+xml" data="../../diy.svg" class="user-avatar"></object> -->
-		<img src="../../DIY.png" class="user-avatar" style="width:70%; height:70%;"/>
-		<div class='signin'>
-	    <div class="column"><H3>Sign-In</H3></div>
-	  </div>
+		<img src="../../DIY.png"/>
 
-		<a href="/auth/google/" ng-click="check()" class="btn btn-block btn-social btn-google">
-		  <span class="fa fa-google"></span>
-		  Sign in with Google
-		</a>
+		<div class="entranceForm">
+			<form class="enter">
 
-		<a ng-click='github()' class="btn btn-block btn-social btn-google">
-		  <span class="github"></span>
-		  Sign in with Github
-		</a>
+				<div class="groups">
+					<input type="text" placeholder='username' ng-model='user.username'>
+					<span class='bar'><span>
+				</div>
 
-		<div class="form-content">
-		<div class="form-group">
-			<div class="column"><input class="form-control input-underline input-lg" placeholder='username' ng-model='user.username'></div>
+				<div class="groups">
+					<input type="text" placeholder='password' ng-model='user.password'>
+					<span class='bar'><span>
+				</div>
+
+				<a class='button' ng-click='signin(user)' ng-model='user' value='Sign In'>Sign In</a>
+			</form>
 		</div>
-		<div class="form-group">
-			<div class="column"><input class="form-control input-underline input-lg" placeholder='password'ng-model='user.password'></div>
-		</div>
-		</div>
-			<div class="column"><button class='btn btn-white btn-outline btn-lg btn-rounded' ng-click='signin(user)' ng-model='user'>Sign In</button></div>
 
 
-			<div class="column">
-				<h4 style="padding: 25px">Dont have an account?
-					<a ng-href="/#/signup">
-						<div>
-							<br><button class='btn btn-white btn-outline btn-lg btn-rounded'>Sign Up</button>
-						</div>
-					</a>
-				</h4>
+			<a href="/auth/google/" ng-click="check()" class="btn btn-block btn-social btn-google">
+				<span class="fa fa-google"></span>
+				Sign in with Google
+			</a>
+
+			<a ng-click='github()' class="btn btn-block btn-social btn-google">
+				<span class="github"></span>
+				Sign in with Github
+			</a>
+
+			<div class="signup">
+				<h3>Don't have an account?</h3>
+					<a class="button" ng-href="/#/signup">Sign Up</a>
 			</div>
-	</div>
-	<p ng-show="signinError">Invalid Credentials</p>
+
+			<p ng-show="signinError">Invalid Credentials</p>
 	</div>
 </div>

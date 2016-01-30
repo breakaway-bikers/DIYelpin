@@ -52,6 +52,78 @@ nav img{
   top: -5px;
 }
 
+.login-page {
+	text-align: center;
+}
+
+.login-page img {
+	height: auto;
+	width: 40%;
+}
+
+.login-page .enter{
+	margin: 20px 0 125px;
+}
+
+.login-page a.button{
+	font-size: 23px;
+	color: black;
+	cursor: pointer;
+}
+
+.entranceForm {
+	width: 33%;
+	margin: 0 auto;
+}
+
+.enter .groups {
+	margin: 30px 0;
+}
+
+.bar  {
+	position:relative;
+	display:block;
+	width:315px;
+ }
+
+.bar:before, .bar:after   {
+  content: '';
+  height: 3px;
+  width: 0;
+  bottom: 2px;
+  position: absolute;
+  background: rgba(239, 138, 9, 1);
+  transition: 0.3s ease all;
+}
+.bar:before {
+  left: 50%;
+}
+.bar:after {
+  right: 50%;
+}
+form.enter input:focus{
+	outline: none;
+}
+/* active state */
+form.enter input:focus ~ .bar:before, form.enter input:focus ~ .bar:after {
+  width:50%;
+}
+
+form.enter input[type=text] {
+	border: none;
+  background: transparent;
+  border-bottom: 2px dashed rgba(239, 138, 9, 0.5);
+  width: 300px;
+  font-size: 18px;
+	color: black;
+	margin: 2px 0;
+
+}
+
+::-webkit-input-placeholder {
+    color: #fff;
+}
+
 input{
     border: 1px solid #7B7878;
     width: 200px;
@@ -108,7 +180,7 @@ select{
   box-shadow: 2px 3px 6px -1px rgba(0,0,0,0.56);
 }
 
-.post-holder{  
+.post-holder{
   width: 250px;
   height: 290px;
   margin: 7px;
@@ -122,7 +194,7 @@ select{
 }
 
 @keyframes example {
-    to {    
+    to {
     width: 280px;
     height: 330px;
     z-index: 3;
@@ -152,6 +224,7 @@ select{
 a {
 	color: #E68A09;
 	text-decoration: underline;
+	cursor: pointer;
 }
 
 
@@ -336,7 +409,7 @@ ul {
 }
 
 .view-post-page{
-  text-align: center; 
+  text-align: center;
 }
 
 .view-post-page h1 {
@@ -355,7 +428,7 @@ ul {
   max-height: 400px;
   display: block;
   padding: 0 20px;
- 
+
 }
 
 .post-split-wrapper{

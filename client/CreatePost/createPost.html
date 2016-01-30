@@ -1,13 +1,15 @@
+<div ng-include src="'../navbar.html'"></div>
+
 <!-- Running a quick text.  Add a css file later-->
 <div class='create-page'>
     <!-- <a ui-sref='createPost' style="color: orange; font-size: 19px">CREATE POST</a> || -->
 
     <h3>Share Your Project</h3>
     <form class="inputbox">
-        
+
         <label>Title</label>
         <input id="commentField" type='text' placeholder="your description" ng-model='descript'>
-        
+
         <div class="categoryPicker">
           <label>Category</label>
           <select name="categories" class="dropdown" ng-model="category" ng-change="checkDropDown()">
@@ -27,7 +29,7 @@
         </div>
 
         <div class="project-description-area">
-          
+
           <div class="markdown-code">
             <h2>Add Instructions</h2>
             <textarea ng-model="txtcomment" placeholder="Your Project"></textarea>
@@ -42,7 +44,7 @@
         </div>
 
         <h4>Image:</h4>
-        <div>          
+        <div>
            <button type="file" ngf-select="uploadFiles($file, $invalidFiles)"
             accept="image/*" style="color:black; border-radius: 5px;" ngf-max-height="10000" ngf-max-size="20MB">
           Add image</button>
@@ -58,7 +60,7 @@
           accept="image/*" ngf-max-height="1000" ngf-max-size="1MB">
           Select File</button>
         </div>
-        
+
         Uploaded File:
         <div >{{f.name}} {{errFile.name}} {{errFile.$error}} {{errFile.$errorParam}}
           <span class="progress" ng-show="f.progress >= 0">
@@ -71,7 +73,7 @@
         <!-- <img ng-src="data:image/jpg;base64,{{image}}">
         <br> -->
 
-    
+
         {{errorMsg}}
         <button ui-sref="postList" class="btn btn-white btn-outline btn-lg btn-rounded" ng-click='postToPage();'>Post Project</button>
     </form>
